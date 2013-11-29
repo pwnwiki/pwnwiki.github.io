@@ -1,0 +1,4035 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>Rosetta Stone for Unix</title>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=windows-1252">
+  <meta content="Microsoft FrontPage 5.0" name="GENERATOR">
+  <script language="JavaScript" src="rosetta.js"></script>
+</head>
+<body onLoad="init()" bgcolor="#ffffff">
+<h1>This content is static and here for offline purposes. The source is at <a href="http://bhami.com/rosetta.html">http://bhami.com/rosetta.html</a></h1>
+<hr size=3>
+<!--  onUnload="beg()" -->
+<form name="unixForm" method="post" action="">
+  <table cellpadding="2" cellspacing="2" width="84%">
+    <tbody>
+      <tr>
+        <td rowspan="4" width="20%">
+        <select id="OSSystemBox" multiple size="7">
+        <option>AIX</option>
+        <option>DG-UX</option>
+        <option>FreeBSD</option>
+        </select>
+        </td>
+        <td><input name="setOSn" value="set all OS" onClick="setOS()"
+ type="button"></td>
+        <td rowspan="3" width="60%"><i><b><font color="#ff0000">This
+custom drawing feature now works in <a href="http://mozilla.org/">Mozilla/Firefox</a>,
+in <a href="http://opera.com/">Opera 7.0</a> or better, and in <a
+ href="http://www.microsoft.com/windows/ie">IE 5</a></font></b></i> <i><b><font
+ color="#ff0000">or better</font></b></i>. Use click, shift-click,
+control-click, and the "set" and "clear" buttons to select the desired
+subset of OSs. Then select "Draw table" to redraw the window with your
+custom table.</td>
+      </tr>
+      <tr>
+        <td><input name="clearOSn" value="clear all OS"
+ onclick="clearOS()" type="button"></td>
+      </tr>
+      <tr>
+        <td><input name="Test1" value="Draw table"
+ onclick="scanTable(0)" type="button"></td>
+      </tr>
+      <tr>
+        <td><input name="Test2" value="Draw table and remember"
+ onclick="scanTable(1)" type="button"></td>
+ <td>&nbsp;</td>
+      </tr>
+    </tbody>
+  </table>
+</form>
+<table border="1" width="87%">
+  <tbody>
+    <tr>
+      <td colspan="5"><strong>A Sysadmin's Unixersal Translator
+(ROSETTA STONE)</strong> <small><em>OR &nbsp; </em>What do they call
+that in this world?</small></td>
+    </tr>
+    <tr>
+      <td colspan="4"><small>Contributions and corrections gratefully <a
+ href="mailto:bhami@pobox.com?subject=Rosetta%20Stone%20suggestion">accepted</a>.
+        Please help us fill in the blanks. New "tasks" are welcome, too!<br>
+        <a href="unix-rosetta.pdf"><b>PDF version</b></a><font size="-1">
+        (for best results print US legal size, landscape orientation. If your
+        browser plug-in has trouble with the PDF, then download it and load it
+        in stand-alone <a
+ href="http://www.adobe.com/products/acrobat/readstep2.html">acroread</a>).<br>
+        </font><a href="rosettaframe.html">Framed version</a>.<br>
+        OS versions in parentheses; e.g. <i>10+</i> means version 10 and
+        greater; <i>9-</i> means version 9 and previous. $=extra cost</small>.  
+        <em>(obs)</em> = obsolete <br>
+        If not specified, commands are in one of the following directories: <b>/usr/bin</b>,
+        <b>/usr/sbin, <b>/bin</b></b>, <b>/sbin</b><br>
+        Files referenced may be either commands, configuration files, or
+        directly-referenced text files. Use the <i>man</i> command to read the
+        man pages for details such as command options. <br>        <i>Categories:</i> </td>
+    </tr>
+    <tr>
+      <td bgcolor="#ffccff"><b><a href="#hardware">hardware,
+firmware, devices</a></b></td>
+      <td bgcolor="#ccffcc"><b><a href="#disks">disks</a></b></td>
+      <td bgcolor="#ccccff"><b><a href="#kernel">kernel,
+boot, swap</a></b></td>
+      <td bgcolor="#ffcc66"><b><a href="#files">files,
+volumes</a></b></td>
+    </tr>
+    <tr>
+      <td bgcolor="#ffffcc"><b><a href="#networking">networking</a></b></td>
+      <td bgcolor="#ffcccc"><b><a href="#security">security,
+backup</a></b></td>
+      <td bgcolor="#eeddcc"><b><a href="#software">software,
+patching, tracing, logging</a></b></td>
+      <td bgcolor="#ccffff"><b><a href="#doc">references</a></b></td>
+    </tr>
+  </tbody>
+</table>
+<table id="Rosetta" border="1">
+  <tbody> 
+  <tr> 
+    <td align="center"><b>TASK \ OS</b></td>
+    <td align="center"><b>AIX</b></td>
+    <td align="center"><b>A/UX</b></td>
+    <td align="center"><b>DG/UX</b></td>
+    <td align="center"><b>FreeBSD</b></td>
+    <td align="center"><b>HP-UX</b></td>
+    <td align="center"><b>IRIX</b></td>
+    <td align="center"><b>Linux</b></td>
+    <td align="center"><b>Mac OS X</b></td>
+    <td align="center"><b>NCR Unix</b></td>
+    <td align="center"><b>NetBSD</b></td>
+    <td align="center"><b>OpenBSD</b></td>
+    <td align="center"><b>Reliant</b></td>
+    <td align="center"><b>SCO OpenServer</b></td>
+    <td align="center"><b>Solaris</b></td>
+    <td align="center"><b>SunOS 4</b></td>
+    <td align="center"><b>Tru64</b></td>
+    <td align="center"><b>Ultrix</b></td>
+    <td align="center"><b>UNICOS</b></td>
+    <td align="center"><b>OS / TASK</b></td>
+  </tr>
+  <tr> 
+    <td><b><i>OS notes</i></b></td>
+    <td>By IBM, with input from System V, BSD, etc. Runs mainly 
+      on IBM RS/6000 and related hardware.</td>
+    <td>Apple 1988-1995. Based on AT&amp;T SysV.2.2 with extensions from V.3, V.4, and BSD 
+      4.2 and 4.3</td>
+    <td>Data General was aquired by EMC in 1999.</td>
+    <td>Derived from 4.4BSD-Lite and 386BSD. <i>This table does not 
+      include external packages from /usr/ports.</i></td>
+    <td>Hewlett-Packard</td>
+    <td>SGI. SVR4-based</td>
+    <td><p><strong><i><font size="-1">(rh)</font></i><font
+ size="-1"> = Red Hat, <br>
+      Mandrake, SUSE,...<br>
+      <i>(deb)</i> = Debian, Libranet,...<br>
+      <em>(fed)</em> = Fedora <br>
+    <em>(gen)</em> = Gentoo </font></strong><strong><font
+ size="-1"><br>
+          <i>(md)</i> = Mandrake/Mandriva<br>
+          <i>(SUSE)</i> = SUSE</font></strong></p>      </td>
+    <td><b>Darwin</b> is the Open Source foundation for Mac OS X, 
+      descended from NeXTStep</td>
+    <td>aka MP-RAS</td>
+    <td>Derived from 4.4BSD-Lite and 386BSD. <i>This table does not 
+      include external packages from /usr/pkg.</i></td>
+    <td>Forked from NetBSD in 1995. Security emphasis. <i>This table 
+      does not include external packages from /usr/ports</i>.</td>
+    <td>Fujitsu Siemens. Originally called SINIX. Based on DC/OSX from Pyramid, SINIX <br>
+      from Siemens, and SVR4. To be replaced with Solaris by 2008.</td>
+    <td>SCO UnixWare 7.0.1&amp; SCO UnixWare 7.1.1 became Caldera 
+      Open Unix and later became SCO again. SVR4-based. </td>
+    <td><p>Solaris 2.0-2.6, 7, 8, 9, 10, 11<br>
+      OpenSolaris
+        (SunOS 5.*)<br>
+      SVR4-based.<br>
+      An open-source version can<br>
+      be found at illumos.org</p></td>
+    <td>Solaris 1.*<br>
+      BSD-based </td>
+    <td><strong>(Digital Unix, OSF/1)<br>
+      <i>(4)= 4.0F/G<br>
+      (5)= 5.0A</i> </strong></td>
+    <td>An early DEC Unix, superceded by Digital Unix (now Tru64).</td>
+    <td>Cray Inc., formed from the March 2000 merger of Tera Computer 
+      Company and Cray Research</td>
+    <td><b>OS notes</b></td>
+  </tr>
+  <tr> 
+    <td><b>administrative GUI</b></td>
+    <td>smit<br>
+      smitty<br>
+      wsm </td>
+    <td>Finder</td>
+    <td>sysadm</td>
+    <td>sysinstall<br></td>
+    <td><p>sam </p>
+      <p>smh <em>(11.31+)</em> </p></td>
+    <td>&nbsp;/usr/sysadm/bin/sysmgr <i>(6.3+)<br>
+      </i>toolchest<br>
+      /usr/Cadmin/bin/* </td>
+    <td><i>(rh, FC2+, RHEL4+)</i> system-config*<br>
+      <i>(rh) </i> redhat-config*<i><br>
+      </i>linuxconf<i> (obsolete)</i><br>
+      <i>(SUSE) </i>yast2<i><br>
+      (deb)</i> dpkg-reconfigure<i> <br>
+      (md)</i> drakconf</td>
+    <td><p> NetInfo Manager</p></td>
+    <td>sysadm</td>
+    <td>sushi <em>(obs)</em></td>
+    <td>?</td>
+    <td> 
+      <p>sysadm<br>
+        WebSysAdmin</p>    </td>
+    <td>scoadmin</td>
+    <td> 
+      <p>solstice<br>
+        admintool<br>
+        smc <i>(8 01/01+)</i></p>    </td>
+    <td>?</td>
+    <td>checklist<br>
+      <i>(5) </i>sysman</td>
+    <td>?</td>
+    <td>checklist<br>
+      /etc/install/install<br>
+      xmenu </td>
+    <td><b>administrative GUI</b></td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ffffff"><b>managing users</b></td>
+    <td bgcolor="#ffffff">useradd <em>(5+)</em><br>
+      userdell <em>(5+)</em><br>
+      usermod <em>(5+)</em><br>
+      lsuser<br>
+      mkuser<br>
+      chuser<br>
+      rmuser<br>
+      usrck<br>    </td>
+    <td bgcolor="#ffffff">Finder<br>
+      /etc/adduser<br>
+      <em>edit</em> /etc/passwd </td>
+    <td bgcolor="#ffffff">useradd<br>
+      userdel<br>    </td>
+    <td bgcolor="#ffffff"><p>adduser<br>
+      chpass<br>
+        rmuser<br>
+        pw<br>
+      vipw </p>
+      </td>
+    <td bgcolor="#ffffff">useradd<br>
+      userdel<br>
+      usermod <br>
+      getprpw<br>
+      modprpw<br>
+      pwget</td>
+    <td bgcolor="#ffffff"> 
+      <p>/usr/sysadm/privbin/<br>
+        addUserAccount</p>
+      <p>passmgmt</p>
+      <p>/usr/Cadmin/bin/cpeople</p>    </td>
+    <td bgcolor="#ffffff"> 
+      <p>useradd<br>
+        usermod<br>
+        userdel<br>
+        adduser<br>
+        chage <br>
+      getent</p>    </td>
+    <td bgcolor="#ffffff">Aqua: System<br>
+      Preferences / Accounts<br>
+      niutil (OS X Server)<br>
+      dscl</td>
+    <td bgcolor="#ffffff">useradd<br>
+      userdel<br>
+      usermod<br>
+      sysadm </td>
+    <td bgcolor="#ffffff">useradd<br>
+      userdel<br>
+      userinfo<br>
+      usermod<br>
+      user<br>
+      vipw</td>
+    <td bgcolor="#ffffff">useradd<br>
+      userdel<br>
+      adduser <i>(interactive)<br>
+      </i>usermod<br>
+      user</td>
+    <td bgcolor="#ffffff">sysadm<br>
+      useradd<br>
+      userdel </td>
+    <td bgcolor="#ffffff">scoadmin<br>
+      useradd<br>
+      userdel<br>    </td>
+    <td bgcolor="#ffffff">useradd<br>
+      userdel<br>
+      usermod<br>
+      getent<br>
+      logins<br>
+      /usr/sadm/bin/smuser <i>(9+)<br>
+      </i>groupadd</td>
+    <td bgcolor="#ffffff"><i>edit /etc/passwd and create home directory</i></td>
+    <td bgcolor="#ffffff"> 
+      <p>useradd<br>
+        adduser <br>
+        userdel<br>
+        removeuser<br>
+      dxaccounts</p>    </td>
+    <td bgcolor="#ffffff">adduser<br>
+      removeuser </td>
+    <td bgcolor="#ffffff">xadmin<br>
+      udbgen<br>
+      udbrstrict<br>
+      nu scripts</td>
+    <td bgcolor="#ffffff"><b>managing users</b></td>
+  </tr>
+  <tr> 
+    <td align="center"><a name="hardware"></a><strong>TASK \ OS</strong>&nbsp;</td>
+    <td align="center"><strong>AIX</strong></td>
+    <td align="center"><strong>A/UX</strong></td>
+    <td align="center"><strong>DG/UX</strong></td>
+    <td align="center"><strong>FreeBSD</strong></td>
+    <td align="center"><strong>HP-UX</strong></td>
+    <td align="center"><strong>IRIX</strong></td>
+    <td align="center"><strong>Linux<br>
+      </strong></td>
+    <td align="center"><b>Mac OS X</b></td>
+    <td align="center"><b>NCR Unix</b></td>
+    <td align="center"><strong>NetBSD</strong></td>
+    <td align="center"><strong>OpenBSD</strong></td>
+    <td align="center"><b>Reliant</b></td>
+    <td align="center"><b>SCO OpenServer<br>
+      </b></td>
+    <td align="center"><strong>Solaris</strong></td>
+    <td align="center"><strong>SunOS 4</strong></td>
+    <td align="center"><strong>Tru64<br>
+      </strong></td>
+    <td align="center"><strong>Ultrix</strong></td>
+    <td align="center"><b>UNICOS</b></td>
+    <td align="center"><strong>OS / TASK</strong>&nbsp;</td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ffccff"><b>list hardware configuration</b><br>    </td>
+    <td bgcolor="#ffccff"><p>prtconf<br>
+      lscfg<br>
+      lsattr<br>
+      lsdev <br>
+    lspath</p>
+      </td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff">dg_sysreport -g hardware</td>
+    <td bgcolor="#ffccff"><p>uname<br>
+      sysctl -a<br>
+      dmesg<br>
+      cat /var/run/dmesg.boot<br>
+      pciconf -l<br>
+      usbconfig<br>
+      camcontrol <em>devlist</em><br>    
+        </p>
+      </td>
+    <td bgcolor="#ffccff"> 
+      <p>ioscan<br>
+        dmesg <em>(if you're lucky)</em><br>
+        adb<br>
+        model <br>
+        stm <i>(from the SupportPlus CDROM)</i> <br>
+        bdf <i>(like most vendors'</i> df<i>)<br>
+        </i>getconf<br>
+        machinfo <em>(11.23+)</em><br>
+        print_manifest </p>    </td>
+    <td bgcolor="#ffccff"><p>hinv</p>
+      <p>sysinfo -vv </p></td>
+    <td bgcolor="#ffccff"> 
+      <p>arch<br>
+        uname<br>
+        dmesg <em>(if you're lucky)</em><br>
+        cat /var/log/dmesg<br>
+        /proc/*<br>
+        lshw<br>
+        dmidecode<br>
+        lspci<br>
+        lspnp<br>
+        lsscsi<br>
+        lsusb<br>
+        lsmod<br>
+        <i>(SUSE)</i> hwinfo<br>
+      /sys/devices/*</p>    </td>
+    <td bgcolor="#ffccff">hostinfo<br>
+      ioreg -bls<br>
+      system_profiler <br>    </td>
+    <td bgcolor="#ffccff">prtconf<br>
+      devstat<br>
+      machinetype<br>
+      more /etc/.osm</td>
+    <td bgcolor="#ffccff">dmesg<br>
+      more <br>
+      /var/run/dmesg.boot<br>
+      cat /kern/msgbuf</td>
+    <td bgcolor="#ffccff">sysctl hw<br>
+      dmesg<br>
+      cat /var/run/dmesg.boot<br>
+      pcidump<br>
+      acpidump</td>
+    <td bgcolor="#ffccff"> 
+      <p>autoconf -l<br>
+        showconf<br>
+        uname -p<br>
+        uname -M<br>
+        mpcntl -I</p>    </td>
+    <td bgcolor="#ffccff"> 
+      <p>hwconfig<br>
+        hw<br>
+        scoadmin/DCU</p>
+      <p>/usr/lib/X11/testtools/<br>
+        z35SysInfo </p>    </td>
+    <td bgcolor="#ffccff"> 
+      <p>prtconf -v<br>
+        /usr/platform/`uname -i`/<br>
+        sbin/prtdiag -v <i>(sun4u and sun4d only)</i><br>
+        arch -k<br>
+        psrinfo -v<br>
+        isainfo -v<br>
+        dmesg<br>
+        iostat -En<br>
+        prtfru<br>
+        cfgadm -l<br>
+        /etc/path_to_inst<br>
+        smbios
+      </p>    </td>
+    <td bgcolor="#ffccff">dmesg <em>(if you're lucky)</em>&nbsp;</td>
+    <td bgcolor="#ffccff"> 
+      <p>dia -R full<br>
+        vmstat -P<br>
+        hwmgr -get category<br>
+        <i>(5)</i> hwmgr -show<br>
+        devices<br>
+        psrinfo<br>
+        pset_info<br>
+        sys_check<br>
+        /usr/bin/X11/dxsysinfo </p>    </td>
+    <td bgcolor="#ffccff">dmesg <em>(if you're lucky)</em></td>
+    <td bgcolor="#ffccff"> 
+      <p>machid<br>
+        getconf<br>
+        uname -a</p>    </td>
+    <td bgcolor="#ffccff"><strong>list hardware configuration</strong>&nbsp;</td>
+  </tr>
+  <tr>
+    <td bgcolor="#ffccff"><strong>unique id useful for licensing</strong></td>
+    <td bgcolor="#ffccff">uname -u<br>
+      uname -m<br>
+      lsattr -El sys0 -a systemid</td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff">cat /etc/hostid<br>
+      sysctl kern.hostuuid </td>
+    <td bgcolor="#ffccff">uname -i </td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff"><p>system_profiler SPHardwareDataType |<br>
+      grep "Serial Number:" |<br>
+      awk '{print $4}'</p>      </td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff">hostid</td>
+    <td bgcolor="#ffccff">hostid</td>
+    <td bgcolor="#ffccff">consvar -g sys_serial_num</td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff"><strong>unique id useful for licensing</strong></td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ffccff"><b>show/set<br>
+      EEPROM/NVRAM<br>
+      values</b></td>
+    <td bgcolor="#ffccff">bootlist -o -m normal<br>    </td>
+    <td bgcolor="#ffccff"><em>n/a</em></td>
+    <td bgcolor="#ffccff">dg_sysctl |<br>
+      grep BOOTPATH</td>
+    <td bgcolor="#ffccff">eeprom <i>(SPARC only)</i></td>
+    <td bgcolor="#ffccff">setboot<br>
+      stm</td>
+    <td bgcolor="#ffccff">nvram<br>
+      printenv/setenv <i>(at command monitor)</i></td>
+    <td bgcolor="#ffccff">/dev/nvram <i>(if you have it)</i><br>
+      hwclock<br>
+      nvsetenv </td>
+    <td bgcolor="#ffccff">nvram</td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff">eeprom</td>
+    <td bgcolor="#ffccff">eeprom<br>      <br></td>
+    <td bgcolor="#ffccff">in bdm<br>
+      (at boot stop<br>
+      or ctrl-a)</td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff">eeprom</td>
+    <td bgcolor="#ffccff">eeprom</td>
+    <td bgcolor="#ffccff"><i>(4.0D+)</i> consvar</td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff"><b>show/set<br>
+      EEPROM/NVRAM<br>
+      values</b></td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ffccff"><b>add device without reboot</b></td>
+    <td bgcolor="#ffccff">cfgmgr -v<br>
+      mkdev</td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff">N/A</td>
+    <td bgcolor="#ffccff">camcontrol<br>
+      atacontrol <br>
+      kldload <br>
+      /etc/rc.d/devfs restart </td>
+    <td bgcolor="#ffccff"> 
+      <p>inf -e <br>
+        ioscan -fnC <i>devtype</i>;<br>
+        insf -C <i>devtype</i><br>
+      </p>    </td>
+    <td bgcolor="#ffccff">scsiha -pr<br>
+      ioconfig -f /hw<br>
+      scsiadminswap<br>
+      -b <i>bus</i> -p <br>    </td>
+    <td bgcolor="#ffccff">udev <em>(2.6+)</em> <br>
+      udevtrigger<br>
+      modprobe<br>
+      kerneld<br>
+      insmod<br>
+      hotplug<br>
+      cardctl<br>    </td>
+    <td bgcolor="#ffccff">(automatic — autdodiskmounter)</td>
+    <td bgcolor="#ffccff">devmgmt<br>
+      mktable </td>
+    <td bgcolor="#ffccff">scsictl<br>
+      atactl </td>
+    <td bgcolor="#ffccff"><em>(auto-detected)</em></td>
+    <td bgcolor="#ffccff">reinitdev<br>
+      changedev </td>
+    <td bgcolor="#ffccff">mkdev</td>
+    <td bgcolor="#ffccff"><p><em>(10+)</em> add_drv<br>
+      devfsadm. <i>pre-Solaris 7 HW 11/99, use:<br>
+        drvconfig; devlinks; {disks, tapes, ports}</i></p>
+      <p>/usr/lib/symsm/bin/hot_add<i> (RDAC)<br>
+        </i>/etc/symsm/rmparams<i> (RDAC) <br>
+    </i></p></td>
+    <td bgcolor="#ffccff">/dev/MKDEV</td>
+    <td bgcolor="#ffccff"> 
+      <p><i>(3.2.*)</i> scu <i>scan edt</i><br>
+        <i>(4.0) </i>scu <i>scan edt</i>; disklabel -rw rzXX <i>label</i> (for 
+        disks)<br>
+        <i>(5.x)</i> dsfmgr -k; disklabel -rw dskn auto<br>
+        hwmgr -scan scsi</p>    </td>
+    <td bgcolor="#ffccff">/dev/MAKEDEV</td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff"><b>add device without reboot</b></td>
+  </tr>
+  <tr>
+    <td bgcolor="#ffccff"><strong>remove device </strong></td>
+    <td bgcolor="#ffccff">rmdev</td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff">camcontrol stop<br>
+      camcontrol eject </td>
+    <td bgcolor="#ffccff">rmsf</td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff"><p><em>(10+)</em> rem_drv<br>
+      devfsadm</p></td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff"><strong>remove device</strong></td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ffccff"><b>tape device</b></td>
+    <td bgcolor="#ffccff">/dev/rmt0</td>
+    <td bgcolor="#ffccff">/dev/rdsk/c8d?s0</td>
+    <td bgcolor="#ffccff">/dev/rmt/0</td>
+    <td bgcolor="#ffccff">/dev/rsa0<br>
+      /dev/*wt*<br>
+      /dev/*sa[0-9]*</td>
+    <td bgcolor="#ffccff">/dev/rmt/0m</td>
+    <td bgcolor="#ffccff">/dev/tape<br>
+      /dev/nrtape </td>
+    <td bgcolor="#ffccff">/dev/st0</td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff">/dev/rmt/c*</td>
+    <td bgcolor="#ffccff">/dev/st0</td>
+    <td bgcolor="#ffccff">/dev/[e][n][r]st[0-9]*</td>
+    <td bgcolor="#ffccff">/dev/ios0/rstape001<br>
+      autoconf -1 |<br>
+      grep TAPE</td>
+    <td bgcolor="#ffccff">/dev/rct0</td>
+    <td bgcolor="#ffccff">/dev/rmt/0</td>
+    <td bgcolor="#ffccff">/dev/rst0</td>
+    <td bgcolor="#ffccff"><i>(5.x)</i> /dev/ntape /dev/tape</td>
+    <td bgcolor="#ffccff">/dev/<i>n</i>rmt<i>Xh</i> where <i>n</i>=non-rewinding, 
+      X a number, <i>h</i>=density</td>
+    <td bgcolor="#ffccff">tpmnt</td>
+    <td bgcolor="#ffccff"><b>tape device</b></td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ffccff"><b>stdin/ stdout/ stderr</b></td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff">/dev/fd/<i>[012]</i></td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff">/dev/fd/<i>[012]</i></td>
+    <td bgcolor="#ffccff">/dev/fd/<i>[012]</i></td>
+    <td bgcolor="#ffccff">/dev/fd/<i>[012]</i></td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff">/dev/fd/<i>[012]</i></td>
+    <td bgcolor="#ffccff">/dev/stdin<br>
+      /dev/stdout<br>
+      /dev/stderr<br>
+      /dev/fd/[012]</td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff">/dev/fd/<i>[012]</i></td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff"><b>stdin/ stdout/ stderr</b></td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ffccff"><b>X kvm config</b></td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff">Xorg -configure <br>
+      xf86config</td>
+    <td bgcolor="#ffccff">itemap</td>
+    <td bgcolor="#ffccff">/usr/bin/X11/xsetmon<br>
+      /usr/gfx/setmon </td>
+    <td bgcolor="#ffccff"><p>xorgcfg<br>
+      xorgconfig<br>
+      Xorg -configure<br>
+      system-config-display<br>
+      xf86config<br>
+        XFree86 -configure<br>
+        redhat-config-xfree86<br>
+      /etc/X11/?dm </p>      </td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff">&nbsp;</td>
+    <td bgcolor="#ffccff">xf86config<br>
+      xf86cfg<br>
+      XFree86 -configure</td>
+    <td bgcolor="#ffccff">X -configure</td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff">hwconfig</td>
+    <td bgcolor="#ffccff">kdmconfig <i>(x86)<br>
+      </i>fbconfig; m64config; (etc.)</td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff">?</td>
+    <td bgcolor="#ffccff"><b>X kvm config</b></td>
+  </tr>
+  <tr> 
+    <td align="center"><a name="disks"></a><strong>TASK \ OS</strong>&nbsp;</td>
+    <td align="center"><strong>AIX</strong></td>
+    <td align="center"><strong>A/UX</strong></td>
+    <td align="center"><strong>DG/UX</strong></td>
+    <td align="center"><strong>FreeBSD</strong></td>
+    <td align="center"><strong>HP-UX</strong></td>
+    <td align="center"><strong>IRIX</strong></td>
+    <td align="center"><strong>Linux<br>
+      </strong></td>
+    <td align="center"><b>Mac OS X</b></td>
+    <td align="center"><b>NCR Unix</b></td>
+    <td align="center"><strong>NetBSD</strong></td>
+    <td align="center"><strong>OpenBSD</strong></td>
+    <td align="center"><b>Reliant</b></td>
+    <td align="center"><b>SCO OpenServer<br>
+      </b></td>
+    <td align="center"><strong>Solaris</strong></td>
+    <td align="center"><strong>SunOS 4</strong></td>
+    <td align="center"><strong>Tru64<br>
+      </strong></td>
+    <td align="center"><strong>Ultrix</strong></td>
+    <td align="center"><b>UNICOS</b></td>
+    <td align="center"><strong>OS / TASK</strong>&nbsp;</td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ccffcc"><strong>read a disk label</strong>&nbsp;</td>
+    <td bgcolor="#ccffcc">lspv</td>
+    <td bgcolor="#ccffcc">?</td>
+    <td bgcolor="#ccffcc">admpdisk -o list<br>
+      admvdisk -o list</td>
+    <td bgcolor="#ccffcc">disklabel -r<br>
+      gpart show <em>(7.0+)</em> </td>
+    <td bgcolor="#ccffcc"><p>scsimgr <em>(11.31+)<br>
+    </em>diskinfo<br>
+      pvdisplay </p>      </td>
+    <td bgcolor="#ccffcc">prtvtoc</td>
+    <td bgcolor="#ccffcc">fdisk -l</td>
+    <td bgcolor="#ccffcc">pdisk <i>rawDev</i> -dump<br>
+      Disk Utility</td>
+    <td bgcolor="#ccffcc">prtvtoc</td>
+    <td bgcolor="#ccffcc">disklabel -r<br>
+      disk<br>
+      mbrlabel<br>
+      fdisk </td>
+    <td bgcolor="#ccffcc">      disklabel <em>diskName</em></td>
+    <td bgcolor="#ccffcc">dkpart -l</td>
+    <td bgcolor="#ccffcc">fsname</td>
+    <td bgcolor="#ccffcc">prtvtoc</td>
+    <td bgcolor="#ccffcc">dkinfo</td>
+    <td bgcolor="#ccffcc">disklabel -r</td>
+    <td bgcolor="#ccffcc">chpt -q</td>
+    <td bgcolor="#ccffcc">?</td>
+    <td bgcolor="#ccffcc"><strong>read a disk label</strong>&nbsp;</td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ccffcc"><strong>whole disk in partition</strong>&nbsp;</td>
+    <td bgcolor="#ccffcc">hdisk[0,1,2,...]</td>
+    <td bgcolor="#ccffcc">?</td>
+    <td bgcolor="#ccffcc">?</td>
+    <td bgcolor="#ccffcc">c </td>
+    <td bgcolor="#ccffcc">? </td>
+    <td bgcolor="#ccffcc">10</td>
+    <td bgcolor="#ccffcc">/dev/hda <font size="-1">(e.g. if <i>/dev/hda1</i><br>
+      is a partition)</font></td>
+    <td bgcolor="#ccffcc">(non-root partitions are mounted under /Volumes)</td>
+    <td bgcolor="#ccffcc">s0</td>
+    <td bgcolor="#ccffcc">c or d<br>
+      sysctl kern.rawpartition </td>
+    <td bgcolor="#ccffcc">c </td>
+    <td bgcolor="#ccffcc">/dev/ios0/rsdisk???s7<br>
+      (???=000-999) </td>
+    <td bgcolor="#ccffcc">/dev/1s# <i>(#=0,1,...)</i></td>
+    <td bgcolor="#ccffcc">2</td>
+    <td bgcolor="#ccffcc">c</td>
+    <td bgcolor="#ccffcc">c</td>
+    <td bgcolor="#ccffcc">c</td>
+    <td bgcolor="#ccffcc">s7</td>
+    <td bgcolor="#ccffcc"><strong>whole disk in partition</strong>&nbsp;</td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ccffcc"><strong>label a disk</strong>&nbsp;</td>
+    <td bgcolor="#ccffcc">mkvg</td>
+    <td bgcolor="#ccffcc">?</td>
+    <td bgcolor="#ccffcc">admpdisk</td>
+    <td bgcolor="#ccffcc">fdisk<br>
+      disklabel -wr<br>
+      sysinstall <br>
+      gpart add <em>(7+)<br>
+      </em>sade<em> (6.3+)</em></td>
+    <td bgcolor="#ccffcc">pvcreate </td>
+    <td bgcolor="#ccffcc"> 
+      <p>dvhtool<br>
+        fx -x</p>    </td>
+    <td bgcolor="#ccffcc">cfdisk<br>
+      fdisk<br>
+      e2label </td>
+    <td bgcolor="#ccffcc">diskutil</td>
+    <td bgcolor="#ccffcc"> 
+      <p>sysadm<br>
+        fdisk<br>
+        edvtoc<br>
+        prtvtoc <br>
+        mkpart<br>
+        updatescsi<br>
+        labelit</p>    </td>
+    <td bgcolor="#ccffcc">disklabel -wr<br>
+      mbrlabel </td>
+    <td bgcolor="#ccffcc">disklabel -E <em>diskName</em></td>
+    <td bgcolor="#ccffcc">dksetup</td>
+    <td bgcolor="#ccffcc">divvy</td>
+    <td bgcolor="#ccffcc">format<br>
+      prtvtoc<br>
+      <i>(x86) </i>fdisk</td>
+    <td bgcolor="#ccffcc">&nbsp;format </td>
+    <td bgcolor="#ccffcc">disklabel -rw</td>
+    <td bgcolor="#ccffcc">chpt -a</td>
+    <td bgcolor="#ccffcc">/etc/labelit</td>
+    <td bgcolor="#ccffcc"><strong>label a disk</strong>&nbsp;</td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ccffcc"><strong>partition a disk</strong>&nbsp;</td>
+    <td bgcolor="#ccffcc">mklv</td>
+    <td bgcolor="#ccffcc">dp<br>
+      Finder: Apple HD SC Setup </td>
+    <td bgcolor="#ccffcc">admpdisk </td>
+    <td bgcolor="#ccffcc">fdisk<br>
+      sysinstall <br>
+      gpart add <em>(7.0+)<br>
+      </em>sade<em> (6.3+)</em></td>
+    <td bgcolor="#ccffcc">smh <em>(11.31+)<br>
+    </em>lvcreate<br>
+      sam </td>
+    <td bgcolor="#ccffcc">fx</td>
+    <td bgcolor="#ccffcc">parted <i>(if you have it)<br>
+      </i>cfdisk<br>
+      fdisk<br>
+      pdisk <i>(on a MAC)<br>
+      (deb) </i>mac-fdisk <i>(on a MAC)<br>
+      (md) </i>diskdrake</td>
+    <td bgcolor="#ccffcc">pdisk</td>
+    <td bgcolor="#ccffcc">fdisk</td>
+    <td bgcolor="#ccffcc">disklabel -i</td>
+    <td bgcolor="#ccffcc">fdisk -e <em>diskName</em></td>
+    <td bgcolor="#ccffcc">dkpart -e</td>
+    <td bgcolor="#ccffcc">divvy</td>
+    <td bgcolor="#ccffcc">format<br>
+      fmthard</td>
+    <td bgcolor="#ccffcc">format</td>
+    <td bgcolor="#ccffcc">disklabel -e</td>
+    <td bgcolor="#ccffcc">chpt -p</td>
+    <td bgcolor="#ccffcc">/etc/install/install</td>
+    <td bgcolor="#ccffcc"><strong>partition a disk</strong>&nbsp;</td>
+  </tr>
+  <tr> 
+    <td align="center"><a name="kernel"></a><strong>TASK \ OS</strong>&nbsp;</td>
+    <td align="center"><strong>AIX</strong></td>
+    <td align="center"><strong>A/UX</strong></td>
+    <td align="center"><strong>DG/UX</strong></td>
+    <td align="center"><strong>FreeBSD</strong></td>
+    <td align="center"><strong>HP-UX</strong></td>
+    <td align="center"><strong>IRIX</strong></td>
+    <td align="center"><strong>Linux<br>
+      </strong></td>
+    <td align="center"><b>Mac OS X</b></td>
+    <td align="center"><b>NCR Unix</b></td>
+    <td align="center"><strong>NetBSD</strong></td>
+    <td align="center"><strong>OpenBSD</strong></td>
+    <td align="center"><b>Reliant</b></td>
+    <td align="center"><b>SCO OpenServer<br>
+      </b></td>
+    <td align="center"><strong>Solaris</strong></td>
+    <td align="center"><strong>SunOS 4</strong></td>
+    <td align="center"><strong>Tru64<br>
+      </strong></td>
+    <td align="center"><strong>Ultrix</strong></td>
+    <td align="center"><b>UNICOS</b></td>
+    <td align="center"><strong>OS / TASK</strong>&nbsp;</td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ccccff"><b>kernel</b></td>
+    <td bgcolor="#ccccff">/unix</td>
+    <td bgcolor="#ccccff">/unix</td>
+    <td bgcolor="#ccccff">/dgux</td>
+    <td bgcolor="#ccccff">      /boot/kernel/kernel</td>
+    <td bgcolor="#ccccff">/hpux <i>(9)<br>
+      </i>/stand/vmunix <i>(10+)</i></td>
+    <td bgcolor="#ccccff">/unix</td>
+    <td bgcolor="#ccccff"> 
+      <p>/boot/vmlinuz*<br>
+        /boot/bootlx</p>
+      <p>(see /etc/lilo.conf or /boot/grub/menu.lst)</p>    </td>
+    <td bgcolor="#ccccff">/mach_kernel</td>
+    <td bgcolor="#ccccff">/unix<br>
+      /stand/unix</td>
+    <td bgcolor="#ccccff">/netbsd</td>
+    <td bgcolor="#ccccff">/bsd</td>
+    <td bgcolor="#ccccff"> 
+      <p>/unix</p>
+      <p>/stand/unix</p>    </td>
+    <td bgcolor="#ccccff">/unix</td>
+    <td bgcolor="#ccccff">/kernel/genunix<br>
+      /platform/`uname -m`/<br>
+      &nbsp;kernel/unix<br>
+      /platform/`uname -m`/<br>
+      &nbsp;kernel/sparcv9/unix (7+) </td>
+    <td bgcolor="#ccccff">/vmunix</td>
+    <td bgcolor="#ccccff">/vmunix</td>
+    <td bgcolor="#ccccff">/vmunix</td>
+    <td bgcolor="#ccccff">/unicos</td>
+    <td bgcolor="#ccccff"><b>kernel</b></td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ccccff"><b>show/set kernel parameters</b></td>
+    <td bgcolor="#ccccff">vmo<br>
+      ioo<br>
+      schedo      <br>    </td>
+    <td bgcolor="#ccccff">/etc/kconfig<br>
+      Finder</td>
+    <td bgcolor="#ccccff">vi /var/Build/<br>
+      system.<i>hostname;</i>;<br>
+      reboot</td>
+    <td bgcolor="#ccccff"> 
+      <p>        /boot/loader.conf<br>
+        sysctl<br>
+        /etc/sysctl.conf </p>    </td>
+    <td bgcolor="#ccccff">smh <em>(11.31+)</em><br>
+      sam<br>
+      sysdef<br>
+      kmtune <i>(11+)<br>
+      </i>kctune<i> (11.23+)<br>
+      </i>getconf</td>
+    <td bgcolor="#ccccff">systune</td>
+    <td bgcolor="#ccccff">/proc/*<br>
+      /proc/sys/*<br>
+      sysctl<br>
+      /etc/sysctl.conf </td>
+    <td bgcolor="#ccccff">/usr/sbin/sysctl<br>
+      launchctl limit<br>
+      /etc/launchd.conf</td>
+    <td bgcolor="#ccccff">sysdef<br>
+      getconf<br>
+      /etc/conf/cf.d/<br>
+      quicktune.cfg </td>
+    <td bgcolor="#ccccff">sysctl<br>
+      /etc/sysctl.conf </td>
+    <td bgcolor="#ccccff">sysctl<br>
+      /etc/sysctl.conf</td>
+    <td bgcolor="#ccccff">idtune<br>
+      cat /etc/opt/cf.d/stune<br>
+      cat /etc/opt/cf.d/mtune<br>
+      sysdef -i</td>
+    <td bgcolor="#ccccff"><p>/etc/conf/cf.d/configure -x</p>
+      <p>sysdef</p></td>
+    <td bgcolor="#ccccff"> 
+      <p>sysdef<br>
+        getconf <br>
+        cat /etc/system<br>
+        ndd<br>
+        adb -k</p>    </td>
+    <td bgcolor="#ccccff"> 
+      <p>adb</p>
+      <p>/usr/kvm/sys/<br>
+        `arch -k`/conf </p>    </td>
+    <td bgcolor="#ccccff">dxkerneltuner<br>
+      sysconfig </td>
+    <td bgcolor="#ccccff">adb<br>
+      kdb</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff"><b>show/set kernel parameters</b></td>
+  </tr>
+  <tr>
+    <td bgcolor="#ccccff"><strong>limit physical memory </strong></td>
+    <td bgcolor="#ccccff">rmss</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">mem= (in  lilo.conf or /boot/grub/grub.conf) </td>
+    <td bgcolor="#ccccff">nvram bootargs="maxmem=<em>MB</em>&quot;</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">machine memory (at the &quot;boot&quot; prompt) </td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">/etc/project<br>
+      zonecfg</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff"><strong>limit physical memory </strong></td>
+  </tr>
+  <tr>
+    <td bgcolor="#ccccff"><strong>loaded kernel modules </strong></td>
+    <td bgcolor="#ccccff">genkex<br>
+      vxketadm -s </td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">kldstat</td>
+    <td bgcolor="#ccccff">kmadmin -s<br>
+      kcmodule -a (11.23+)</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">lsmod</td>
+    <td bgcolor="#ccccff">kextstat</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">modstat</td>
+    <td bgcolor="#ccccff">modstat</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">modadmin</td>
+    <td bgcolor="#ccccff">modinfo</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff"><strong>loaded kernel modules </strong></td>
+  </tr>
+  <tr>
+    <td bgcolor="#ccccff"><strong>load module </strong></td>
+    <td bgcolor="#ccccff">vxketadm<em> modname</em> load <br>
+      cfgmgr<br>
+      mkdev -l <em>devname</em></td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">kldload</td>
+    <td bgcolor="#ccccff">kmadmin -L<br>
+      kcmodule module=loaded (11.23+)</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">modprobe<br>
+      insmod</td>
+    <td bgcolor="#ccccff">kextload</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">modload</td>
+    <td bgcolor="#ccccff">modload</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">modadmin</td>
+    <td bgcolor="#ccccff">modload</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff"><strong>load module </strong></td>
+  </tr>
+  <tr>
+    <td bgcolor="#ccccff"><strong>unload module </strong></td>
+    <td bgcolor="#ccccff">rmdev -l <em>devname</em></td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">kldunload</td>
+    <td bgcolor="#ccccff">kmadmin -U<br>
+      kcmodule module=unused (11.23+)</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">rmmod<br>
+      modprobe -r </td>
+    <td bgcolor="#ccccff">kextunload</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">modunload</td>
+    <td bgcolor="#ccccff">modunload</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">modadmin</td>
+    <td bgcolor="#ccccff">modunload</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff"><strong>unload module </strong></td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ccccff"><b>make disk bootable</b></td>
+    <td bgcolor="#ccccff">bosboot -a</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">dg_sysctl</td>
+    <td bgcolor="#ccccff">boot0cfg<br>
+      disklabel <br>
+      gpart bootcode <em>(7+)<br>
+      </em>sade<em><em> (6.3+)</em></em></td>
+    <td bgcolor="#ccccff">mkboot</td>
+    <td bgcolor="#ccccff">dvhtool</td>
+    <td bgcolor="#ccccff"> 
+      <p><i>(rh) </i>mkbootdisk<br>
+        <i>(deb) </i>fdisk -A<br>
+        <i>(and lilo to manipulate mbr)</i></p>    </td>
+    <td bgcolor="#ccccff">bless</td>
+    <td bgcolor="#ccccff">dklayout</td>
+    <td bgcolor="#ccccff">fdisk -i<br>
+      installboot </td>
+    <td bgcolor="#ccccff">/usr/mdec/installboot<sup><a href="#note5">5</a></sup><br>
+      /usr/mdec/biosboot<sup><a href="#note5">5</a></sup></td>
+    <td bgcolor="#ccccff">dksetup</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">installboot /usr/platform/<br>
+      `uname -i`<br>
+      /lib/fs/ufs/bootblk <i>raw_device_file</i></td>
+    <td bgcolor="#ccccff">/usr/kvm/mdec<br>
+      installboot [-hltv]<br>
+      <i>protobootblk<br>
+      bootdevice </i></td>
+    <td bgcolor="#ccccff"><i>(4.x+)</i> disklabel -rw -t<i> [ufs|advfs]</i></td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff"><b>make disk bootable</b></td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ccccff"><strong>startup scripts</strong>&nbsp;</td>
+    <td bgcolor="#ccccff">/etc/rc*<br>
+      /etc/inittab</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">/etc/rc*</td>
+    <td bgcolor="#ccccff">/etc/rc* <i>(4-)<br>
+      </i>/etc/rc.d/*<i> (5+)</i><br>
+      /usr/local/etc/rc.d/*</td>
+    <td bgcolor="#ccccff"> 
+      <p>/etc/rc* <i>(9)</i></p>
+      <p>/etc/rc.config.d <i>(preferred)</i><br>
+        /sbin/rc* <i>(10+)</i><br>
+        /sbin/init.d/</p>    </td>
+    <td bgcolor="#ccccff">/etc/rc*<br>
+      /etc/init.d/ </td>
+    <td bgcolor="#ccccff">/etc/rc* (but may vary)<br>
+      /etc/init.d/ <br>
+      chkconfig<br>
+      service</td>
+    <td bgcolor="#ccccff">/System/Library/<br>
+      StartupItems/*,<br>
+      /Library/StartupItems/,<br>
+      /etc/rc*</td>
+    <td bgcolor="#ccccff"> 
+      <p>/etc/rc*<br>
+        /etc/init.d </p>    </td>
+    <td bgcolor="#ccccff">&nbsp;<br>
+      /etc/rc<br>
+      /etc/rc.*<br>
+      /etc/rc.d/* </td>
+    <td bgcolor="#ccccff">&nbsp;<br>
+      /etc/rc*<br>
+      /etc/netstart</td>
+    <td bgcolor="#ccccff">/etc/rc*</td>
+    <td bgcolor="#ccccff">/etc/rc*</td>
+    <td bgcolor="#ccccff">/etc/rc*<br>
+      /etc/init.d/<br>
+      <i>(10+)</i> svcadm<br>
+      <i>(10+)</i> svcs</td>
+    <td bgcolor="#ccccff">/etc/rc*</td>
+    <td bgcolor="#ccccff">/sbin/init.d; <i>links in</i> /sbin/rc?.d</td>
+    <td bgcolor="#ccccff">/etc/rc*</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff"><strong>startup scripts</strong>&nbsp;</td>
+  </tr>
+  <tr>
+    <td bgcolor="#ccccff"><strong>start/ stop/ config services</strong></td>
+    <td bgcolor="#ccccff">startsrc<br>
+      stopsrc<br>
+      lssrc<br>
+      refresh<br>
+      srcmstr</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">service <em>(8.1+)</em></td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">chkconfig</td>
+    <td bgcolor="#ccccff"><i>(rh) </i>service<br>
+      <i>(rh) </i>chkconfig<br>
+      <i>(deb) </i>sysv-rc-conf</td>
+    <td bgcolor="#ccccff">launchctl</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">svcs <em>(10+)<br>
+    </em>svcadm <em>(10+)</em></td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff"><strong>start/ stop/ config services</strong></td>
+  </tr>
+  <tr>
+    <td bgcolor="#ccccff"><strong>shutdown (&amp; power off if possible) </strong></td>
+    <td bgcolor="#ccccff">shutdown -Fh </td>
+    <td bgcolor="#ccccff">/etc/shutdown -h<br>
+      Finder</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">shutdown -p now </td>
+    <td bgcolor="#ccccff">shutdown -yh 0 </td>
+    <td bgcolor="#ccccff">/etc/shutdown -y -g0 -i0 -p </td>
+    <td bgcolor="#ccccff">shutdown -Ph now <br>
+      shutdown -y -g0 -i0<br>
+      halt<br>
+      poweroff</td>
+    <td bgcolor="#ccccff">halt</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">shutdown -p now </td>
+    <td bgcolor="#ccccff">shutdown -hp now </td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">shutdown -i0 </td>
+    <td bgcolor="#ccccff">shutdown -y -g0 -i5 </td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff"><strong>shutdown (&amp; power off if possible)</strong></td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ccccff"><b>run levels <sup><a href="#note1">1</a></sup><br>
+      *=normal states <br>
+      </b><i>for more detail<br>
+      see</i><br>
+      <a href="http://www.phildev.net/runlevels.html">www.phildev.net/runlevels.html</a></td>
+    <td bgcolor="#ccccff">2: multiuser<br>
+      6: reboot</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff"><p>0: halt and power off<br>
+      1: single-user mode<br>
+      6: reboot<br>
+      c: block further logins<br>
+      q: rescan ttys(5) file</p>
+      <p>kernel security levels:<br>
+        -1*: permanently insecure<br>
+        0: insecure<br>
+        1: secure<br>
+        2: highly secure<br>
+      3: network secure</p></td>
+    <td bgcolor="#ccccff">0: shut down<br>
+      s,S: single-user<br>
+      1: sys admin<br>
+      2: multiuser<br>
+      3*: share NFS<br>
+      4*: start GUI<br>
+      5: user-defined<br>
+      6: user-defined</td>
+    <td bgcolor="#ccccff">0: power-down<br>
+      s,S: single-user<br>
+      1: sys admin<br>
+      2: multiuser (no NFS)<br>
+      3*: multiuser<br>
+      4: user-defined<br>
+      5: firmware monitor</td>
+    <td bgcolor="#ccccff">(set in /etc/inittab)<br>
+      0: halt<br>
+      s,S,1: <i>vendor-dependent</i><br>
+      1: single-user<br>
+      2-5*: multiuser<br>
+      6: reboot</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">(set in /etc/inittab)<br>
+      0: shutdown<br>
+      s,S: single-user<br>
+      1: sys admin<br>
+      2*: multi-user<br>
+      3: share NFS<br>
+      4: user-defined<br>
+      5: firmware<br>
+      6: reboot<br>    </td>
+    <td bgcolor="#ccccff">-1: permanently insecure<br>
+      0*: insecure<br>
+      1*: secure<br>
+      2: highly secure</td>
+    <td bgcolor="#ccccff">-1: permanently<br>
+      insecure<br>
+      0*: insecure<br>
+      1*: secure<br>
+      2: highly secure</td>
+    <td bgcolor="#ccccff">0: power-down<br>
+      s,S: single-user<br>
+      1: sys admin<br>
+      2*: multiuser<br>
+      3+4*: user-defined<br>
+      5: firmware update<br>
+      6: reboot</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff"> 
+      <p>0: firmware monitor<br>
+        s,S: single-user<br>
+        1: sys admin<br>
+        2: multiuser<br>
+        3*: share NFS<br>
+        4*: user-defined<br>
+        5: power-down if possible<br>
+        6: reboot</p>    </td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">0: shut down<br>
+      1: single user<br>
+      2: multi-user, no NFS<br>
+      3: multi-user<br>
+      6: reboot</td>
+    <td bgcolor="#ccccff">0: shut down<br>
+      1: single user<br>
+      2: multi-user, no NFS<br>
+      3: multi-user<br>
+      6: reboot</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff"> 
+      <p><b>run levels <sup><a href="#note1">1</a></sup><br>
+        *=normal states<br>
+        </b><i>for more detail<br>
+        see</i><br>
+        <a href="http://www.phildev.net/runlevels.html">www.phildev.net/runlevels.html</a></p>    </td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ccccff"><b>show runlevel <sup><a href="#note1">1</a></sup></b></td>
+    <td bgcolor="#ccccff">who -r</td>
+    <td bgcolor="#ccccff">&nbsp;</td>
+    <td bgcolor="#ccccff">who -r</td>
+    <td bgcolor="#ccccff">      sysctl kern.securelevel</td>
+    <td bgcolor="#ccccff">who -r</td>
+    <td bgcolor="#ccccff">who -r</td>
+    <td bgcolor="#ccccff">/sbin/runlevel</td>
+    <td bgcolor="#ccccff">(runlevels unused)</td>
+    <td bgcolor="#ccccff">who -r</td>
+    <td bgcolor="#ccccff">sysctl kern.securelevel</td>
+    <td bgcolor="#ccccff">sysctl kern.securelevel</td>
+    <td bgcolor="#ccccff">who -r</td>
+    <td bgcolor="#ccccff">who -r</td>
+    <td bgcolor="#ccccff">who -r</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">who -r</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">who -r</td>
+    <td bgcolor="#ccccff"><b>show runlevel <sup><a href="#note1">1</a></sup></b></td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ccccff"><b>time zone info</b></td>
+    <td bgcolor="#ccccff">/etc/environment ($TZ)</td>
+    <td bgcolor="#ccccff">/etc/TIMEZONE</td>
+    <td bgcolor="#ccccff">/etc/TIMEZONE</td>
+    <td bgcolor="#ccccff">/etc/localtime<br>
+      /usr/share/zoneinfo </td>
+    <td bgcolor="#ccccff">/usr/lib/tztab</td>
+    <td bgcolor="#ccccff">/usr/lib/locale/TZ/<br>
+      /etc/TIMEZONE </td>
+    <td bgcolor="#ccccff">/usr/share/zoneinfo/<br>
+      /etc/localtime</td>
+    <td bgcolor="#ccccff">/usr/share/zoneinfo/</td>
+    <td bgcolor="#ccccff">/usr/lib/locale/TZ</td>
+    <td bgcolor="#ccccff">/etc/localtime<br>
+      /usr/share/zoneinfo/</td>
+    <td bgcolor="#ccccff">/usr/share/zoneinfo/<br>
+      /etc/localtime </td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">/usr/share/lib/zoneinfo/</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">/etc/zoneinfo</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff"><b>time zone info</b></td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ccccff"><strong>check swap space</strong>&nbsp;</td>
+    <td bgcolor="#ccccff">lsps -a</td>
+    <td bgcolor="#ccccff">/etc/swap -l </td>
+    <td bgcolor="#ccccff">admswap -o list -buv<br>
+      dg_sysreport -p freeswap<br>
+      systat -swap</td>
+    <td bgcolor="#ccccff">swapinfo<br>
+      pstat -s</td>
+    <td bgcolor="#ccccff">swapinfo</td>
+    <td bgcolor="#ccccff">swap -s<br>
+      swap -l</td>
+    <td bgcolor="#ccccff">swapon -s<br>
+      cat /proc/meminfo<br>
+      cat /proc/swaps<br>
+      free </td>
+    <td bgcolor="#ccccff">ls -l /var/vm<br>
+      vm_stat </td>
+    <td bgcolor="#ccccff">swap -s<br>
+      swap -l<br>
+      sar -r</td>
+    <td bgcolor="#ccccff">swapctl -l<br>
+      pstat -s<br>
+      systat swap </td>
+    <td bgcolor="#ccccff">swapctl</td>
+    <td bgcolor="#ccccff">swap -s<br>
+      swap -l</td>
+    <td bgcolor="#ccccff">swap -l</td>
+    <td bgcolor="#ccccff">swap -s<br>
+      swap -l</td>
+    <td bgcolor="#ccccff">pstat -s</td>
+    <td bgcolor="#ccccff">swapon -s</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">/etc/swapper</td>
+    <td bgcolor="#ccccff"><strong>check swap space</strong>&nbsp;</td>
+  </tr>
+  <tr>
+    <td bgcolor="#ccccff"><strong>core dump management</strong></td>
+    <td bgcolor="#ccccff">chcore</td>
+    <td bgcolor="#ccccff">&nbsp;</td>
+    <td bgcolor="#ccccff">&nbsp;</td>
+    <td bgcolor="#ccccff">&nbsp;</td>
+    <td bgcolor="#ccccff">coreadm</td>
+    <td bgcolor="#ccccff">&nbsp;</td>
+    <td bgcolor="#ccccff">/proc/sys/kernel/core_pattern<br>
+      /proc/<em>pid</em>/coredump_filter</td>
+    <td bgcolor="#ccccff">&nbsp;</td>
+    <td bgcolor="#ccccff">&nbsp;</td>
+    <td bgcolor="#ccccff">&nbsp;</td>
+    <td bgcolor="#ccccff">&nbsp;</td>
+    <td bgcolor="#ccccff">&nbsp;</td>
+    <td bgcolor="#ccccff">&nbsp;</td>
+    <td bgcolor="#ccccff">coreadm</td>
+    <td bgcolor="#ccccff">&nbsp;</td>
+    <td bgcolor="#ccccff">&nbsp;</td>
+    <td bgcolor="#ccccff">&nbsp;</td>
+    <td bgcolor="#ccccff">&nbsp;</td>
+    <td bgcolor="#ccccff"><strong>core dump management</strong></td>
+  </tr>
+  <tr>
+    <td bgcolor="#ccccff"><strong>bind process to CPU </strong></td>
+    <td bgcolor="#ccccff"><a href="http://www-128.ibm.com/developerworks/aix/library/au-processinfinity.html">bindprocessor</a></td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">cpuset</td>
+    <td bgcolor="#ccccff">psrset -b<br>
+      mpsched -c<br>
+      intctl</td>
+    <td bgcolor="#ccccff">runon</td>
+    <td bgcolor="#ccccff">taskset (sched-utils) </td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">pbind</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">runon<br>
+      <a href="http://www.nixdoc.net/man-pages/Tru64/man4/processor_sets.4.html">pset_create</a><br>
+      pset_info<br>
+      psradm<br></td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff">?</td>
+    <td bgcolor="#ccccff"><strong>bind process to CPU </strong></td>
+  </tr>
+  <tr> 
+    <td align="center"><a name="files"></a><strong>TASK \ OS</strong>&nbsp;</td>
+    <td align="center"><strong>AIX</strong></td>
+    <td align="center"><strong>A/UX</strong></td>
+    <td align="center"><strong>DG/UX</strong></td>
+    <td align="center"><strong>FreeBSD</strong></td>
+    <td align="center"><strong>HP-UX</strong></td>
+    <td align="center"><strong>IRIX</strong></td>
+    <td align="center"><strong>Linux<br>
+      </strong></td>
+    <td align="center"><b>Mac OS X</b></td>
+    <td align="center"><b>NCR Unix</b></td>
+    <td align="center"><strong>NetBSD</strong></td>
+    <td align="center"><strong>OpenBSD</strong></td>
+    <td align="center"><b>Reliant</b></td>
+    <td align="center"><b>SCO OpenServer<br>
+      </b></td>
+    <td align="center"><strong>Solaris</strong></td>
+    <td align="center"><strong>SunOS 4</strong></td>
+    <td align="center"><strong>Tru64<br>
+      </strong></td>
+    <td align="center"><strong>Ultrix</strong></td>
+    <td align="center"><b>UNICOS</b></td>
+    <td align="center"><strong>OS / TASK</strong>&nbsp;</td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ffcc66"><strong>"normal" filesystem</strong>&nbsp;</td>
+    <td bgcolor="#ffcc66">jfs</td>
+    <td bgcolor="#ffcc66">ufs</td>
+    <td bgcolor="#ffcc66">dg/ux</td>
+    <td bgcolor="#ffcc66">ufs/ffs/ufs2 <i>(5+)<br>
+      </i>ext2<br>
+      zfs <em>(7+)</em></td>
+    <td bgcolor="#ffcc66"> 
+      <p>hfs<br>
+        vxfs <i>(11.0+)</i></p>    </td>
+    <td bgcolor="#ffcc66">efs, xfs</td>
+    <td bgcolor="#ffcc66">ext2<br>
+      ext3<br>
+      ReiserFS </td>
+    <td bgcolor="#ffcc66">ufs<br>
+      hfs+ </td>
+    <td bgcolor="#ffcc66">vxfs</td>
+    <td bgcolor="#ffcc66">ffs (was ufs)</td>
+    <td bgcolor="#ffcc66">ffs (was ufs)</td>
+    <td bgcolor="#ffcc66">vxfs<br>
+      ufs (root)</td>
+    <td bgcolor="#ffcc66">htfs (OpenServer 5)<br>
+      vxfs</td>
+    <td bgcolor="#ffcc66">ufs<br>
+      zfs <em>(OpenSolaris)</em></td>
+    <td bgcolor="#ffcc66">4.2</td>
+    <td bgcolor="#ffcc66"> 
+      <p><i>(4) </i>ufs<br>
+        <i>(5)</i> AdvFS</p>    </td>
+    <td bgcolor="#ffcc66">ufs</td>
+    <td bgcolor="#ffcc66">NC1FS<br>
+      C2FS </td>
+    <td bgcolor="#ffcc66"><strong>"normal" filesystem</strong>&nbsp;</td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ffcc66"><strong>volume-based filesystem</strong>&nbsp;</td>
+    <td bgcolor="#ffcc66">jfs2</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">admvdisk</td>
+    <td bgcolor="#ffcc66"> 
+      <p>ccd<br>
+        vinum<br>
+        geom<i> (5+)</i> <br>
+      zfs <em>(7+)</em></p>    </td>
+    <td bgcolor="#ffcc66">jfs (vxfs)<br>
+      LVM <br>
+      <a
+ href="http://www.veritas.com/products/category/ProductDetail.jhtml?productId=volumemanagerunix">VxVM</a> 
+      ($)</td>
+    <td bgcolor="#ffcc66">xlv, xvm, xfs</td>
+    <td bgcolor="#ffcc66">LVM, LVM2<br>
+      EVMS <br>
+      <a
+ href="http://www.veritas.com/products/category/ProductDetail.jhtml?productId=volumemanagerunix">VxVM</a> 
+      ($) </td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">vdisk<br>
+      VxVM </td>
+    <td bgcolor="#ffcc66"><br>
+      ccd, raidframe</td>
+    <td bgcolor="#ffcc66"><br>
+      ccd<br>
+      raid <br>
+      softraid</td>
+    <td bgcolor="#ffcc66">vdisk</td>
+    <td bgcolor="#ffcc66">vdisk</td>
+    <td bgcolor="#ffcc66">zfs<em>(10+)</em><br>
+      Solstice DiskSuite<br>
+      <a
+ href="http://www.veritas.com/products/category/ProductDetail.jhtml?productId=volumemanagerunix">VxVM</a> 
+      ($)</td>
+    <td bgcolor="#ffcc66">? </td>
+    <td bgcolor="#ffcc66">Advfs<br>
+      LSM </td>
+    <td bgcolor="#ffcc66">N/A</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66"><strong>volume-based filesystem</strong>&nbsp;</td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ffcc66"><b>file system<br>
+      description</b></td>
+    <td bgcolor="#ffcc66">/etc/filesystems<br>
+      mount<br>
+      lsfs</td>
+    <td bgcolor="#ffcc66">/etc/fstab</td>
+    <td bgcolor="#ffcc66">/etc/fstab</td>
+    <td bgcolor="#ffcc66">/etc/fstab<br>
+      zfs <em>(7+)</em></td>
+    <td bgcolor="#ffcc66">/etc/checklist<br>
+      <i>(9)</i>&nbsp;<br>
+      /etc/fstab<br>
+      <i>(10+)</i></td>
+    <td bgcolor="#ffcc66">/etc/fstab</td>
+    <td bgcolor="#ffcc66">&nbsp;/etc/fstab</td>
+    <td bgcolor="#ffcc66">NetInfo</td>
+    <td bgcolor="#ffcc66">/etc/vfstab</td>
+    <td bgcolor="#ffcc66">/etc/fstab </td>
+    <td bgcolor="#ffcc66">/etc/fstab </td>
+    <td bgcolor="#ffcc66">/etc/vfstab<br>
+      /etc/dktab </td>
+    <td bgcolor="#ffcc66"> 
+      <p>/etc/mnttab<br>
+        /etc/default/filesys<br>
+        /etc/vfstab <i>(local)<br>
+        </i>/etc/rmtab <i>(remote)</i></p>    </td>
+    <td bgcolor="#ffcc66">/etc/vfstab <i>(local)</i></td>
+    <td bgcolor="#ffcc66">/etc/fstab </td>
+    <td bgcolor="#ffcc66">/etc/fstab<br>
+      <i>AdvFS:</i> /etc/fdmns </td>
+    <td bgcolor="#ffcc66">/etc/fstab </td>
+    <td bgcolor="#ffcc66">/etc/fstab</td>
+    <td bgcolor="#ffcc66"><b>file system<br>
+      description</b></td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ffcc66"><b>volume manipulation</b></td>
+    <td bgcolor="#ffcc66"> 
+      <p>smitty vg<br>
+        smitty lvm<br>
+        smitty jfs<br>
+        smitty storage <br>
+        mkvg; chvg; <br>
+        reducevg; extendvg<br>
+        exportvg; importvg
+        <br>
+        mklv; chlv; rmlv<br>
+        mkfs; crfs; rmfs</p>    </td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">sysadm</td>
+    <td bgcolor="#ffcc66"> 
+      <p>vinum<br>
+        ccdconfig<br>
+        geom<i> (5.3+)</i><br>
+        gstripe<i> (5.3+)</i><br>
+        gmirror<i> (5.3+)</i><br>
+        graid3 <i> (5.3+)</i><br>
+      zpool</p>    </td>
+    <td bgcolor="#ffcc66">vg*; lv*; pv*<br>
+      extendfs<br>
+      fsadm </td>
+    <td bgcolor="#ffcc66"> 
+      <p>xlv_mgr<br>
+        xvm </p>    </td>
+    <td bgcolor="#ffcc66">e2fsadm<br>
+      lvcreate<br>
+      lvremove<br>
+      lvextend </td>
+    <td bgcolor="#ffcc66">Disk Utility<br>
+      pdisk<br>
+      diskutil</td>
+    <td bgcolor="#ffcc66"><p>vxva</p>
+      <p>dkconfig</p></td>
+    <td bgcolor="#ffcc66">ccdconfig <br>
+      raidctl</td>
+    <td bgcolor="#ffcc66">ccdconfig<br>
+      raidctl<br>
+      bioctl</td>
+    <td bgcolor="#ffcc66">dkconfig<br>
+      dkmirror<br>
+      dkmap </td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66"> 
+      <p>zpool<em> (10+) </em></p>
+      <p>meta*<br>
+        (Solstice DiskSuite;<br>
+        Solaris Volume Mgr <i>(9+)</i>)<br>
+        <i>(7-, found in <br>
+          /usr/opt/SUNWmd/<br>
+          &nbsp;sbin/)</i></p>
+      <p>/opt/VRTSvxva/bin/vxva<br>
+        (Veritas Volume Mgr) ($)</p>    </td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66"><i>AdvFS:</i> mkfdmn, mkfset, addvol, showfdmn<br>
+      <i>LSM:</i> volassist or volmake, volume, volplex and volsd, volprint</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">/etc/install/install</td>
+    <td bgcolor="#ffcc66"><b>volume manipulation</b></td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ffcc66"><b>create filesystem</b></td>
+    <td bgcolor="#ffcc66">crfs</td>
+    <td bgcolor="#ffcc66">/etc/newfs<br>
+      /etc/mkfs</td>
+    <td bgcolor="#ffcc66">admfilesystem</td>
+    <td bgcolor="#ffcc66">newfs<br>
+      zfs <em>(7+)</em></td>
+    <td bgcolor="#ffcc66">mkfs<br>
+      newfs </td>
+    <td bgcolor="#ffcc66">mkfs</td>
+    <td bgcolor="#ffcc66">mke2fs<br>
+      mkreiserfs<br>
+      mkdosfs<br>
+      mkfs.*</td>
+    <td bgcolor="#ffcc66">newfs<br>
+      newfs_hfs<br>
+      newfs_mdos</td>
+    <td bgcolor="#ffcc66">mkfs</td>
+    <td bgcolor="#ffcc66">newfs<br>
+      makefs </td>
+    <td bgcolor="#ffcc66">newfs</td>
+    <td bgcolor="#ffcc66">mkfs<br>
+      newfs </td>
+    <td bgcolor="#ffcc66">divvy (OpenServer 5) <br>
+      mkfs</td>
+    <td bgcolor="#ffcc66">newfs<br>
+      mkfs <br>
+      zfs <em>(10u2+)</em></td>
+    <td bgcolor="#ffcc66">newfs<br>
+      mkfs </td>
+    <td bgcolor="#ffcc66"><i>AdvFS:</i> mkfdmn<br>
+      <i>UFS:</i> newfs<br>
+      <i>MFS:</i> mfs</td>
+    <td bgcolor="#ffcc66">newfs<br>
+      mkfs </td>
+    <td bgcolor="#ffcc66">bb<br>
+      mkfs<br>
+      labelit</td>
+    <td bgcolor="#ffcc66"><b>create filesystem</b></td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ffcc66"><b>file system debugging and 
+      recovery</b></td>
+    <td bgcolor="#ffcc66">dfsck<br>
+      fsck<br>
+      fsdb </td>
+    <td bgcolor="#ffcc66">fsck</td>
+    <td bgcolor="#ffcc66">fsck<br>
+      fsdb </td>
+    <td bgcolor="#ffcc66">fsck<br>
+      fsdb<br>
+      clri </td>
+    <td bgcolor="#ffcc66">fsck<br>
+      fsdb</td>
+    <td bgcolor="#ffcc66">fsck<br>
+      fsdb<br>
+      clri<br>
+      xfs_repair<br>    </td>
+    <td bgcolor="#ffcc66">fsck<br>
+      debugfs<br>
+      e2undel </td>
+    <td bgcolor="#ffcc66">fsck<br>
+      fsdb<br>
+      clri </td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">fsck<br>
+      fsdb<br>
+      clri</td>
+    <td bgcolor="#ffcc66">fsck<br>
+      fsdb<br>
+      clri<br>
+      scan_ffs</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">fsck<br>
+      fsdb</td>
+    <td bgcolor="#ffcc66">fsck<br>
+      fsdb<br>
+      clri</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66"><b>file system debugging and 
+      recovery</b></td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ffcc66"><b>create non-0-length empty 
+      file</b></td>
+    <td bgcolor="#ffcc66">lmktemp</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">truncate -s <i>size</i>[K|M|G] <i>filename</i><br>
+      dd if=/dev/zero of=<i>filename</i> bs=<i>size</i>[b|k|m|g] \<br>
+      count=<i>desired</i></td>
+    <td bgcolor="#ffcc66">prealloc</td>
+    <td bgcolor="#ffcc66">mkfile</td>
+    <td bgcolor="#ffcc66">dd if=/dev/zero of=<i>filename</i> <br>
+      bs=1024k count=<i>desired</i></td>
+    <td bgcolor="#ffcc66">mkfile<br>
+      dd if=/dev/zero of=<i>filename</i> bs=1024 count=<i>desired</i></td>
+    <td bgcolor="#ffcc66">dd if=/dev/zero<br>
+      of=<i>filename</i> bs=1024<br>
+      count=<i>desired</i></td>
+    <td bgcolor="#ffcc66">dd if=/dev/zero of=<i>filename</i> bs=1m 
+      count=<i>desired</i></td>
+    <td bgcolor="#ffcc66"><p>dd if=/dev/zero<br>
+      of=<i>filename</i> bs=1024<br>
+      count=<i>desired</i></p>
+      <p>dd if=/dev/zero of=<i>filename</i> bs=1 
+        count=1 seek=<i>desired-1<br>
+      (sparse file)</i></p></td>
+    <td bgcolor="#ffcc66">mkfile<br>
+      dd if=/dev/zero of=<i>filename</i> bs=1k</td>
+    <td bgcolor="#ffcc66">dd if=/dev/zero of=<i>filenmae</i> bs=1024 
+      count=<i>desired</i></td>
+    <td bgcolor="#ffcc66">mkfile</td>
+    <td bgcolor="#ffcc66">mkfile</td>
+    <td bgcolor="#ffcc66">dd if=/dev/zero of=<i>filename</i> bs=1024k 
+      count=<i>desired</i></td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66"><b>create non-0-length empty 
+      file</b></td>
+  </tr>
+  <tr>
+    <td bgcolor="#ffcc66"><strong>convert DOS-format text to Unix format</strong></td>
+    <td bgcolor="#ffcc66">strings <em>dosfile.txt</em> &gt; <em>unixfile.txt</em></td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">dos2ux</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">dos2unix</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">dos2unix</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66"><strong>convert DOS-format text to Unix format</strong></td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ffcc66"><b>mount CDROM</b></td>
+    <td bgcolor="#ffcc66"> 
+      <p>mount -v cdrfs -o ro<br>
+        /dev/cd0 /cdrom</p>
+      <p>smitty cdrom</p>    </td>
+    <td bgcolor="#ffcc66">Finder</td>
+    <td bgcolor="#ffcc66">mount -t cdrom<br>
+      /dev/pdsk/<i>disk</i>/cdrom</td>
+    <td bgcolor="#ffcc66">mount /cdrom<br>
+      mount_cd9660</td>
+    <td bgcolor="#ffcc66"> 
+      <p>pfs_mountd<br>
+        pfsd<br>
+        pfs_mount<br>
+        mount /dev/dsk/c<i>x</i>t<i>y</i>d<i>z</i><sup><a href="#note4">4</a></sup><br>
+        /SD_CDROM </p>
+      <p>mount -orr /dev/cdrom /mnt/cdrom <em>(requires "Rock Ridge extension" patches, 
+        11+)</em></p>      </td>
+    <td bgcolor="#ffcc66"> 
+      <p><i>(see</i> man mediad<i>)</i></p>
+      <p><i>(mounts automatically when CD inserted)</i></p>    </td>
+    <td bgcolor="#ffcc66">mount /mnt/cdrom<br>
+      <i>(deb)</i> mount /cdrom</td>
+    <td bgcolor="#ffcc66"><p>(automatic — automounter)</p>
+      <p>diskutil mount<em> /dev/disk1s0</em></p></td>
+    <td bgcolor="#ffcc66">mount -F cdfs <br>
+      /dev/cdrom/cdrom<i>X</i> <br>
+      /cdrom</td>
+    <td bgcolor="#ffcc66">mount -t cd9660 -o ro /dev/cd0a <i>path</i></td>
+    <td bgcolor="#ffcc66">mount  /dev/cd0a <i>path</i></td>
+    <td bgcolor="#ffcc66">mount -F hs ...<br>
+      sysadm </td>
+    <td bgcolor="#ffcc66">mount /dev/cd0 <i>path</i></td>
+    <td bgcolor="#ffcc66">/etc/init.d/vold start; volcheck <i>or<br>
+      </i>mount -F hsfs -o ro /dev/dsk/<i>c0t6d0s2</i> /cdrom</td>
+    <td bgcolor="#ffcc66">mount -t hsfs -r<br>
+      /dev/sr0 /cdrom</td>
+    <td bgcolor="#ffcc66"> 
+      <p>mount /dev/disk/cdromXa<br>
+        /mnt<br>
+        mount -t cdfs -o noversion /dev/disk/cdrom3c /cdrom </p>    </td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66"><b>mount CDROM</b></td>
+  </tr>
+  <tr>
+    <td bgcolor="#ffcc66"><strong>eject CDROM </strong></td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66"><em>(manually)</em></td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">camcontrol eject <em>devID<br>
+    </em>cdcontrol eject [-f <em>device</em>] </td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">eject</td>
+    <td bgcolor="#ffcc66">eject</td>
+    <td bgcolor="#ffcc66">diskutil eject /dev/disk1s0<br> 
+      /Volumes<em>/theCDmountpoint</em></td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">eject cdrom<br>
+      eject cd0<br>
+      eject -n </td>
+    <td bgcolor="#ffcc66">cdio eject<br>
+      eject cd0<br>
+      eject /dev/rcd0c </td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">eject cdrom </td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66"><strong>eject CDROM </strong></td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ffcc66"><b>create/mount ISO image</b></td>
+    <td bgcolor="#ffcc66">mkcd</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">mkisofs<br>
+      mdconfig; mount</td>
+    <td bgcolor="#ffcc66">nohup pfs_mountd&amp;;<br>
+      nohup pfsd&amp;;<br>
+      pfs_mount -t iso9660 -x unix <em>pathToIso mountPoint </em></td>
+    <td bgcolor="#ffcc66">mkisofs <em>(freeware)</em></td>
+    <td bgcolor="#ffcc66"> 
+      <p>mkisofs</p>
+      <p>mount -o loop <i>pathToIso<br>
+        mountPoint </i></p>    </td>
+    <td bgcolor="#ffcc66">hdiutil</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">makefs -t cd9660<br>
+      <i>image_file</i> <i>directory</i>;<br>
+      vnconfig -c vnd0<br>
+      <i>image_file</i>;<br>
+      mount -t<br>
+      cd9660 /dev/vnd0a <i>mountPoint</i></td>
+    <td bgcolor="#ffcc66">
+      <p>mkhybrid -o <i>image</i>.iso <i>dir</i></p>
+      <p>vnconfig vnd0 <i>image</i>.iso &amp;&amp; mount -t cd9660 /dev/vnd0c<i> 
+        mountPoint </i><br>
+      </p>    </td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66"> 
+      <p>mkisofs<sup><a href="#note2">2</a></sup>;DEVICE=`lofiadm -a /<i>absolute_pathname</i>/<i>image</i>.iso` 
+        ; mount -F hsfs -o ro<br>
+        $DEVICE</p>    </td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66"><b>create/mount ISO image</b></td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ffcc66"><b>ACL management</b></td>
+    <td bgcolor="#ffcc66">aclget<br>
+      aclput<br>
+      acledit<br>
+      ls -e</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">getfacl<br>
+      setfacl<br>
+      {get,set}{f,p}mac</td>
+    <td bgcolor="#ffcc66">lsacl<br>
+      chacl<br>
+      getacl<br>
+      setacl </td>
+    <td bgcolor="#ffcc66"> 
+      <p>chacl</p>
+      <p><i>(see</i> man acl<i>)</i></p>    </td>
+    <td bgcolor="#ffcc66">getfacl<br>
+      setfacl </td>
+    <td bgcolor="#ffcc66">chmod<br>
+      fsaclctl <em>(-10.6) </em></td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">n/a</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">getfacl<br>
+      setfacl </td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66"><b>ACL management</b></td>
+  </tr>
+  <tr>
+    <td bgcolor="#ffcc66"><strong>Fibre Channel / SAN </strong></td>
+    <td bgcolor="#ffcc66">fcstat<br>
+      lscfg -vl <em>fcs0</em> <br>
+      lsattr -El <em>fcs0</em> </td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">mptutil <em>(8.0+)<br>
+    </em>showmount</td>
+    <td bgcolor="#ffcc66">scsimgr <em>(11.31+)</em><br>
+      fcmsutil<br>
+      fcdlist<br>
+      tdutil<br>
+      tdlist<br>
+      tddiag</td>
+    <td bgcolor="#ffcc66">cmgr<br>
+      cxfs-config<br>
+      cxfsmgr<br>
+      cxfs_info</td>
+    <td bgcolor="#ffcc66"><p>systool</p>
+      <p>multipath</p></td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">(treat as SCSI device) </td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">cfgadm<br>
+      luxadm<br>
+        stmsboot<br>
+      mpathadm<br>
+      fcinfo</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66">?</td>
+    <td bgcolor="#ffcc66"><strong>Fibre Channel / SAN</strong></td>
+  </tr>
+  <tr> 
+    <td align="center"><a name="networking"></a><strong>TASK \ OS</strong>&nbsp;</td>
+    <td align="center"><strong>AIX</strong></td>
+    <td align="center"><strong>A/UX</strong></td>
+    <td align="center"><strong>DG/UX</strong></td>
+    <td align="center"><strong>FreeBSD</strong></td>
+    <td align="center"><strong>HP-UX</strong></td>
+    <td align="center"><strong>IRIX</strong></td>
+    <td align="center"><strong>Linux<br>
+      </strong></td>
+    <td align="center"><b>Mac OS X</b></td>
+    <td align="center"><b>NCR Unix</b></td>
+    <td align="center"><strong>NetBSD</strong></td>
+    <td align="center"><strong>OpenBSD</strong></td>
+    <td align="center"><b>Reliant</b></td>
+    <td align="center"><b>SCO OpenServer<br>
+      </b></td>
+    <td align="center"><strong>Solaris</strong></td>
+    <td align="center"><strong>SunOS 4</strong></td>
+    <td align="center"><strong>Tru64<br>
+      </strong></td>
+    <td align="center"><strong>Ultrix</strong></td>
+    <td align="center"><b>UNICOS</b></td>
+    <td align="center"><strong>OS / TASK</strong>&nbsp;</td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ffffcc"><b>NFS share definitions</b></td>
+    <td bgcolor="#ffffcc">/etc/exports<br>
+      /etc/xtab </td>
+    <td bgcolor="#ffffcc">/etc/exports</td>
+    <td bgcolor="#ffffcc">/etc/exports</td>
+    <td bgcolor="#ffffcc">/etc/exports</td>
+    <td bgcolor="#ffffcc">/etc/exports<br>
+      /etc/dfs/dfstab (11.31+)</td>
+    <td bgcolor="#ffffcc">/etc/exports</td>
+    <td bgcolor="#ffffcc">/etc/exports</td>
+    <td bgcolor="#ffffcc">NetInfo: /exports<br>
+      Netinfo: /config/SharePoints</td>
+    <td bgcolor="#ffffcc">/etc/dfs/dfstab<br>
+      dfshares</td>
+    <td bgcolor="#ffffcc">/etc/exports</td>
+    <td bgcolor="#ffffcc">/etc/exports</td>
+    <td bgcolor="#ffffcc">/etc/dfs/dfstab<br>
+      /etc/dfs/sharetab</td>
+    <td bgcolor="#ffffcc">/etc/exports</td>
+    <td bgcolor="#ffffcc">/etc/dfs/dfstab<br>
+      dfshares </td>
+    <td bgcolor="#ffffcc">/etc/exports </td>
+    <td bgcolor="#ffffcc">/etc/exports</td>
+    <td bgcolor="#ffffcc">?</td>
+    <td bgcolor="#ffffcc">/etc/exports</td>
+    <td bgcolor="#ffffcc"><b>NFS share definitions</b></td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ffffcc"><b>NFS share command</b></td>
+    <td bgcolor="#ffffcc">exportfs -a<br>
+      mknfsexp</td>
+    <td bgcolor="#ffffcc">/usr/etc/exportfs -a </td>
+    <td bgcolor="#ffffcc">exportfs -a</td>
+    <td bgcolor="#ffffcc">kill -s HUP `cat /var/run/mountd.pid`</td>
+    <td bgcolor="#ffffcc">exportfs -a<br>
+      share <em>(11.31+)<br>
+      </em>shareall <em>(11.31+)</em><br>
+      share_nfs <em>(11.31+)</em></td>
+    <td bgcolor="#ffffcc">exportfs -a</td>
+    <td bgcolor="#ffffcc">/etc/init.d/nfs-server reload<i><br>
+      (rh) </i>exportfs -a</td>
+    <td bgcolor="#ffffcc">kill -s HUP `cat /var/run/mountd.pid`</td>
+    <td bgcolor="#ffffcc">share<br>
+      shareall </td>
+    <td bgcolor="#ffffcc">kill -s HUP `cat /var/run/mountd.pid`<br>
+      /etc/rc.d/mountd reload </td>
+    <td bgcolor="#ffffcc">kill -HUP `cat /var/run/mountd.pid`</td>
+    <td bgcolor="#ffffcc">share<br>
+      shareall</td>
+    <td bgcolor="#ffffcc">exportfs -a<br>
+      /etc/nfs start</td>
+    <td bgcolor="#ffffcc">share<br>
+      shareall</td>
+    <td bgcolor="#ffffcc">exportfs -a </td>
+    <td bgcolor="#ffffcc">/sbin/init.d/nfs start; /sbin/init.d/nfsmount 
+      start</td>
+    <td bgcolor="#ffffcc">?</td>
+    <td bgcolor="#ffffcc">exportfs -a</td>
+    <td bgcolor="#ffffcc"><b>NFS share command</b></td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ffffcc"><b>NFS information</b></td>
+    <td bgcolor="#ffffcc">nfsstat<br>
+      nfso -as </td>
+    <td bgcolor="#ffffcc">/usr/etc/nfsstat</td>
+    <td bgcolor="#ffffcc">nfsstat</td>
+    <td bgcolor="#ffffcc">nfsstat</td>
+    <td bgcolor="#ffffcc">nfsstat</td>
+    <td bgcolor="#ffffcc">mount | grep nfs</td>
+    <td bgcolor="#ffffcc">cat /proc/mounts</td>
+    <td bgcolor="#ffffcc">nfsstat</td>
+    <td bgcolor="#ffffcc">?</td>
+    <td bgcolor="#ffffcc">nfsstat</td>
+    <td bgcolor="#ffffcc">nfsstat</td>
+    <td bgcolor="#ffffcc">?</td>
+    <td bgcolor="#ffffcc">showmount<br>
+nfsstat</td>
+    <td bgcolor="#ffffcc"> 
+      <p>showmount<br>
+        nfsstat</p>    </td>
+    <td bgcolor="#ffffcc">?</td>
+    <td bgcolor="#ffffcc">?</td>
+    <td bgcolor="#ffffcc">?</td>
+    <td bgcolor="#ffffcc">?</td>
+    <td bgcolor="#ffffcc"><b>NFS information</b></td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ffffcc"><b>name resolution order</b></td>
+    <td bgcolor="#ffffcc">/etc/netsvc.conf</td>
+    <td bgcolor="#ffffcc">?</td>
+    <td bgcolor="#ffffcc">/etc/netsvc.conf</td>
+    <td bgcolor="#ffffcc">/etc/host.conf <i>(4-)<br>
+      </i>/etc/nsswitch.conf<i> (5+)</i></td>
+    <td bgcolor="#ffffcc">/etc/nsswitch.conf</td>
+    <td bgcolor="#ffffcc"><i>6+:</i> /etc/nsswitch.conf<br>
+      <i>5.3:</i> /etc/resolv.conf</td>
+    <td bgcolor="#ffffcc">/etc/nsswitch.conf<br>
+      /etc/resolv.conf</td>
+    <td bgcolor="#ffffcc">NetInfo</td>
+    <td bgcolor="#ffffcc">tcpconfig<br>
+      /etc/netconfig </td>
+    <td bgcolor="#ffffcc">/etc/nsswitch.conf<br>
+      /etc/resolv.conf<i> (obsolete)</i></td>
+    <td bgcolor="#ffffcc">/etc/resolv.conf</td>
+    <td bgcolor="#ffffcc">/etc/netconfig</td>
+    <td bgcolor="#ffffcc">/etc/resolv.conf</td>
+    <td bgcolor="#ffffcc">/etc/nsswitch.conf<br>
+      getent </td>
+    <td bgcolor="#ffffcc"><i>(hardcoded<br>
+      into libc)</i></td>
+    <td bgcolor="#ffffcc"> 
+      <p>/etc/nsswitch.conf<br>
+        /etc/svc.conf <i>(obsolete)</i></p>    </td>
+    <td bgcolor="#ffffcc">?</td>
+    <td bgcolor="#ffffcc">/etc/hosts.usenamed</td>
+    <td bgcolor="#ffffcc"><b>name resolution order</b></td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ffffcc"><b>show network interface info</b></td>
+    <td bgcolor="#ffffcc">ifconfig -a<br>
+      no -a<br>
+      netstat -i<br>
+      netstat -v<br>
+      lsattr -E -l entX</td>
+    <td bgcolor="#ffffcc">netstat -i<br>
+      /etc/ifconfig -a </td>
+    <td bgcolor="#ffffcc">netstat -i<br>
+      ifconfig </td>
+    <td bgcolor="#ffffcc">ifconfig -a</td>
+    <td bgcolor="#ffffcc">nwmgr <em>(11.31+)</em><br>
+      lanadmin<br>
+      landiag<br>
+      lanscan<br>
+      netstat -in<br>
+      ifconfig lan<i>x</i></td>
+    <td bgcolor="#ffffcc">/usr/etc/ifconfig -a<br>
+      netstat -ia</td>
+    <td bgcolor="#ffffcc">ifconfig<br>
+      ethtool </td>
+    <td bgcolor="#ffffcc">ifconfig -a<br>
+      netstat -a </td>
+    <td bgcolor="#ffffcc">ifconfig -a<br>
+      ildconfig<br>
+      netstat -in</td>
+    <td bgcolor="#ffffcc">ifconfig -a<br>
+      netstat -in</td>
+    <td bgcolor="#ffffcc">ifconfig -A</td>
+    <td bgcolor="#ffffcc">ifconfig -a<br>
+      inetstat -in<br>
+      etherstat <br>
+      cmxinfo </td>
+    <td bgcolor="#ffffcc"> 
+      <p>ifconfig -a<br>
+        netstat -in<br>
+        Network Config. Mgr. <i>(GUI)</i></p>    </td>
+    <td bgcolor="#ffffcc">dladm<br>
+      ndd<br>
+      ifconfig -a<br>
+      netstat -in<br>
+      dladm<br>
+      <i>(8+) </i>kstat -n hme0 | egrep 'ifspeed|duplex' </td>
+    <td bgcolor="#ffffcc">ifconfig -a</td>
+    <td bgcolor="#ffffcc"> 
+      <p>ifconfig -a<br>
+        netstat -in<br>
+      hwmgr get attribute<br>
+      -category network </p>      </td>
+    <td bgcolor="#ffffcc">ifconfig</td>
+    <td bgcolor="#ffffcc">ifconfig -a<br>
+      netstat -in</td>
+    <td bgcolor="#ffffcc"><b>show network interface info</b></td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ffffcc"><b>change IP</b></td>
+    <td bgcolor="#ffffcc"> 
+      <p>smitty chinet</p>
+      <p>chdev -a netaddr=<br>
+        <i>newIP</i> -I en<i>#</i></p>
+      <p>mktcpip</p></td>
+    <td bgcolor="#ffffcc">ifconfig<br>
+      <em>edit</em> /etc/NETADDRS </td>
+    <td bgcolor="#ffffcc">sysadm</td>
+    <td bgcolor="#ffffcc"><i>edit </i>/etc/rc.conf <i>(option ifconfig_interfacename)<br>
+      <br>
+      </i>ifconfig</td>
+    <td bgcolor="#ffffcc">/sbin/set_parms initial<br>
+      ifconfig </td>
+    <td bgcolor="#ffffcc"><i>edit:</i> /etc/{hosts,<br>
+      sys_id,<br>
+      resolv.conf,<br>
+      TIMEZONE},<br>
+      /etc/config/<br>
+      {static-route.options,<br>
+      ifconfig-1.options};<br>
+      reboot</td>
+    <td bgcolor="#ffffcc"> 
+      <p>ifconfig<i><br>
+  (rh)</i> redhat-config-network<br>
+        <i>(fedora)</i> system-config-network<br>
+        <i>(rh) edit: /</i>etc/hosts, <br>
+        /etc/sysconfig/network,<br>
+        /etc/sysconfig/<br>
+        network-scripts/<br>
+        ifcfg-eth0<br>
+        <i>(deb) edit</i> <br>
+        /etc/network/interfaces;<br>
+        /etc/init.d/networking<br>
+        restart</p>    </td>
+    <td bgcolor="#ffffcc">System Preferences: Network<br>
+      NetInfo</td>
+    <td bgcolor="#ffffcc">ifconfig<br>
+      tcpconfig </td>
+    <td bgcolor="#ffffcc"><p><i>edit</i> /etc/rc.conf <i>(ifconfig*)</i></p>
+      <p><i>edit</i> /etc/ifconfig.<i>interface</i></p></td>
+    <td bgcolor="#ffffcc"><p>ifconfig</p>
+      <p><i>edit</i> /etc/hostname.<i>driver</i></p></td>
+    <td bgcolor="#ffffcc">sysadm<br>
+      ifconfig (temp.)<br>
+      vi /etc/default/inet</td>
+    <td bgcolor="#ffffcc"> 
+      <p>ifconfig</p>
+      <p>netconfig</p>    </td>
+    <td bgcolor="#ffffcc"> 
+      <p><i>edit</i>: /etc/{resolv.conf, hosts, hostname.*, netmasks, nodename, 
+        <br>
+        dumpadm.conf, inet/ipnodes, net/*/hosts} </p>
+      <p>sys-unconfig; reboot<i> (this is overkill for a simple IP or hostname 
+        change) </i></p>    </td>
+    <td bgcolor="#ffffcc"><i>edit</i> /etc/hosts<br>
+      /etc/hostname.* </td>
+    <td bgcolor="#ffffcc"><i>(4.x) </i>netsetup<br>
+      <i>(5.x)</i> sysman net_wizard <i>or</i> <br>
+      netconfig</td>
+    <td bgcolor="#ffffcc">?</td>
+    <td bgcolor="#ffffcc"> 
+      <p>netconfig<br>
+        ifconfig<br>
+        initif</p>
+      <p>/etc/install/install</p>    </td>
+    <td bgcolor="#ffffcc"><b>change IP</b></td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ffffcc"><b>start DHCP client</b></td>
+    <td bgcolor="#ffffcc">dhcpcd</td>
+    <td bgcolor="#ffffcc"><em>n/a</em></td>
+    <td bgcolor="#ffffcc">dhcpd</td>
+    <td bgcolor="#ffffcc">dhclient</td>
+    <td bgcolor="#ffffcc">?</td>
+    <td bgcolor="#ffffcc">proclaim</td>
+    <td bgcolor="#ffffcc">dhcpcd<br>
+      dhclient</td>
+    <td bgcolor="#ffffcc">?</td>
+    <td bgcolor="#ffffcc">?</td>
+    <td bgcolor="#ffffcc">dhclient</td>
+    <td bgcolor="#ffffcc"><p>dhclient <em>interface <br>
+    </em>(runtime)</p>
+      <p>add <font face="Courier New, Courier, monospace">dhcp</font> to <br>
+      /etc/<em>hostname.driver</em><br>
+      (boot time)</p></td>
+    <td bgcolor="#ffffcc">?</td>
+    <td bgcolor="#ffffcc">?</td>
+    <td bgcolor="#ffffcc">ifconfig <i>interface</i> dhcp</td>
+    <td bgcolor="#ffffcc">?</td>
+    <td bgcolor="#ffffcc">dhcpconf <em>interface</em> start </td>
+    <td bgcolor="#ffffcc">?</td>
+    <td bgcolor="#ffffcc">?</td>
+    <td bgcolor="#ffffcc"><b>start DHCP client</b></td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ffffcc"><b>ping one packet</b>&nbsp;</td>
+    <td bgcolor="#ffffcc">&nbsp;ping -c 1 <i>hostname</i>&nbsp; </td>
+    <td bgcolor="#ffffcc">/usr/etc/ping <em>hostname packetsize</em> 1 </td>
+    <td bgcolor="#ffffcc">ping -s -c 1 <i>hostname</i> </td>
+    <td bgcolor="#ffffcc">&nbsp;ping -c 1 <i>hostname</i>&nbsp; </td>
+    <td bgcolor="#ffffcc">ping <i>hostname</i> 10 1 <i>(9)</i><br>
+      ping <i>hostname</i> -n 1 <i>(10+)</i></td>
+    <td bgcolor="#ffffcc">/usr/etc/ping -c 1 <i>hostname</i>&nbsp;</td>
+    <td bgcolor="#ffffcc">&nbsp;ping -c 1 <i>hostname</i> </td>
+    <td bgcolor="#ffffcc">ping -c 1 <i>hostname</i></td>
+    <td bgcolor="#ffffcc">ping -c 1 <i>hostname</i></td>
+    <td bgcolor="#ffffcc">&nbsp;ping -c 1 <i>hostname</i></td>
+    <td bgcolor="#ffffcc">&nbsp;ping -c 1 <i>hostname</i></td>
+    <td bgcolor="#ffffcc">ping -c 1 <i>hostname</i></td>
+    <td bgcolor="#ffffcc">ping -c 1 <i>hostname</i></td>
+    <td bgcolor="#ffffcc">ping <i>hostname</i>&nbsp;<i>&nbsp;packetsize 
+      1</i></td>
+    <td bgcolor="#ffffcc">ping <i>hostname<br>
+      packetsize 1</i></td>
+    <td bgcolor="#ffffcc">ping -c 1<br>
+      &nbsp;</td>
+    <td bgcolor="#ffffcc">? </td>
+    <td bgcolor="#ffffcc">ping <i>hostname</i></td>
+    <td bgcolor="#ffffcc"><b>ping one packet</b>&nbsp;</td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ffffcc"><b>sniff network</b></td>
+    <td bgcolor="#ffffcc">iptrace<br>
+      ipreport</td>
+    <td bgcolor="#ffffcc">?</td>
+    <td bgcolor="#ffffcc">tcpdump</td>
+    <td bgcolor="#ffffcc">tcpdump</td>
+    <td bgcolor="#ffffcc"> 
+      <p>nettl<br>
+        netfmt </p>    </td>
+    <td bgcolor="#ffffcc">snoop<br>
+      tcpdump </td>
+    <td bgcolor="#ffffcc">etherfind<br>
+      tcpdump<br>
+      wireshark (<em>formerly </em>ethereal)<br>
+      etherape</td>
+    <td bgcolor="#ffffcc">tcpdump</td>
+    <td bgcolor="#ffffcc">tcpdump<br>    </td>
+    <td bgcolor="#ffffcc">tcpdump</td>
+    <td bgcolor="#ffffcc">tcpdump</td>
+    <td bgcolor="#ffffcc">tcpdump</td>
+    <td bgcolor="#ffffcc">?</td>
+    <td bgcolor="#ffffcc">snoop</td>
+    <td bgcolor="#ffffcc">etherfind</td>
+    <td bgcolor="#ffffcc">tcpdump</td>
+    <td bgcolor="#ffffcc">?</td>
+    <td bgcolor="#ffffcc">?</td>
+    <td bgcolor="#ffffcc"><b>sniff network</b></td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ffffcc"><strong>route definitions</strong>&nbsp;</td>
+    <td bgcolor="#ffffcc">netstat -r<br>
+      route<br></td>
+    <td bgcolor="#ffffcc">netstat -r </td>
+    <td bgcolor="#ffffcc">sysadm</td>
+    <td bgcolor="#ffffcc"><i>edit </i>/etc/rc.conf <i>(option defaultrouter)<br>
+      </i>netstat -r<br>
+      route</td>
+    <td bgcolor="#ffffcc">/etc/rc.config.d/netconf<br>
+      netstat -r </td>
+    <td bgcolor="#ffffcc">/etc/config/<br>
+      static-route.options</td>
+    <td bgcolor="#ffffcc"><i>route<br>
+      (rh) </i>/etc/sysconfig/network<br>
+      <i>(rh) </i>/etc/sysconfig/static-routes<br>
+      <i>(deb)</i> /etc/init.d/network<br>
+      <i>(deb)</i> /etc/network</td>
+    <td bgcolor="#ffffcc">netstat -r</td>
+    <td bgcolor="#ffffcc">tcpconfig<br>
+      /etc/inet/defaultrouter<br>
+      /etc/inet/gate*<br>
+      netstat -r</td>
+    <td bgcolor="#ffffcc"> 
+      <p>netstat -r<br>
+        route show<br>
+        /etc/rc.conf<br>
+        /etc/mygate</p>    </td>
+    <td bgcolor="#ffffcc"> 
+      <p>netstat -r<br>
+        route show<br>
+      /etc/mygate</p>      </td>
+    <td bgcolor="#ffffcc">netstat -r</td>
+    <td bgcolor="#ffffcc">netstat -r</td>
+    <td bgcolor="#ffffcc"> 
+      <p>/etc/defaultrouter<br>
+        /etc/notrouter<br>
+        /etc/gateways<br>
+        in.routed<br>
+        netstat -r<br>
+        route add</p>    </td>
+    <td bgcolor="#ffffcc">/etc/defaultrouter<br>
+      <i>(kernel tweak or<br>
+      adb to diable<br>
+      forwarding) </i></td>
+    <td bgcolor="#ffffcc">/etc/routes </td>
+    <td bgcolor="#ffffcc">? </td>
+    <td bgcolor="#ffffcc">netstat -r</td>
+    <td bgcolor="#ffffcc"><strong>route definitions</strong>&nbsp;</td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ffffcc"><b>telnetd, ftpd banner</b></td>
+    <td bgcolor="#ffffcc">/etc/security/login.cfg</td>
+    <td bgcolor="#ffffcc">/etc/issue</td>
+    <td bgcolor="#ffffcc">?</td>
+    <td bgcolor="#ffffcc">/etc/ftpwelcome</td>
+    <td bgcolor="#ffffcc">/etc/inetd.conf <i>(telnet)</i></td>
+    <td bgcolor="#ffffcc">/etc/issue</td>
+    <td bgcolor="#ffffcc">/etc/issue.net <i>(telnet)<br>
+      (ftp varies; can use tcp wrappers)</i></td>
+    <td bgcolor="#ffffcc">/etc/ftpwelcome</td>
+    <td bgcolor="#ffffcc">/etc/issue<br>
+      ~ftp/etc/issue<br>
+      ~ftp/etc/msgs/welcome</td>
+    <td bgcolor="#ffffcc">/etc/motd<br>
+      /etc/ftpwelcome<br>
+      /etc/issue <i>if enabled via if= in /etc/gettytab</i><br>    </td>
+    <td bgcolor="#ffffcc">/etc/issue.net<br>
+      /etc/ftpwelcome </td>
+    <td bgcolor="#ffffcc">/etc/issue</td>
+    <td bgcolor="#ffffcc">?</td>
+    <td bgcolor="#ffffcc">/etc/default/telnetd<br>
+      /etc/default/ftpd</td>
+    <td bgcolor="#ffffcc">n/a</td>
+    <td bgcolor="#ffffcc">/etc/issue</td>
+    <td bgcolor="#ffffcc">?</td>
+    <td bgcolor="#ffffcc">/etc/issue<br>
+      /etc/motd </td>
+    <td bgcolor="#ffffcc"><b>telnetd, ftpd banner</b></td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ffffcc"><b>set date/time<br>
+      </b>(from net: ntp or other)</td>
+    <td bgcolor="#ffffcc">ntpdate</td>
+    <td bgcolor="#ffffcc">date</td>
+    <td bgcolor="#ffffcc">?</td>
+    <td bgcolor="#ffffcc">date<br>
+      adjkerntz<br>
+      ntp<br>
+      tzsetup<br>
+      <em>(obs) </em>timed</td>
+    <td bgcolor="#ffffcc">ntpdate</td>
+    <td bgcolor="#ffffcc">timeslave</td>
+    <td bgcolor="#ffffcc">ntpdate<br>
+      rdate<br>
+      netdate </td>
+    <td bgcolor="#ffffcc">System Preferences/<br>
+      Date &amp; Time </td>
+    <td bgcolor="#ffffcc">?</td>
+    <td bgcolor="#ffffcc">date<br>
+      ntpdate<br>
+      ntpd<br>
+      timed <em>(obs)</em></td>
+    <td bgcolor="#ffffcc">date<br>
+      rdate<br>
+      ntpd<br>
+      timed</td>
+    <td bgcolor="#ffffcc">?</td>
+    <td bgcolor="#ffffcc">?</td>
+    <td bgcolor="#ffffcc">ntpdate<br>
+      rdate </td>
+    <td bgcolor="#ffffcc">?</td>
+    <td bgcolor="#ffffcc">ntpdate</td>
+    <td bgcolor="#ffffcc">rdate</td>
+    <td bgcolor="#ffffcc">?</td>
+    <td bgcolor="#ffffcc"><b>set date/time<br>
+      </b>(from net: ntp or other)</td>
+  </tr>
+  <tr> 
+    <td align="center"><a name="security"></a><strong>TASK \ OS</strong>&nbsp;</td>
+    <td align="center"><strong>AIX</strong></td>
+    <td align="center"><strong>A/UX</strong></td>
+    <td align="center"><strong>DG/UX</strong></td>
+    <td align="center"><strong>FreeBSD</strong></td>
+    <td align="center"><strong>HP-UX</strong></td>
+    <td align="center"><strong>IRIX</strong></td>
+    <td align="center"><strong>Linux<br>
+      </strong></td>
+    <td align="center"><b>Mac OS X</b></td>
+    <td align="center"><b>NCR Unix</b></td>
+    <td align="center"><strong>NetBSD</strong></td>
+    <td align="center"><strong>OpenBSD</strong></td>
+    <td align="center"><b>Reliant</b></td>
+    <td align="center"><b>SCO OpenServer<br>
+      </b></td>
+    <td align="center"><strong>Solaris</strong></td>
+    <td align="center"><strong>SunOS 4</strong></td>
+    <td align="center"><strong>Tru64<br>
+      </strong></td>
+    <td align="center"><strong>Ultrix</strong></td>
+    <td align="center"><b>UNICOS</b></td>
+    <td align="center"><strong>OS / TASK</strong>&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="61" bgcolor="#ffcccc"><strong>auditing</strong></td>
+    <td bgcolor="#ffcccc">audit<br>
+      auditpr<br>
+      auditselect<br>
+      lsaudrec</td>
+    <td bgcolor="#ffcccc">?</td>
+    <td bgcolor="#ffcccc">?</td>
+    <td bgcolor="#ffcccc">auditd</td>
+    <td bgcolor="#ffcccc">audisp<br>
+      audevent<br>
+      audomon<br>
+      audsys</td>
+    <td bgcolor="#ffcccc">satd<br>
+      satconfig<br>
+      sat_reduce<br>
+      sat_interpret</td>
+    <td bgcolor="#ffcccc"><p><em>(2.6+)</em> auditd<br> 
+      /var/log/faillog<br>
+      </p>      </td>
+    <td bgcolor="#ffcccc">?</td>
+    <td bgcolor="#ffcccc">?</td>
+    <td bgcolor="#ffcccc">?</td>
+    <td bgcolor="#ffcccc"><p>mtree</p>
+      <p>/etc/security<br>
+      (run nightly)</p></td>
+    <td bgcolor="#ffcccc">?</td>
+    <td bgcolor="#ffcccc">?</td>
+    <td bgcolor="#ffcccc">audit<br>
+      auditd<br>
+      auditreduce<br>
+      praudit</td>
+    <td bgcolor="#ffcccc">&nbsp;</td>
+    <td bgcolor="#ffcccc">&nbsp;</td>
+    <td bgcolor="#ffcccc">&nbsp;</td>
+    <td bgcolor="#ffcccc">&nbsp;</td>
+    <td bgcolor="#ffcccc"><strong>auditing</strong></td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ffcccc"><strong>encrypted passwords in</strong>&nbsp;</td>
+    <td bgcolor="#ffcccc">/etc/security/passwd</td>
+    <td bgcolor="#ffcccc">/etc/shadow</td>
+    <td bgcolor="#ffcccc">/etc/shadow</td>
+    <td bgcolor="#ffcccc">/etc/master.passwd</td>
+    <td bgcolor="#ffcccc">/etc/passwd <i>(not Trusted)<br>
+      </i>/.secure/etc/passwd <i>(Trusted 9)<br>
+      </i>/tcb/files/auth/<br>
+      <i>(10+)</i><br>
+      /etc/shadow <i>(11.22+)</i></td>
+    <td bgcolor="#ffcccc">/etc/shadow</td>
+    <td bgcolor="#ffcccc">/etc/shadow <i>(may vary)</i></td>
+    <td bgcolor="#ffcccc">NetInfo</td>
+    <td bgcolor="#ffcccc">/etc/shadow</td>
+    <td bgcolor="#ffcccc">/etc/master.passwd (/etc/spwd.db)</td>
+    <td bgcolor="#ffcccc">/etc/master.passwd (/etc/pwd.db)</td>
+    <td bgcolor="#ffcccc">/etc/shadow</td>
+    <td bgcolor="#ffcccc">/etc/shadow</td>
+    <td bgcolor="#ffcccc">/etc/shadow</td>
+    <td bgcolor="#ffcccc">/etc/passwd</td>
+    <td bgcolor="#ffcccc">/tcb/files/auth <i>(only with Enhanced Security)</i></td>
+    <td bgcolor="#ffcccc">/etc/shadow</td>
+    <td bgcolor="#ffcccc">/etc/udb</td>
+    <td bgcolor="#ffcccc"><strong>encrypted passwords in</strong>&nbsp;</td>
+  </tr>
+  <tr>
+    <td bgcolor="#ffcccc"><strong>min password length </strong></td>
+    <td bgcolor="#ffcccc">/etc/security/user</td>
+    <td bgcolor="#ffcccc">?</td>
+    <td bgcolor="#ffcccc">?</td>
+    <td bgcolor="#ffcccc">/etc/login.conf</td>
+    <td bgcolor="#ffcccc">/etc/default/security</td>
+    <td bgcolor="#ffcccc">?</td>
+    <td bgcolor="#ffcccc">/etc/pam.d/system-auth</td>
+    <td bgcolor="#ffcccc">?</td>
+    <td bgcolor="#ffcccc">?</td>
+    <td bgcolor="#ffcccc">?</td>
+    <td bgcolor="#ffcccc">/etc/login.conf</td>
+    <td bgcolor="#ffcccc">?</td>
+    <td bgcolor="#ffcccc">?</td>
+    <td bgcolor="#ffcccc">/etc/default/passwd</td>
+    <td bgcolor="#ffcccc">?</td>
+    <td bgcolor="#ffcccc">?</td>
+    <td bgcolor="#ffcccc">?</td>
+    <td bgcolor="#ffcccc">?</td>
+    <td bgcolor="#ffcccc"><strong>min password length </strong></td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ffcccc"><b>allow/deny root<br>
+      logins</b></td>
+    <td bgcolor="#ffcccc">/etc/security/user</td>
+    <td bgcolor="#ffcccc">?</td>
+    <td bgcolor="#ffcccc">/etc/default/login</td>
+    <td bgcolor="#ffcccc">/etc/login.access<br>
+      /etc/ttys</td>
+    <td bgcolor="#ffcccc">&nbsp;/etc/securetty</td>
+    <td bgcolor="#ffcccc">&nbsp;/etc/default/login</td>
+    <td bgcolor="#ffcccc">/etc/securetty<br></td>
+    <td bgcolor="#ffcccc">/etc/ttys (doesn't affect ssh)</td>
+    <td bgcolor="#ffcccc">/etc/default/login</td>
+    <td bgcolor="#ffcccc">/etc/ttys</td>
+    <td bgcolor="#ffcccc">/etc/ttys</td>
+    <td bgcolor="#ffcccc">/etc/default/login</td>
+    <td bgcolor="#ffcccc">/dev/default/login</td>
+    <td bgcolor="#ffcccc">/etc/default/login</td>
+    <td bgcolor="#ffcccc">/dev/ttytab</td>
+    <td bgcolor="#ffcccc">/etc/securettys</td>
+    <td bgcolor="#ffcccc">/etc/securettys</td>
+    <td bgcolor="#ffcccc">udbrestrict -R</td>
+    <td bgcolor="#ffcccc"><b>allow/deny root<br>
+      logins</b></td>
+  </tr>
+  <tr bgcolor="#ffcccc"> 
+    <td><b>firewall config</b></td>
+    <td>genfilt<br>
+      smitty ipsec4<br>
+      wsm network </td>
+    <td>?</td>
+    <td>?</td>
+    <td>ipfw<br>
+      ipf
+      <br>
+      pfctl</td>
+    <td>/etc/opt/ipf/ipf.conf</td>
+    <td>/etc/ipf.conf</td>
+    <td>iptables<br>
+      ipchains<br>
+      ipfwadm<br>
+      <i>(rh)</i> redhat-config-<br>
+      securitylevel </td>
+    <td>Aqua / System Prefs /<br>
+      &nbsp;Sharing / Firewall<br>
+      ipfw </td>
+    <td>?</td>
+    <td> 
+      <p>ipf<br>
+        /etc/ipf.conf<br>
+        /etc/ipf6.conf</p>
+      <p>pfctl <i>(3.0+)</i><br>
+        /etc/pf.conf <i>(3.0+)</i></p>    </td>
+    <td>pfctl<br>
+      /etc/pf.conf </td>
+    <td>?</td>
+    <td>?</td>
+    <td><p>(10+) ipf, ipfs, ipfstat<br>
+      /etc/ipf/ipf.conf    </p>
+      <p>(9+) /usr/aset/ <em>(hardening tool)</em><br>
+        (9) SunScreen 3.2
+      </p></td>
+    <td>?</td>
+    <td>?</td>
+    <td>?</td>
+    <td>?</td>
+    <td><b>firewall config</b></td>
+  </tr>
+  <tr> 
+    <td align="center"><a name="software"></a><strong>TASK \ OS</strong>&nbsp;</td>
+    <td align="center"><strong>AIX</strong></td>
+    <td align="center"><strong>A/UX</strong></td>
+    <td align="center"><strong>DG/UX</strong></td>
+    <td align="center"><strong>FreeBSD</strong></td>
+    <td align="center"><strong>HP-UX</strong></td>
+    <td align="center"><strong>IRIX</strong></td>
+    <td align="center"><strong>Linux<br>
+      </strong></td>
+    <td align="center"><b>Mac OS X</b></td>
+    <td align="center"><b>NCR Unix</b></td>
+    <td align="center"><strong>NetBSD</strong></td>
+    <td align="center"><strong>OpenBSD</strong></td>
+    <td align="center"><b>Reliant</b></td>
+    <td align="center"><b>SCO OpenServer<br>
+      </b></td>
+    <td align="center"><strong>Solaris</strong></td>
+    <td align="center"><strong>SunOS 4</strong></td>
+    <td align="center"><strong>Tru64<br>
+      </strong></td>
+    <td align="center"><strong>Ultrix</strong></td>
+    <td align="center"><b>UNICOS</b></td>
+    <td align="center"><strong>OS / TASK</strong>&nbsp;</td>
+  </tr>
+  <tr> 
+    <td bgcolor="#eeddcc"><strong>show installed software</strong>&nbsp;</td>
+    <td bgcolor="#eeddcc">lslpp -L<br>
+      lssrc</td>
+    <td bgcolor="#eeddcc">?</td>
+    <td bgcolor="#eeddcc">pkginfo</td>
+    <td bgcolor="#eeddcc">pkg_info<br>
+      ls /var/db/pkg<br>
+      <i><br>
+      </i><br>    </td>
+    <td bgcolor="#eeddcc">rmfn, what (HP-UX 9)<br>
+      swlist (HP-UX 10+)<br>
+      swm list <em>(11.31+)</em></td>
+    <td bgcolor="#eeddcc"> 
+      <p>versions<br>
+        showfiles<br>
+        showprods </p>    </td>
+    <td bgcolor="#eeddcc"><i>(rh) </i>rpm -a -i<br>
+      <i>(rh) </i>rpm -qa <br>
+      <i>(rh)</i> yum list installed<br>
+      <i>(deb)</i> dselect<br>
+      <i>(deb)</i> aptitude<br>
+      <i>(deb)</i> dpkg -l<br>
+      <em>(gen) </em>ls /var/db/pkg/*<br>
+      <em>(gen) </em>eix -I</td>
+    <td bgcolor="#eeddcc"> 
+      <p>ls /Applications<br>
+        Apple System Profiler<br>
+        system_profiler <br>
+        ls /Network/Applications<br>
+        /Network/Users/*/<br>
+        Applications<br>
+        /Users/*/Applications</p>    </td>
+    <td bgcolor="#eeddcc">displaypkg<br>
+      pkginfo </td>
+    <td bgcolor="#eeddcc">&nbsp;pkg_info</td>
+    <td bgcolor="#eeddcc">&nbsp;pkg_info</td>
+    <td bgcolor="#eeddcc">pkginfo -l<br>
+      sysadm</td>
+    <td bgcolor="#eeddcc"> 
+      <p>swconfig (OpenServer 5) <br>
+        displaypkg<br>
+        pkginfo </p>    </td>
+    <td bgcolor="#eeddcc">pkginfo<br>
+      prodreg<br>
+      admintool<br>
+      /var/sadm/install/contents</td>
+    <td bgcolor="#eeddcc">? </td>
+    <td bgcolor="#eeddcc">setld -i</td>
+    <td bgcolor="#eeddcc">? </td>
+    <td bgcolor="#eeddcc">?</td>
+    <td bgcolor="#eeddcc"><strong>show installed software</strong>&nbsp;</td>
+  </tr>
+  <tr>
+    <td bgcolor="#eeddcc"><strong>file is in which package </strong></td>
+    <td bgcolor="#eeddcc">lslpp -w <em>file<br>
+    </em>rpm -qif <em>file</em></td>
+    <td bgcolor="#eeddcc">?</td>
+    <td bgcolor="#eeddcc">?</td>
+    <td bgcolor="#eeddcc">pkg_info -W <em>file</em></td>
+    <td bgcolor="#eeddcc">swlist -l file | grep <em>file</em></td>
+    <td bgcolor="#eeddcc">versions long |<br>
+      grep <em>file</em></td>
+    <td bgcolor="#eeddcc"><em>(deb)</em> dpkg --search <em>file</em> <br>
+      <em>(deb)</em> apt-file update &amp;&amp; apt-file search <em>file</em> <br>
+      <em>(rh)</em> rpm -qif <em>file<br>
+      (gen) </em>equery b <em>file<br>
+      (gen) </em>qfile <em>file</em> </td>
+    <td bgcolor="#eeddcc">?</td>
+    <td bgcolor="#eeddcc">?</td>
+    <td bgcolor="#eeddcc">pkg_chk<br>
+      pkg_info -Fe <em>file</em></td>
+    <td bgcolor="#eeddcc">pkg_info -E <em>file</em></td>
+    <td bgcolor="#eeddcc">?</td>
+    <td bgcolor="#eeddcc">?</td>
+    <td bgcolor="#eeddcc">pkgchk -l -p <em>binaryToCheck</em></td>
+    <td bgcolor="#eeddcc">?</td>
+    <td bgcolor="#eeddcc">?</td>
+    <td bgcolor="#eeddcc">?</td>
+    <td bgcolor="#eeddcc">?</td>
+    <td bgcolor="#eeddcc"><strong>file is in which package </strong></td>
+  </tr>
+  <tr> 
+    <td bgcolor="#eeddcc"><b>add software</b></td>
+    <td bgcolor="#eeddcc"> 
+      <p>smitty install <br>
+        rpm -ihv <br>
+        installp -acgxYd <em>/sourcedir</em> <em>[fileset|ALL]</em> </p>      </td>
+    <td bgcolor="#eeddcc"><em>n/a (no package system) </em></td>
+    <td bgcolor="#eeddcc">sysadm</td>
+    <td bgcolor="#eeddcc">sysinstall<br>
+      /usr/ports make<br>
+      pkg_add <br>      <br>    </td>
+    <td bgcolor="#eeddcc">swm install <em>(11.31+)</em><br>
+      swinstall</td>
+    <td bgcolor="#eeddcc">inst<br>
+      swmgr </td>
+    <td bgcolor="#eeddcc"><i>(rh) </i>rpm -hiv <br>
+      <i>(rh)</i> yum install <i>pkg</i><br>
+      <i>(deb)</i> dselect<br>
+      <i>(deb) </i>apt-get install <i>pkg</i><br>
+      <i>(deb)</i> dpkg -i<br>
+      <em>(md)</em> urpmi<br>    </td>
+    <td bgcolor="#eeddcc">installpkg<br>
+      drag-and-drop<br>
+      /Applications/ Utilities/<br>
+      Installer</td>
+    <td bgcolor="#eeddcc">pkgadd<br>
+      pkgplus </td>
+    <td bgcolor="#eeddcc">pkg_add<br>
+      /usr/pkgsrc &amp;&amp; make</td>
+    <td bgcolor="#eeddcc">pkg_add<br>
+      /usr/ports &amp;&amp; make</td>
+    <td bgcolor="#eeddcc">pkgadd<br>
+      sysadm </td>
+    <td bgcolor="#eeddcc"> 
+      <p>custom<br>
+        installpkg<br>
+        SCOadmin <i>(GUI)</i></p>    </td>
+    <td bgcolor="#eeddcc">pkgadd</td>
+    <td bgcolor="#eeddcc">?</td>
+    <td bgcolor="#eeddcc">setld -l</td>
+    <td bgcolor="#eeddcc">?</td>
+    <td bgcolor="#eeddcc">?</td>
+    <td bgcolor="#eeddcc"><b>add software</b></td>
+  </tr>
+  <tr> 
+    <td bgcolor="#eeddcc"><b><a name="freeware">precompiled binaries</a> 
+      of GPLware and freeware</b></td>
+    <td bgcolor="#eeddcc"><a
+ href="http://perzl.org/aix/">perzl.org/aix/</a><br>
+      <a href="www-1.ibm.com/servers/">www-1.ibm.com/servers/<br>
+      aix/products/aixos/linux/<br>
+      download.html</a><br>
+      <a href="http://aixpdslib.seas.ucla.edu/aixpdslib.html">aixpdslib.seas.ucla.edu/<br>
+      aixpdslib.html</a><br>
+      <a href="http://www.bullfreeware.com/">bullfreeware.com</a> <br>    </td>
+    <td bgcolor="#eeddcc"><em>see FAQ </em></td>
+    <td bgcolor="#eeddcc"><a href="http|//www.signal42.com/xfree86/4.2.0/binaries/DGUX-ix86/">http://www.signal42.com/<br>
+      xfree86/4.2.0/binaries/<br>
+      DGUX-ix86/</a></td>
+    <td bgcolor="#eeddcc"><a
+ href="ftp://ftp.freebsd.org/pub/FreeBSD">ftp.freebsd.org/<br>
+      pub/FreeBSD</a><br>
+      <a href="http://www.freebsd.org/">www.freebsd.org</a> </td>
+    <td bgcolor="#eeddcc"> 
+      <p><a href="http://hpux.cs.utah.edu/">hpux.cs.utah.edu</a></p>
+      <p><a href="http://hpux.connect.org.uk/">hpux.connect.org.uk</a></p>    </td>
+    <td bgcolor="#eeddcc"> 
+      <p><a href="http://freeware.sgi.com/">freeware.sgi.com</a><a
+ href="http://www.sgi.com/fun/"><br>
+        www.sgi.com/fun</a><br>
+        <a href="http://nekochan.net/">nekochan.net</a></p>    </td>
+    <td bgcolor="#eeddcc"><a href="http://www.linux.org/">www.linux.org</a><br>
+      <a href="http://linux.tucows.com/">linux.tucows.com</a><br>
+      <a href="http://sourceforge.net/">sourceforge.net</a><br>
+      <a href="http://rpmfind.net/">rpmfind.net</a><br>
+      (deb) <a href="http://ftp.debian.org/">ftp.debian.org</a><br>
+      (deb) <a href="http://packages.debian.org/">packages.debian.org</a><br>
+      <em>(gen)</em><a href="http://packages.gentoo.org/">packages.gentoo.org</a><sup><a href="#note3">3</a></sup><br>
+      <em>(gen)</em><a href="http://gentoo-portage.com/">gentoo-portage.com</a><sup><a href="#note3">3</a></sup> 
+</a><br>
+<em>(md)</em><a href="http://easyurpmi.zarb.org/">easyurpmi.zarb.org</a><br></td>
+    <td bgcolor="#eeddcc"> 
+      <p><a href="http://fink.sourceforge.net/">fink.sourceforge.net</a></p>
+      <p><a href="http://darwinports.opendarwin.org/">darwinports.opendarwin<br>
+        .org</a></p>
+      <p><a href="http://darwinports.com/">darwinports.com</a></p>    </td>
+    <td bgcolor="#eeddcc">?</td>
+    <td bgcolor="#eeddcc"><p><a
+ href="ftp://ftp.netbsd.org/pub/NetBSD/packages/">ftp://ftp.netbsd.org/pub/<br>
+      NetBSD/packages</a></p>
+      <p><a href="ftp://ftp.NetBSD.org/
+pub/pkgsrc/">ftp://ftp.NetBSD.org/<br>
+      pub/pkgsrc</a></p></td>
+    <td bgcolor="#eeddcc"><a
+ href="ftp://ftp.openbsd.org/pub/OpenBSD/%3Cversion%3E/packages/">ftp://ftp.openbsd.org/<br>
+      pub/OpenBSD/&lt;version&gt;/<br>
+      packages</a></td>
+    <td bgcolor="#eeddcc"><A href="http://data.mobach.nl/sinix/" EUDORA="AUTOURL">data.mobach.nl/sinix</A></td>
+    <td bgcolor="#eeddcc"><a
+ href="http://www.caldera.com/skunkware/">www.caldera.com/<br>
+      skunkware</a></td>
+    <td bgcolor="#eeddcc"><a
+ href="http://www.sunfreeware.com/">www.sunfreeware.com</a><br>
+      <a href="http://www.blastwave.org/">www.blastwave.org</a></td>
+    <td bgcolor="#eeddcc">?</td>
+    <td bgcolor="#eeddcc"><a
+ href="http://www.tru64unix.compaq.com/demos/">www.tru64unix.compaq.com/<br>
+      demos</a><br>
+      <a href="http://tpegsrvr.zk3.dec.com/freeware/tbl_packages.html">tpegsrvr.zk3.dec.com/<br>
+      freeware/tbl_packages.html</a></td>
+    <td bgcolor="#eeddcc">?</td>
+    <td bgcolor="#eeddcc">?</td>
+    <td bgcolor="#eeddcc"><b>precompiled binaries of GPLware and freeware</b></td>
+  </tr>
+  <tr> 
+    <td bgcolor="#eeddcc"><b>C compiler</b>&nbsp;</td>
+    <td bgcolor="#eeddcc">/usr/ibmcxx/bin/cc <br>
+      <a href="http://www-306.ibm.com/software/awdtools/caix/">/usr/vac/bin/cc</a> <i>($)</i></td>
+    <td bgcolor="#eeddcc">cc<br>
+      /usr/local/gnu/gcc</td>
+    <td bgcolor="#eeddcc">/usr/sde/default/usr/bin/cc <br>
+      gcc </td>
+    <td bgcolor="#eeddcc">/usr/bin/cc <i>(gcc)<br>
+    </i>/usr/bin/clang<i> <em>(9.0+)</em></i></td>
+    <td bgcolor="#eeddcc">/opt/softbench/bin/cc ($)<br>
+      /bin/cc <i>(9)</i> <br>
+      /usr/bin/cc <i>(10+; not necessarily ANSI; kernel builder only)</i></td>
+    <td bgcolor="#eeddcc">/opt/MIPSpro/<br>
+      &nbsp;bin/cc ($)<br>
+      /usr/bin/cc</td>
+    <td bgcolor="#eeddcc">cc<br>
+      gcc</td>
+    <td bgcolor="#eeddcc">/usr/bin/cc (gcc)</td>
+    <td bgcolor="#eeddcc">/usr/bin/cc<br>
+      <i>(Metaware)</i> </td>
+    <td bgcolor="#eeddcc">&nbsp;/usr/bin/cc<i> (gcc)</i></td>
+    <td bgcolor="#eeddcc">&nbsp;/usr/bin/cc</td>
+    <td bgcolor="#eeddcc">/usr/bin/cc</td>
+    <td bgcolor="#eeddcc">/usr/bin/cc</td>
+    <td bgcolor="#eeddcc">/opt/SUNWspro/<br>
+      &nbsp;bin/cc<sup><a href="#note2">2</a></sup></td>
+    <td bgcolor="#eeddcc">/usr/bin/cc</td>
+    <td bgcolor="#eeddcc">/usr/bin/cc </td>
+    <td bgcolor="#eeddcc">/usr/bin/cc</td>
+    <td bgcolor="#eeddcc">/opt/ctl/bin/cc</td>
+    <td bgcolor="#eeddcc"><b>C compiler</b>&nbsp;</td>
+  </tr>
+  <tr> 
+    <td bgcolor="#eeddcc"><b>show patch level<br>
+      and/or patches </b></td>
+    <td bgcolor="#eeddcc">instfix -ivq<br>
+      oslevel -s</td>
+    <td bgcolor="#eeddcc">?</td>
+    <td bgcolor="#eeddcc">what /dgux</td>
+    <td bgcolor="#eeddcc">uname -a</td>
+    <td bgcolor="#eeddcc">swm list <em>(11.31+)</em><br>
+      swlist -l product |<br>
+      grep PH<i>someString</i></td>
+    <td bgcolor="#eeddcc"> 
+      <p>versions -b | grep patch<br>
+        uname -R <i>(6.5+)</i></p>    </td>
+    <td bgcolor="#eeddcc"><i>(rh) </i>rpm -q<br>
+      <i>(rh)</i> cat /proc/version<br>
+      <em>(rh)</em> cat /etc/redhat-release<br>
+      <i>(deb)</i> dpkg -s</td>
+    <td bgcolor="#eeddcc">sw_vers<br>
+      Apple:About This Mac<br>
+      ls /Library/Receipts<br>
+      uname -a<br>
+      lsbom<br>
+      cat /System/Library/<br>
+      CoreServices/<br>
+      SystemVersion.plist </td>
+    <td bgcolor="#eeddcc">pkginfo -l</td>
+    <td bgcolor="#eeddcc">cat /kern/version<br>
+      uname -a<br>
+      /etc/release </td>
+    <td bgcolor="#eeddcc">sysctl -n kern.version</td>
+    <td bgcolor="#eeddcc">uname -a<br>
+      pkginfo | grep EKS</td>
+    <td bgcolor="#eeddcc">swconfig -P</td>
+    <td bgcolor="#eeddcc">showrev -p<br>
+      prodreg (2.6+)<br>
+      patchadd -p<br>
+      cat /etc/release</td>
+    <td bgcolor="#eeddcc">showrev -p<br>
+      <i>(if you're lucky)</i> </td>
+    <td bgcolor="#eeddcc">dupatch -track -type kit<br>
+      dupatch -track -type patch<br>
+      setld -i | grep <i>patchname<br>
+      </i>sizer -vB</td>
+    <td bgcolor="#eeddcc">?</td>
+    <td bgcolor="#eeddcc">?</td>
+    <td bgcolor="#eeddcc"><b>show patch level<br>
+      and/or patches </b></td>
+  </tr>
+  <tr> 
+    <td bgcolor="#eeddcc"><strong>patch tool</strong>&nbsp;</td>
+    <td bgcolor="#eeddcc">installp<br>
+      smitty update_all </td>
+    <td bgcolor="#eeddcc">?</td>
+    <td bgcolor="#eeddcc">dg_sysreport -p patches</td>
+    <td bgcolor="#eeddcc"><p>csup <i>(6.2+)</i><br>
+    freebsd-update <em>(7+)</em></p>
+      <p>cvsup <em>or</em> cvs <em>to update,<br>
+      then rebuild</em></p></td>
+    <td bgcolor="#eeddcc">update <i>(9)</i><br>
+      swinstall<i> (10+)</i></td>
+    <td bgcolor="#eeddcc">inst<br>
+      swmgr </td>
+    <td bgcolor="#eeddcc">apt-get update<br>
+      apt-get upgrade<br>
+      <i>(rh)</i> up2date<br>
+      <i>(rh)</i> yum update<br>
+      <i>(md)</i> urpmi</td>
+    <td bgcolor="#eeddcc">System Preferences / Software Update<br>
+      softwareupdate </td>
+    <td bgcolor="#eeddcc">pkgadd<br>
+      pkgplus</td>
+    <td bgcolor="#eeddcc">cvs<br>
+      patch </td>
+    <td bgcolor="#eeddcc">cvs<br>
+      cvsup<br>
+      sup<br>
+      cvsync<br>
+      patch<br>
+      pkg_add</td>
+    <td bgcolor="#eeddcc">pkgadd<br>
+      sysadm</td>
+    <td bgcolor="#eeddcc">pkgadd; pkgrm </td>
+    <td bgcolor="#eeddcc">installpatch<i> (2.5.1-)</i><br>
+      patchadd<i> (2.6+)</i><br>
+      pkgadd; pkgrm <br>
+      /usr/sadm/bin/smpatch <i>(9+)</i> <br>    </td>
+    <td bgcolor="#eeddcc">n/a</td>
+    <td bgcolor="#eeddcc">setld -i<br>
+      dupatch</td>
+    <td bgcolor="#eeddcc">? </td>
+    <td bgcolor="#eeddcc">?</td>
+    <td bgcolor="#eeddcc"><strong>patch tool</strong>&nbsp;</td>
+  </tr>
+  <tr> 
+    <td bgcolor="#eeddcc"><b>configure/show <br>
+      runtime linking<br>
+      <a href="http://fortran-2000.com/ArnaudRecipes/sharedlib.html">fortran-2000.com/<br>
+      ArnaudRecipes/<br>
+      sharedlib.html</a> </b></td>
+    <td bgcolor="#eeddcc">dump -H<br>
+      ldd </td>
+    <td bgcolor="#eeddcc">?</td>
+    <td bgcolor="#eeddcc">?</td>
+    <td bgcolor="#eeddcc">ldd<br>
+      ldconfig<br>
+      kldstat </td>
+    <td bgcolor="#eeddcc">chatr<br>
+      ldd <i>(11+)<br>
+      </i>kmadmin</td>
+    <td bgcolor="#eeddcc">ldd<br>
+      rld<br>
+      _RLD_LIST</td>
+    <td bgcolor="#eeddcc">ldconfig<br>
+      ldd<br>
+      lsmod </td>
+    <td bgcolor="#eeddcc">otool -L</td>
+    <td bgcolor="#eeddcc">ldd<br>
+      ldconfig </td>
+    <td bgcolor="#eeddcc">ldd<br>
+      nm<br>
+      ldconfig </td>
+    <td bgcolor="#eeddcc">ldd<br>
+      ldconfig </td>
+    <td bgcolor="#eeddcc">ldd</td>
+    <td bgcolor="#eeddcc">?</td>
+    <td bgcolor="#eeddcc">crle<br>
+      ldd<br>
+      pldd<br>
+      modinfo<br>
+      LD_PRELOAD</td>
+    <td bgcolor="#eeddcc">ldd</td>
+    <td bgcolor="#eeddcc">odump -Dl<br>
+      ldd</td>
+    <td bgcolor="#eeddcc">?</td>
+    <td bgcolor="#eeddcc">?</td>
+    <td bgcolor="#eeddcc"><b>configure/show <br>
+      runtime linking<br>
+      <a href="http://fortran-2000.com/ArnaudRecipes/sharedlib.html">fortran-2000.com/<br>
+      ArnaudRecipes/<br>
+      sharedlib.html</a> </b></td>
+  </tr>
+  <tr> 
+    <td bgcolor="#eeddcc"><b>link library path</b></td>
+    <td bgcolor="#eeddcc">$LIBPATH</td>
+    <td bgcolor="#eeddcc">?</td>
+    <td bgcolor="#eeddcc">$LIBPATH</td>
+    <td bgcolor="#eeddcc">$LD_LIBRARY_PATH</td>
+    <td bgcolor="#eeddcc">$LD_LIBRARY_PATH<br>
+      <i>(64-bit)</i> <br>
+      $SHLIB_PATH<br>
+      <i>(32- or 64-bit)</i> </td>
+    <td bgcolor="#eeddcc">$LD_LIBRARY_PATH<br>
+      $RLD*_PATH </td>
+    <td bgcolor="#eeddcc">$LD_LIBRARY_PATH<br>
+      /etc/ld.so.conf </td>
+    <td bgcolor="#eeddcc"> 
+      <p>$DYLD_LIBRARY_PATH<br>
+        man dyld</p>    </td>
+    <td bgcolor="#eeddcc">$LD_LIBRARY_PATH</td>
+    <td bgcolor="#eeddcc">$LD_LIBRARY_PATH<br>
+      /etc/ld.so.conf </td>
+    <td bgcolor="#eeddcc">$LD_LIBRARY_PATH</td>
+    <td bgcolor="#eeddcc">$LD_LIBRARY_PATH</td>
+    <td bgcolor="#eeddcc">?</td>
+    <td bgcolor="#eeddcc">$LD_LIBRARY_PATH<br>
+      <i>(7+ deprecated in favor of crle)</i></td>
+    <td bgcolor="#eeddcc">$LD_LIBRARY_PATH</td>
+    <td bgcolor="#eeddcc">$LD_LIBRARY_PATH</td>
+    <td bgcolor="#eeddcc">?</td>
+    <td bgcolor="#eeddcc">$LDPATH</td>
+    <td bgcolor="#eeddcc"><b>link library path</b></td>
+  </tr>
+  <tr> 
+    <td bgcolor="#eeddcc"><strong>tracing utility</strong>&nbsp;</td>
+    <td bgcolor="#eeddcc">probevue <em>(6+)</em><br>
+      trace<br>
+      syscalls<br>
+      truss<br>
+      watch </td>
+    <td bgcolor="#eeddcc">?</td>
+    <td bgcolor="#eeddcc">?=dg_strace<br>
+      <i>(&gt;=4.20MU06)</i> </td>
+    <td bgcolor="#eeddcc">ktrace<br>
+      truss<br>
+      dtrace <em>(8+)</em></td>
+    <td bgcolor="#eeddcc">caliper fprof<br>
+      caliper ktrace<br>
+      trace <i>(freeware)<br>
+      </i>tusc <i>(11+, freeware)</i> </td>
+    <td bgcolor="#eeddcc">par<br>
+      prfstat<br>
+      <a href="http://sourceware.org/systemtap/documentation.html">SystemTap</a> <em>(freeware)</em> <br>    </td>
+    <td bgcolor="#eeddcc"> 
+      <p>strace<br>
+        ltrace </p>    </td>
+    <td bgcolor="#eeddcc">ktrace; kdump <em>(&lt;=10.4)<br>
+    </em>dtruss; dtrace <em>(&gt;=10.5)</em><br>
+      fs_usage </td>
+    <td bgcolor="#eeddcc">truss</td>
+    <td bgcolor="#eeddcc">ktrace<br>
+      ktruss<br>
+      kdump </td>
+    <td bgcolor="#eeddcc">ktrace<br>
+      kdump<br>
+      systrace</td>
+    <td bgcolor="#eeddcc">truss<br>
+      scstat</td>
+    <td bgcolor="#eeddcc">truss</td>
+    <td bgcolor="#eeddcc"> 
+      <p>truss<br>
+        sotruss<br>
+        dtrace (10+)</p>    </td>
+    <td bgcolor="#eeddcc">trace</td>
+    <td bgcolor="#eeddcc">trace <br>
+      truss</td>
+    <td bgcolor="#eeddcc">? </td>
+    <td bgcolor="#eeddcc">cdbx<br>
+      jumptrace </td>
+    <td bgcolor="#eeddcc"><strong>tracing utility</strong>&nbsp;</td>
+  </tr>
+  <tr> 
+    <td bgcolor="#eeddcc"><b>define user defaults</b></td>
+    <td bgcolor="#eeddcc">/etc/security/<br>
+      mkuser.default<br>
+      /etc/environment </td>
+    <td bgcolor="#eeddcc">/etc/profile<br>
+      /usr/lib/skel</td>
+    <td bgcolor="#eeddcc">admuser -o set</td>
+    <td bgcolor="#eeddcc">/etc/login.conf</td>
+    <td bgcolor="#eeddcc">/etc/default<br>
+      /etc/PATH<br>
+      /etc/MANPATH<br>
+      /etc/default/* </td>
+    <td bgcolor="#eeddcc" valign="top"> 
+      <p>/etc/default/login<br>
+        /etc/profile <br>
+      </p>    </td>
+    <td bgcolor="#eeddcc" valign="top">/etc/profile<br>
+      /etc/security/<br>
+      /etc/skel/<br>
+      /etc/profile.d/*</td>
+    <td bgcolor="#eeddcc">/usr/bin/defaults</td>
+    <td bgcolor="#eeddcc">/etc/default/login<br>
+      /etc/profile<br>
+      /etc/security/ </td>
+    <td bgcolor="#eeddcc">/etc/profile<br>
+      /etc/skel/*<br>
+      login.conf</td>
+    <td bgcolor="#eeddcc"> 
+      <p>/etc/profile<br>
+        /etc/skel/*<br>
+        /etc/login.conf </p>    </td>
+    <td bgcolor="#eeddcc">/etc/default/login<br>
+      /etc/profile<br>
+      $HOME/.profile </td>
+    <td bgcolor="#eeddcc">?</td>
+    <td bgcolor="#eeddcc">/etc/default/login<br>
+      /etc/profile<br>
+      /etc/security/ </td>
+    <td bgcolor="#eeddcc">/etc/profile</td>
+    <td bgcolor="#eeddcc">/etc/skel<br>
+      /etc/profile </td>
+    <td bgcolor="#eeddcc">/etc/skel<br>
+      /etc/profile</td>
+    <td bgcolor="#eeddcc">udbgen<br>
+      nu scripts</td>
+    <td bgcolor="#eeddcc"><b>define user defaults</b></td>
+  </tr>
+  <tr> 
+    <td bgcolor="#eeddcc"><b>csh global .login</b></td>
+    <td bgcolor="#eeddcc">/etc/csh.login</td>
+    <td bgcolor="#eeddcc">?</td>
+    <td bgcolor="#eeddcc">?</td>
+    <td bgcolor="#eeddcc">/etc/csh.login</td>
+    <td bgcolor="#eeddcc">/etc/csh.login</td>
+    <td bgcolor="#eeddcc">/etc/cshrc</td>
+    <td bgcolor="#eeddcc">/etc/csh.login</td>
+    <td bgcolor="#eeddcc">/etc/csh.login</td>
+    <td bgcolor="#eeddcc">/etc/.login</td>
+    <td bgcolor="#eeddcc">/etc/csh.login</td>
+    <td bgcolor="#eeddcc">/etc/csh.login</td>
+    <td bgcolor="#eeddcc">?</td>
+    <td bgcolor="#eeddcc">?</td>
+    <td bgcolor="#eeddcc">/etc/.login</td>
+    <td bgcolor="#eeddcc">?</td>
+    <td bgcolor="#eeddcc">/etc/csh.login</td>
+    <td bgcolor="#eeddcc">?</td>
+    <td bgcolor="#eeddcc">/etc/login</td>
+    <td bgcolor="#eeddcc"><b>csh global .login</b></td>
+  </tr>
+  <tr> 
+    <td bgcolor="#eeddcc"><b>default syslog and messages</b></td>
+    <td bgcolor="#eeddcc">/var/adm/syslog<br>
+      /var/adm/messages </td>
+    <td bgcolor="#eeddcc">?</td>
+    <td bgcolor="#eeddcc">/var/adm/messages</td>
+    <td bgcolor="#eeddcc">/var/log/messages</td>
+    <td bgcolor="#eeddcc">/var/adm/syslog/syslog.log<br>
+      /var/adm/sulog<br>
+      /var/spool/mqueue/syslog</td>
+    <td bgcolor="#eeddcc">/var/adm/SYSLOG<br>
+      /var/adm/sulog </td>
+    <td bgcolor="#eeddcc">/var/log/syslog<br>
+      /var/log/messages<br>
+      /usr/adm/messages <br>
+      /var/log/maillog </td>
+    <td bgcolor="#eeddcc">/var/log/system.log</td>
+    <td bgcolor="#eeddcc">/var/adm/streams<br>
+      /var/adm/usererr<br>
+      /etc/.osm </td>
+    <td bgcolor="#eeddcc">/var/log/messages</td>
+    <td bgcolor="#eeddcc">/var/log/messages</td>
+    <td bgcolor="#eeddcc">/var/adm/log/messages</td>
+    <td bgcolor="#eeddcc">/usr/adm/syslog<br>
+      /var/adm/log/osmlog </td>
+    <td bgcolor="#eeddcc"><p>/var/adm/messages<br>
+      /var/log/syslog<br>
+      <a href="http://softpanorama.org/Logs/solaris_logs.shtml">softpanorama.org/Logs/solaris_logs.shtml</a><br>
+    </p>      </td>
+    <td bgcolor="#eeddcc"> 
+      <p>/var/adm/messages</p>
+      <p>/var/log/syslog <i>(sendmail)</i></p>    </td>
+    <td bgcolor="#eeddcc"><i>(4.x+) </i>/var/adm/messages<br>
+      /var/adm/syslog.dated (kern, auth, daemon, lpr, syslog, user)<br>
+      /var/adm/binary.errlog </td>
+    <td bgcolor="#eeddcc">/var/adm/messages<br>
+      /var/adm/syslog.dated (kern, auth, daemon, lpr, syslog, user)<br>
+      /var/adm/binary.errlog</td>
+    <td bgcolor="#eeddcc">/usr/adm/messages</td>
+    <td bgcolor="#eeddcc"><b>default syslog and messages</b></td>
+  </tr>
+  <tr> 
+    <td bgcolor="#eeddcc"><strong>system error reporting 
+      tool</strong>&nbsp;</td>
+    <td bgcolor="#eeddcc">errpt</td>
+    <td bgcolor="#eeddcc">errpt</td>
+    <td bgcolor="#eeddcc">admsyslog -o report</td>
+    <td bgcolor="#eeddcc">dmesg<br>
+      send-pr </td>
+    <td bgcolor="#eeddcc">evmshow <em>(11.31+)</em><br>
+      smh <em>(11.31+)</em><br>
+        dmesg<br>
+      sysdiag (<i>9 and early10)</i><br>
+      stm/cstm/mstm/xstm <i>(10.20+)<br>
+      </i>EMS<i> (from support CD)</i></td>
+    <td bgcolor="#eeddcc">sysmon<br>
+      amsyslog<br>
+      availmon<br>
+      eventmond<br>
+      imdmonitor<br>
+      syserrpanel </td>
+    <td bgcolor="#eeddcc"> 
+      <p>dmesg</p>
+      <i>(deb)</i> reportbug</td>
+    <td bgcolor="#eeddcc">Console<br>
+      /var/log/crash.log, dmesg</td>
+    <td bgcolor="#eeddcc">odm<br>
+      errpt </td>
+    <td bgcolor="#eeddcc">dmesg<br>
+      cat /kern/msgbuf<br>
+      send-pr</td>
+    <td bgcolor="#eeddcc">dmesg<br>
+      sendbug</td>
+    <td bgcolor="#eeddcc">sysadm<br>
+      log3<br>
+      WebSysAdmin</td>
+    <td bgcolor="#eeddcc">dmesg</td>
+    <td bgcolor="#eeddcc">prtdiag</td>
+    <td bgcolor="#eeddcc">dmesg</td>
+    <td bgcolor="#eeddcc"><i>(4.x) </i>uerf; dia <i>(DECevent)<br>
+      (5.x) (System errors)</i> EVM (evmget; evmshow)<br>
+      <i>(Hardware errors)</i> dia; ca <i>(Compqaq analyze)</i></td>
+    <td bgcolor="#eeddcc">uerf</td>
+    <td bgcolor="#eeddcc">errpt</td>
+    <td bgcolor="#eeddcc"><strong>system error reporting 
+      tool</strong>&nbsp;</td>
+  </tr>
+  <tr> 
+    <td bgcolor="#eeddcc"><b>performance monitoring</b></td>
+    <td bgcolor="#eeddcc"> 
+      <p><a
+ href="ftp://ftp.software.ibm.com/aix/tools/perftools/perfpmr/">ftp://ftp.software.ibm.com/<br>
+        aix/tools/perftools/perfpmr</a></p>
+      <p>vmstat; iostat; sar; filemon; topas; trace; svmon; netpmon;<br>
+        proctree
+      </p>    </td>
+    <td bgcolor="#eeddcc">?</td>
+    <td bgcolor="#eeddcc">sar<br>
+      netstat<br>
+      uustat </td>
+    <td bgcolor="#eeddcc">fstat; nfsstat; systat; vmstat; netstat; 
+      uustat; top; iostat;<br>
+      gstat</td>
+    <td bgcolor="#eeddcc">glance<br>
+      gpm<br>
+      caliper<br>
+      top; sar; vmstat;<br>
+      iostat; nfsstat; netstat;<br>
+      uustat; Glance<i>($)<br>
+      </i>ptree<i> (11.31+) </i></td>
+    <td bgcolor="#eeddcc">pcp; dkstat; pmkstat;<br>
+      sar; osview; gr_osview;<br>
+      ecstats; linkstat; netstat;<br>
+      nfsstat; nfsvis; nodevis;<br>
+      routervis; nstats; top</td>
+    <td bgcolor="#eeddcc">vmstat<br>
+      procinfo -D<br>
+      top<br>
+      htop<br>
+      pstree</td>
+    <td bgcolor="#eeddcc">vm_stat; nfsstat;<br>
+      fs_usage; sc_usage;<br>
+      top<br>
+      Activity Monitor <i>(10.3+)<br>
+      </i>Process Viewer<i> (10.2-)</i></td>
+    <td bgcolor="#eeddcc">sar; pinfo -v;<br>
+      modstat; netstat;<br>
+      nfsstat; pppstat;<br>
+      smtpstat; snmpstat;<br>
+      uustat; top<br>    </td>
+    <td bgcolor="#eeddcc">iostat; netstat; systat;<br>
+      vmstat; top; fstat;<br>
+      nfsstat</td>
+    <td bgcolor="#eeddcc">fstat; iostat; <br>
+      netstat;
+      nfsstat; pstat; <br>
+      systat; top; <br>
+      vmstat; </td>
+    <td bgcolor="#eeddcc">vmstat; mpstat; dkstat;<br>
+      sar; netstat; scstat</td>
+    <td bgcolor="#eeddcc">sar</td>
+    <td bgcolor="#eeddcc"> 
+      <p>sar; iostat; kstat;<br>
+        mpstat; netstat; nfsstat;<br>
+        prstat; trapstat; vmstat; ptree<br>
+      </p>    </td>
+    <td bgcolor="#eeddcc">iostat; netstat; vmstat</td>
+    <td bgcolor="#eeddcc">iostat; nfsstat; vmstat<br>
+      /usr/opt/sv4b/bin/sar<br>
+      monitor </td>
+    <td bgcolor="#eeddcc">iostat; nfsstat; vmstat<br>
+      /usr/opt/sv4b/bin/sar</td>
+    <td bgcolor="#eeddcc"> 
+      <p>sar; xsar; tsar; xsam;<br>
+        xscc; xns; xnetmon;<br>
+        nfsstat; perfmon; ja;<br>
+        mppview; xmppview;<br>
+        sam; csam</p>    </td>
+    <td bgcolor="#eeddcc"><b>performance monitoring</b></td>
+  </tr>
+  <tr bgcolor="#eeddcc"> 
+    <td><b>match process to file or port</b></td>
+    <td>procfiles<i> (5.2+, files only)</i></td>
+    <td>?</td>
+    <td>fuser</td>
+    <td>      sockstat</td>
+    <td>lsof<br>
+      fuser </td>
+    <td>fuser</td>
+    <td>lsof<br>
+      netstat -atup</td>
+    <td>lsof</td>
+    <td>fuser</td>
+    <td>fstat<br>
+      sockstat</td>
+    <td>fstat</td>
+    <td>fuser</td>
+    <td>?</td>
+    <td>fuser<br>
+      lsof<sup><a href="#note2">2</a><br>
+      pfiles </sup></td>
+    <td>?</td>
+    <td>?</td>
+    <td>?</td>
+    <td>?</td>
+    <td><b>match process to file or port</b></td>
+  </tr>
+  <tr bgcolor="#eeddcc">
+    <td><strong>collect various logs</strong></td>
+    <td>?</td>
+    <td>?</td>
+    <td>?</td>
+    <td>?</td>
+    <td>?</td>
+    <td>?</td>
+    <td><em>(rh)</em>sysreport; sosreport</td>
+    <td>?</td>
+    <td>?</td>
+    <td>?</td>
+    <td>?</td>
+    <td>?</td>
+    <td>?</td>
+    <td>/opt/SUNWexplo/bin/explorer</td>
+    <td>?</td>
+    <td>?</td>
+    <td>?</td>
+    <td>?</td>
+    <td><strong>collect various logs</strong></td>
+  </tr>
+  <tr bgcolor="#eeddcc"> 
+    <td><b>X pop-up</b></td>
+    <td>/usr/dt/bin/dterror.ds</td>
+    <td>?</td>
+    <td>?</td>
+    <td>/usr/local/bin/xmessage</td>
+    <td>/usr/dt/bin/dterror.ds</td>
+    <td>/usr/bin/X11/xconfirm</td>
+    <td>/usr/X11R6/bin/xmessage</td>
+    <td>osascript -e 'tell application &quot;Finder&quot; to display dialog &quot;<em>msg</em>&quot;'</td>
+    <td>?</td>
+    <td>xmessage</td>
+    <td>/usr/X11R6/bin/xmessage</td>
+    <td>?</td>
+    <td>?</td>
+    <td>/usr/dt/bin/dterror.ds</td>
+    <td>?</td>
+    <td>?</td>
+    <td>?</td>
+    <td>?</td>
+    <td><b>X pop-up</b></td>
+  </tr>
+  <tr> 
+    <td align="center"><a name="doc"></a><strong><a href="http://en.wikipedia.org/wiki/Category:Unix_variants">Wikipedia</a></strong>&nbsp;</td>
+    <td align="center"><b><a href="http://en.wikipedia.org/wiki/IBM_AIX_%28operating_system%29">AIX</a></b></td>
+    <td align="center"><strong><a href="http://en.wikipedia.org/wiki/A/UX">A/UX</a></strong></td>
+    <td align="center"><b><a href="http://en.wikipedia.org/wiki/DG/UX">DG/UX</a></b></td>
+    <td align="center"><b><a href="http://en.wikipedia.org/wiki/FreeBSD">FreeBSD</a></b></td>
+    <td align="center"><b><a href="http://en.wikipedia.org/wiki/HP/UX">HP-UX</a></b></td>
+    <td align="center"><b><a href="http://en.wikipedia.org/wiki/IRIX">IRIX</a></b></td>
+    <td align="center"><strong><a href="http://en.wikipedia.org/wiki/Linux">Linux</a><br>
+      </strong></td>
+    <td align="center"><b><a href="http://en.wikipedia.org/wiki/Mac_OS_X">Mac OS X</a></b></td>
+    <td align="center"><b><a href="http://en.wikipedia.org/wiki/Teradata">NCR Unix</a></b></td>
+    <td align="center"><strong><a href="http://en.wikipedia.org/wiki/NetBSD">NetBSD</a></strong></td>
+    <td align="center"><strong><a href="http://en.wikipedia.org/wiki/OpenBSD">OpenBSD</a></strong></td>
+    <td align="center"><b><a href="http://en.wikipedia.org/wiki/SINIX">Reliant</a></b></td>
+    <td align="center"><b><a href="http://en.wikipedia.org/wiki/SCO_OpenServer">SCO UnixWare</a><br>
+      </b></td>
+    <td align="center"><strong><a href="http://en.wikipedia.org/wiki/Solaris_Operating_System">Solaris</a></strong></td>
+    <td align="center"><strong><a href="http://en.wikipedia.org/wiki/SunOS">SunOS 4</a></strong></td>
+    <td align="center"><strong><a href="http://en.wikipedia.org/wiki/Tru64">Tru64</a><br>
+      </strong></td>
+    <td align="center"><strong><a href="http://en.wikipedia.org/wiki/Ultrix">Ultrix</a></strong></td>
+    <td align="center"><b><a href="http://en.wikipedia.org/wiki/Unicos">UNICOS</a></b></td>
+    <td align="center"><strong><a href="http://en.wikipedia.org/wiki/Category:Unix_variants">Wikipedia</a><a href="http://en.wikipedia.org/wiki/Category:Unix_variants"></a></strong></td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ccffff"><b>FAQs (see also <a
+ href="http://www.faqs.org/">faqs.org</a>)</b></td>
+    <td bgcolor="#ccffff"><a
+ href="http://www.faqs.org/faqs/aix-faq/part1/preamble.html">www.faqs.org/faqs/<br>
+      aix-faq/part1/<br>
+      preamble.html</a></td>
+    <td bgcolor="#ccffff"><a href="http://christtrekker.users.sourceforge.net/doc/aux/faq.html">christtrekker.users.sourceforge.net/<br>
+      doc/aux/faq.html</a></td>
+    <td bgcolor="#ccffff"><a
+ href="http://www-csc.dg.com/csc/dguxfaqs1.asp">www-csc.dg.com/csc/<br>
+      dguxfaqs1.asp</a></td>
+    <td bgcolor="#ccffff"><a
+ href="http://www.freebsd.org/doc/en_US.ISO8859-1/books/faq/">www.freebsd.org/doc/<br>
+      en_US.ISO8859-1/books/faq</a></td>
+    <td bgcolor="#ccffff"><a
+ href="http://www.faqs.org/faqs/hp/hpux-faq/preamble.html">www.faqs.org/faqs/<br>
+      hp/hpux-faq/preamble.html</a></td>
+    <td bgcolor="#ccffff"><a
+ href="http://techpubs.sgi.com/library/tpl/cgi-bin/browse.cgi?coll=0650&amp;db=FAQ">techpubs.sgi.com/library/<br>
+      tpl/cgi-bin/browse.cgi?coll=0650<br>
+      &amp;db=FAQ</a></td>
+    <td bgcolor="#ccffff"> 
+      <p><a href="http://www.linuxdoc.org/FAQ/Linux-FAQ/">www.linuxdoc.org/<br>
+        FAQ/Linux-FAQ</a></p>
+      <p><a href="http://www.debian.org/doc/FAQ/">www.debian.org/doc/<br>
+        FAQ</a></p>    </td>
+    <td bgcolor="#ccffff"> 
+      <p><a href="http://www.darwinfo.org/faq.shtml">www.darwinfo.org/<br>
+        faq.shtml</a></p>
+      <p><a href="http://www.macosxhints.com/">www.macosxhints.com</a></p>    </td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff"><a
+ href="http://www.netbsd.org/docs/">www.netbsd.org/<br>
+      docs</a></td>
+    <td bgcolor="#ccffff"><a
+ href="http://www.openbsd.org/faq/">www.openbsd.org/faq</a></td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff"><a
+ href="http://pcunix.com/SCOFAQ/">pcunix.com/SCOFAQ/</a></td>
+    <td bgcolor="#ccffff"><a
+ href="http://www.faqs.org/faqs/Solaris2/FAQ/">http://opensolaris.org/os/about/faq/<br>
+      www.faqs.org/faqs/Solaris2/<br>
+      FAQ/</a><br>
+      <a href="http://www.faqs.org/faqs/Solaris2/x86/FAQ/">www.faqs.org/faqs/Solaris2/<br>
+      x86/FAQ/ </a><br>
+      <a
+ href="http://www.stokely.com/unix.sysadm.resources/faqs.sun.html">www.stokely.com/<br>
+      unix.sysadm.resources/<br>
+      faqs.sun.html</a> <br>
+      <a href="http://sunhelp.org/">sunhelp.org</a> </td>
+    <td bgcolor="#ccffff"><a
+ href="http://www.faqs.org/faqs/comp-sys-sun-faq/">www.faqs.org/faqs/<br>
+      comp-sys-sun-faq/</a></td>
+    <td bgcolor="#ccffff"><a
+ href="http://www2.tru64.org/faq/tru64_faq.php">www2.tru64.org/faq/<br>
+      tru64_faq.php</a></td>
+    <td bgcolor="#ccffff"><a
+ href="http://www.supelec.fr/decus/faq/faq-ultrix.html">www.supelec.fr/decus/<br>
+      faq/faq-ultrix.html</a></td>
+    <td bgcolor="#ccffff"><a
+ href="http://www.spikynorman.net/">www.spikynorman<br>
+      .net </a></td>
+    <td bgcolor="#ccffff"><b>FAQs (see also <a
+ href="http://www.faqs.org/">faqs.org</a>)</b></td>
+  </tr>
+  <tr>
+    <td bgcolor="#ccffff"><strong>blogs</strong></td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff">&nbsp;</td>
+    <td bgcolor="#ccffff"><a href="http://linuxmoz.com/">linuxmoz.com</a></td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff"><strong>blogs</strong></td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ccffff"><strong>mailing list</strong>&nbsp;</td>
+    <td bgcolor="#ccffff"><a
+ href="mailto:AIX-L@pucc.Princeton.edu">AIX-L@pucc.<br>
+      princeton.edu</a><br>
+      (LISTSERV)</td>
+    <td bgcolor="#ccffff"><em>n/a</em></td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff"><a
+ href="http://lists.freebsd.org/mailman/listinfo">
+lists.freebsd.org/mailman/listinfo</a><br>
+      <a href="www.freebsd.org/handbook/eresources.html#ERESOURCES-MAIL"></a></td>
+    <td bgcolor="#ccffff"><a
+ href="mailto:hpux-admin@dutchworks">hpux-admin@<br>
+      dutchworks.nl</a><br>
+      &nbsp;(majordomo)<br>
+      <a href="http://www.redbooks.ibm.com/redpapers/pdfs/redp0104.pdf">hp-ux-l</a></td>
+    <td bgcolor="#ccffff">? </td>
+    <td bgcolor="#ccffff"> 
+      <p><a href="http://www.linuxmanagers.org/">www.linumanagers<br>
+        .org</a> </p>
+      <p><a href="http://www.linux.org/help/lists.html">www.linux.org/<br>
+        help/lists.html</a> </p>    </td>
+    <td bgcolor="#ccffff"><a
+ href="http://lists.apple.com/">lists.apple.com</a></td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff"><a
+ href="http://www.netbsd.org/MailingLists">www.netbsd.org/<br>
+      MailingLists</a> </td>
+    <td bgcolor="#ccffff"><a
+ href="http://www.openbsd.org/mail.html">www.openbsd.org/<br>
+      mail.html</a> </td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff"><a
+ href="mailto:sunmanagers@sunmanagers.org">sun-managers@sunmanagers<br>
+      .org</a> (majordomo)</td>
+    <td bgcolor="#ccffff"><a
+ href="mailto:sun-managers@sunmanagers.ececs.uc.edu">sun-managers@<br>
+      sunmanagers<br>
+      .ececs.uc.edu<br>
+      </a>(majordomo)</td>
+    <td bgcolor="#ccffff"><a
+ href="mailto:tru64-unix-managers@ornl.gov">tru64-unix-man<br>
+      agers@ornl.gov</a>&nbsp;&nbsp; (majordomo)<br>
+      <a href="http://www.ornl.gov/its/archives/mailing-lists/">http://www.ornl.gov/its/archives/<br>
+      mailing-lists/</a></td>
+    <td bgcolor="#ccffff"><a
+ href="mailto:decstation-managers@ornl.gov">decstation-man<br>
+      agers@ornl.gov</a><br>
+      &nbsp;(majordomo)</td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff"><strong>mailing list</strong>&nbsp;</td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ccffff"><strong>mailing list archives</strong>&nbsp;</td>
+    <td bgcolor="#ccffff"> 
+      <p><a href="http://www.marist.edu/htbin/wlvindex?ADSM-L">www.marist.<br>
+        edu/htbin/wlvindex?<br>
+        ADSM-L</a></p>
+      <p><a href="http://marc.theaimsgroup.com/?l=aix-l&amp;r=1&amp;w=2">marc.theaimsgroup.com/<br>
+        ?l=aix-l&amp;r=1&amp;w=2</a></p>    </td>
+    <td bgcolor="#ccffff"><em>n/a</em></td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff"><a
+ href="http://lists.freebsd.org/mailman/listinfo">lists.freebsd.org/mailman/listinfo</a></td>
+    <td bgcolor="#ccffff"><a
+ href="http://www.dutchworks.nl/htbin/hpsysadmin">www.dutch<br>
+      works.nl/<br>
+      &nbsp;htbin/hpsysadmin</a>&nbsp;</td>
+    <td bgcolor="#ccffff">? </td>
+    <td bgcolor="#ccffff"><a
+ href="http://www.linuxmanagers.org/pipermail/linuxmanagers/">www.linuxmanagers.org/<br>
+      pipermail/linuxmanagers</a><br>
+      <a href="http://lists.debian.org/">lists.debian.org</a></td>
+    <td bgcolor="#ccffff"><a
+ href="http://lists.apple.com/">lists.apple.com</a></td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff"><a
+ href="http://www.netbsd.org/MailingLists">www.netbsd.org/<br>
+      MailingLists</a> </td>
+    <td bgcolor="#ccffff"><a
+ href="http://www.openbsd.org/mail.html">www.openbsd.org/<br>
+      mail.html</a> </td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff"> 
+      <p><a href="http://www.sunmanagers.org/archives.html">www.sunmanagers.org/<br>
+        archives.html</a></p>
+      <p><a href="http://www.latech.edu/sunman.html">www.latech.<br>
+        edu/sunman.html</a></p>    </td>
+    <td bgcolor="#ccffff"><a
+ href="http://www.latech.edu/sunman.html">www.latech.<br>
+      edu/sunman.html</a>&nbsp;</td>
+    <td bgcolor="#ccffff"><a
+ href="http://www-archive.ornl.gov:8000/">www-archive.<br>
+      ornl.gov:8000</a></td>
+    <td bgcolor="#ccffff"><a
+ href="http://www-archive.ornl.gov:8000/">www-archive.<br>
+      ornl.&nbsp;gov:8000</a></td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff"><strong>mailing list archives</strong>&nbsp;</td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ccffff"> 
+      <p><b>man pages</b></p>
+      <p><a href="http://www.freebsd.org/cgi/man.cgi"><b>www.freebsd.org/<br>
+        cgi/man.cgi</b></a></p>    </td>
+    <td bgcolor="#ccffff"><p><a href="http://publib.boulder.ibm.com/infocenter/aix/v6r1/index.jsp?topic=/com.ibm.aix.doc/doc/base/commandsreference.htm">publib.boulder.ibm.com/<br>
+      infocenter/aix/v6r1/index.jsp?<br>
+      topic=/com.ibm.aix.doc/doc/<br>
+      base/commandsreference.htm</a></p>      
+      <a href="http://publib.boulder.ibm.com/infocenter/pseries/v5r3/index.jsp?topic=/com.ibm.aix.doc/infocenter/base/alphabeticallistofcommands.htm"></a></td>
+    <td bgcolor="#ccffff"><em>n/a</em></td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff"><a
+ href="http://man.freebsd.org/">man.freebsd.org<br>
+      </a></td>
+    <td bgcolor="#ccffff"><a href="http://docs.hp.com/en/hpuxman_pages.html">docs.hp.com/en/hpuxman_pages.html<br>
+      hpuxman_pages.html</a></td>
+    <td bgcolor="#ccffff"><a href="http://techpubs.sgi.com/library/tpl/cgi-bin/browse.cgi?coll=&db=man">techpubs.sgi.com/<br>
+      library/tpl/cgi-bin/browse.cgi?<br>
+      coll=&amp;db=man</a></td>
+    <td bgcolor="#ccffff"> 
+      <p><a href="http://www.linuxmanpages.com/">www.linuxmanpages.com/</a></p>
+      <p>Fedora Core 4:<br>
+        <a href="http://linuxcommand.org/superman_pages.php">linuxcommand.org/<br>
+        superman_pages.php</a></p>
+      <p><a href="http://www.tldp.org/docs.html#man">www.tldp.org/docs.html#man</a></p>    </td>
+    <td bgcolor="#ccffff"><A href="http://developer.apple.com/documentation/Darwin/Reference/ManPages/">developer.apple.com/<br>
+      documentation/Darwin/<br>
+      Reference/ManPages</A></td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff"><a href="http://man.netbsd.org/">man.netbsd.org</a></td>
+    <td bgcolor="#ccffff"><a href="http://www.openbsd.org/cgi-bin/man.cgi">www.openbsd.org/cgi-bin/man.cgi</a></td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff"><a href="http|//uw714doc.sco.com/en/Navpages/">uw714doc.sco.com/en/Navpages/</a></td>
+    <td bgcolor="#ccffff"><a href="http://docs.sun.com/app/docs/coll/40.10">docs.sun.com/<br>
+      app/docs/<br>
+      coll/40.10</a></td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff"> 
+      <p><b>man pages</b></p>
+      <p><a href="http://www.freebsd.org/cgi/man.cgi"><b>www.freebsd.org/<br>
+        cgi/man.cgi</b></a></p>    </td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ccffff"><strong>newsgroup(s) and forums<br>
+      <a href="http://groups.google.com/groups?group=comp">groups.google</a> </strong></td>
+    <td bgcolor="#ccffff"><a href="news:comp.unix.aix">comp.unix.aix</a><br>
+      <a href="http://www.thp.uni-duisburg.de/cuaix/cuaix.html">www.thp.uni-duisburg.de/<br>
+      cuaix/cuaix.html</a></td>
+    <td bgcolor="#ccffff"><a href="news:comp.unix.aux">comp.unix.aux</a></td>
+    <td bgcolor="#ccffff"><a href="news:comp.os.aos">comp.os.aos</a></td>
+    <td bgcolor="#ccffff"><a
+ href="news:comp.unix.bsd.freebsd.misc">comp.unix.bsd<br>
+      freebsd.misc</a><br>      <a href="http://forums.freebsd.org/">forums.freebsd.org</a></td>
+    <td bgcolor="#ccffff"><a href="news:comp.sys.hp.hpux">comp.sys.hp.hpux</a>&nbsp;</td>
+    <td bgcolor="#ccffff"><a
+ href="news:comp.sys.sgi.admin">comp.sys.sgi.admin</a>&nbsp;</td>
+    <td bgcolor="#ccffff">comp.os.linux.* (esp .answers)</td>
+    <td bgcolor="#ccffff"><a
+ href="http://groups.google.com/groups?hl=en&amp;lr=&amp;ie=UTF-8&amp;group=comp.sys.mac">comp.sys.mac.*</a></td>
+    <td bgcolor="#ccffff"><a href="news:comp.sys.ncr">comp.sys.ncr</a></td>
+    <td bgcolor="#ccffff"><a
+ href="news:comp.unix.bsd.netbsd.misc">comp.unix.bsd.<br>
+      netbsd.misc</a>&nbsp;</td>
+    <td bgcolor="#ccffff"><a
+ href="news:comp.unix.bsd.openbsd.misc">comp.unix.bsd.<br>
+      openbsd.misc</a><br>
+      <a href="news:lucky.openbsd.misc">lucky.openbsd.misc</a> </td>
+    <td bgcolor="#ccffff"><a
+ href="news:de.comp.os.unix.sinix">de.comp.os.unix.sinix</a></td>
+    <td bgcolor="#ccffff"><a
+ href="news:comp.unix.sco.misc">comp.unix.sco.misc</a></td>
+    <td bgcolor="#ccffff"><a
+ href="news:comp.sys.sun.admin">comp.sys.sun.<br>
+      admin</a>, <a href="news:comp.unix.solaris">comp.unix.solaris</a>&nbsp;</td>
+    <td bgcolor="#ccffff"><a
+ href="news:comp.sys.sun.admin">comp.sys.sun<br>
+      admin</a>&nbsp;</td>
+    <td bgcolor="#ccffff"><a href="news:comp.sys.dec">comp.sys.dec</a>, 
+      <a href="news:comp.unix.tru64">comp.unix.tru64</a></td>
+    <td bgcolor="#ccffff"><a href="news:comp.unix.ultrix">comp.unix.ultrix</a></td>
+    <td bgcolor="#ccffff"><a href="news:comp.unix.cray">comp.unix.cray</a></td>
+    <td bgcolor="#ccffff"> 
+      <p><strong>newsgroup(s)<b> and forums</b></strong><br>
+        <strong><a href="http://groups.google.com/groups?group=comp">groups.google</a></strong></p>    </td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ccffff"><b>user groups</b></td>
+    <td bgcolor="#ccffff"><a
+ href="http://www.userblue.org/">www.userblue.org</a></td>
+    <td bgcolor="#ccffff"><em>n/a</em></td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff"><a
+ href="http://www.freebsd.org/support.html#user">www.freebsd.org/<br>
+      support.html#user</a> </td>
+    <td bgcolor="#ccffff"><a href="http://www.connect-community.org/">connect-community.org</a><br>
+      <a href="http://www.hp-interex.com/">hp-interex.com</a><br>
+      <a href="http://www.encompassus.org/">encompassus.org</a><br>
+      <a href="http://www.hptechnologyforum.com/">hptechnologyforum.com</a><br>
+      <a href="http://forums.itrc.hp.com/">forums.itrc.hp.com</a><br>
+      <a href="http://h21007.www2.hp.com/portal/site/dspp">HP DSPP</a></td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff"><a
+ href="http://www.debianhelp.org/">www.debianhelp.org</a></td>
+    <td bgcolor="#ccffff"><a
+ href="http://www.apple.com/usergroups/">www.apple.com/<br>
+      usergroups</a><br>
+      <a href="http://www.themacintoshguy.com/lists/X.html">www.omnigroup.com/<br>
+      developer/mailinglists<br>
+      www.themacintoshguy.<br>
+      com/lists/X.html </a></td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff"><a
+ href="http://www.netbsd.org/gallery/groups.html">www.netbsd.org/gallery/<br>
+      groups.htm</a>l</td>
+    <td bgcolor="#ccffff"><a href="http://undeadly.org/">undeadly.org</a></td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff"><a href="http://opensolaris.org/os/community/advocacy/usergroups/ug-leaders/">opensolaris.org/os/community/<br>
+      advocacy/usergroups/ug-leaders/</a></td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff"><a
+ href="http://www.decus.org/encompass/">Encompass/DECUS</a></td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff"><a href="http://www.cug.org/">www.cug.org</a><br>
+      <a href="http://www.excray.com/">www.excray.com</a> </td>
+    <td bgcolor="#ccffff"><b>user groups</b></td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ccffff"><b>magazines</b></td>
+    <td bgcolor="#ccffff"> 
+      <p><em>n/a</em></p>    </td>
+    <td bgcolor="#ccffff"><em>n/a</em></td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff"><br>
+<a href="http://daemonnews.org/">daemonnews.org</a><br>
+  <a href="http://bsdmag.org/">bsdmag.org</a>
+  <a href="http://daemonnews.org/"><br>
+    </a><a href="http://freebsdnews.net/">freebsdnews.net</a></td>
+    <td bgcolor="#ccffff"><a
+ href="http://www.hpchronicle.com/">www.hpchronicle.com</a><br>
+      <a href="http://www.interex.org/hpuxusr/">www.interex.org/hpuxusr</a><br>
+      <a href="http://www.hppro.com/">www.hppro.com</a></td>
+    <td bgcolor="#ccffff"><a
+ href="http://www.sgi.com/support/pipeline.html">www.sgi.com/support/<br>
+      pipeline.html</a></td>
+    <td bgcolor="#ccffff"><a
+ href="http://www.linuxjournal.com/">www.linuxjournal.com</a><br>
+      <a href="http://www.linux-mag.com/">www.linux-mag.com</a><br>
+      <a href="http://www.debianplanet.org/">www.debianplanet.org</a> </td>
+    <td bgcolor="#ccffff"><a
+ href="http://www.macworld.com/">www.macworld.com</a><br>
+      <a href="http://www.stepwise.com/">www.stepwise.com</a></td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff"><a
+ href="http://www.daemonnews.com/">www.daemonnews.com</a></td>
+    <td bgcolor="#ccffff"><a href="http://undeadly.org/">undeadly.org</a></td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff"><a
+ href="http://www.sunworld.com/">www.sunworld.com</a><br>
+      <a href="http://sun.com/sun-on-net/itworld/">sun.com/sun-on-net/itworld</a>    </td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff"><a href="http://www.tru64.org/">www.tru64.org</a></td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff"><b>magazines</b></td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ccffff"><b>vendor home page</b></td>
+    <td bgcolor="#ccffff"><a
+ href="http://www.developer.ibm.com/tech/map/aixrm.html">www.developer.ibm.com/<br>
+      tech/map/aixrm.html</a><br>
+      <a href="http://www-941.ibm.com/collaboration/wiki/display/WikiPtype/Home">www-941.ibm.com/<br>
+      collaboration/<br>
+      wiki/display/WikiPtype/Home</a><br>
+      </a></td>
+    <td bgcolor="#ccffff"><em>n/a</em></td>
+    <td bgcolor="#ccffff"> 
+      <p><a href="http://www-csc.dg.com/csc/default.asp">www-csc.dg.com/<br>
+        csc/default.asp</a></p>    </td>
+    <td bgcolor="#ccffff"><a
+ href="http://www.freebsd.org/">www.freebsd.org</a></td>
+    <td bgcolor="#ccffff"><a href="http://hp.com/go/hpux/">hp.com/go/hpux</a></td>
+    <td bgcolor="#ccffff"><a
+ href="http://www.sgi.com/software/software.html#IRIX">www.sgi.com/software/<br>
+      software.html#IRIX</a>&nbsp;</td>
+    <td bgcolor="#ccffff"><a href="http://www.linux.org/">www.linux.org</a><br>
+      <a href="http://www.debian.org/">www.debian.org<br>
+      gentoo.org<br>
+      </a><a href="http://www.redhat.com/">www.redhat.com</a><br>
+      <a href="http://www.debian.org/"></a><em>(SUSE) </em><a href="http://www.novell.com/linux/">www.novell.com/linux</a></td>
+    <td bgcolor="#ccffff"><a href="http://www.apple.com/">www.apple.com</a></td>
+    <td bgcolor="#ccffff"><a href="http://ncr.com/">ncr.com</a><br>
+      <a href="http://teradata.com/">teradata.com</a> </td>
+    <td bgcolor="#ccffff"><a href="http://www.netbsd.org/">www.netbsd.org</a></td>
+    <td bgcolor="#ccffff"><a
+ href="http://www.openbsd.org/">www.openbsd.org</a></td>
+    <td bgcolor="#ccffff"><a
+ href="http://www.fujitsu-siemens.com/">www.fujistu-siemens.com</a></td>
+    <td bgcolor="#ccffff"><a
+ href="http://www.caldera.com/products/openunix">www.caldera.com/<br>
+      products/openunix</a></td>
+    <td bgcolor="#ccffff"><a
+ href="http://www.sun.com/solaris/">sun.com/solaris</a><br>
+      <a href="http://sun.com/bigadmin/">sun.com/bigadmin</a><br>
+      <a href="http://sun.com/developers/support/">sun.com/developers/support</a><br>
+      <a href="http://soldc.sun.com/">soldc.sun.com</a><br>
+      <a href="http://access1.sun.com/">access1.sun.com</a><br>
+      <a href="http://opensolaris.org/">opensolaris.org</a></td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff"><a
+ href="http://www.tru64unix.compaq.com/">www.tru64unix<br>
+      .compaq.com</a></td>
+    <td bgcolor="#ccffff"><a
+ href="http://www.supelec.fr/decus/faq/faq-ultrix.html">www.supelec.fr/decus/<br>
+      faq/faq-ultrix.html</a></td>
+    <td bgcolor="#ccffff"><a href="http://www.cray.com/">www.cray.com</a></td>
+    <td bgcolor="#ccffff"><b>vendor home page</b></td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ccffff"><b>vendor docs and patches 
+      (<i>see also</i> man pages) </b></td>
+    <td bgcolor="#ccffff"> 
+      <p><a href="http://www.redbooks.ibm.com/">www.redbooks.ibm.com</a><br>
+        <a href="http://www.ibm.com/developerworks/aix">www.ibm.com/<br>
+        developerworks/aix</a><br>
+        <a
+ href="http://techsupport.services.ibm.com/server/support?view=pSeries">techsupport.services.<br>
+        ibm.com/<br>
+        server/support?<br>
+        view=pSeries</a></p>      </td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff"><a
+ href="http://www-csc.dg.com/csc/custdocsasp/custdocs2.asp?category=069docs.asp">www-csc.dg.com/csc/<br>
+      custdocsasp/<br>
+      custdocs2.asp?<br>
+      category=069docs.asp</a></td>
+    <td bgcolor="#ccffff"><a
+ href="http://www.freebsd.org/handbook">www.freebsd.org/handbook</a><br>
+      <a href="http://www.freebsd.org/releases/">www.freebsd.org/releases/</a></td>
+    <td bgcolor="#ccffff"> 
+      <p><a href="http://software.hp.com/">software.hp.com<br>
+      </a><a href="http://docs.hp.com/">docs.hp.com</a><a
+ href="http://itrc.hp.com/"><br>
+        itrc.hp.com</a></p>      </td>
+    <td bgcolor="#ccffff"> 
+      <p><a
+ href="http://techpubs.sgi.com/">techpubs.sgi.com</a><br>
+        <a href="http://www.sgi.com/support/patch_intro.html">www.sgi.com/<br>
+        support/patch_intro.html</a><br>
+        <a href="http://support.sgi.com/">support.sgi.com</a><br>
+        relnotes<br>
+        grelnotes </p>    </td>
+    <td bgcolor="#ccffff"> 
+      <p><a
+ href="http://tldp.org/">tldp.org</a></p>
+      <p><a
+ href="http://www.linuxdoc.org/">www.linuxdoc.org/</a><br>
+        <a href="http://rpmfind.net/linux/RPM/">rpmfind.net/linux/RPM</a> </p></td>
+    <td bgcolor="#ccffff"> 
+      <p><a href="http://www.info.apple.com/support/downloads.html">developer.apple.com/<br>
+        darwin<br>
+        www.info.apple.com/<br>
+        support/downloads.html </a><br>
+        <a href="http://www.apple.com/support/security/security.html">www.apple.com/support/<br>
+        security/security.html</a></p>    </td>
+    <td bgcolor="#ccffff"><a
+ href="http://www.info.ncr.com/eCRM-OSHW-BrowseBy-Results.cfm?pl=&amp;PID=&amp;title=&amp;release=&amp;pl=Software%20-%20MP-RAS&amp;sbrn=3">www.info.ncr.com/<br>
+      eCRM-<br>
+      OSHW-Browse<br>
+      By-Results.cfm<br>
+      ?pl=&amp;PID=&amp;title=<br>
+      &amp;release=<br>
+      &amp;pl=Software<br>
+      %20-%20<br>
+      MP-RAS&amp;sbrn=3</a></td>
+    <td bgcolor="#ccffff"><br>
+      <a href="http://www.netbsd.org/Security/">www.netbsd.org/<br>
+      Security</a> </td>
+    <td bgcolor="#ccffff"><p><br>
+        <a href="http://www.openbsd.org/docum.html">www.openbsd.org/<br>
+          docum.html</a></p>
+      <p><a href="http://www.openbsd.org/errata.html">www.openbsd.org/<br>
+        errata.html</a></p>
+      <p><a href="http://www.openbsd.org/security.html">www.openbsd.org/<br>
+      security.html</a></p></td>
+    <td bgcolor="#ccffff"><a
+ href="http://its.siemens.com/lobs/its/its_sc/eks_en/unix_en.htm">service.fujitsu-siemens<br>
+      .com<br>
+      its.siemens.com/lobs/its/<br>
+      its_sc/eks_en/unix_en.htm </a></td>
+    <td bgcolor="#ccffff"><a
+ href="http://www.caldera.com/support/">www.caldera.com/support</a></td>
+    <td bgcolor="#ccffff"><p><a href="http://docs.sun.com/">docs.sun.com</a><br>
+      <a href="http://sunsolve.sun.com/">sunsolve.sun.com</a><br>
+      <a href="http://wikis.sun.com/"></a></p>      </td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff"><a
+ href="http://www.tru64unix.compaq.com/docs/">www.tru64unix<br>
+      .compaq.com/docs</a></td>
+    <td bgcolor="#ccffff">N/A (EOL)</td>
+    <td bgcolor="#ccffff"><a
+ href="http://www.cray.com/craydoc/">www.cray.com/<br>
+      craydoc</a></td>
+    <td bgcolor="#ccffff"><b>vendor docs and patches 
+      (<i>see also</i> man pages)</b></td>
+  </tr>
+  <tr> 
+    <td bgcolor="#ccffff"><b>vendor phone (US)</b></td>
+    <td bgcolor="#ccffff">&nbsp;800-426-7378<br>
+      (800-IBM-SERV) </td>
+    <td bgcolor="#ccffff"><em>(EOL; unsupported) </em></td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff">925-674-0783<br>
+      (FreeBSD Mall) </td>
+    <td bgcolor="#ccffff">800-633-3600</td>
+    <td bgcolor="#ccffff">800-800-4SGI</td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff">1-800-MY-APPLE</td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff">(Germany)<br>
+      +49-5251-80</td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff">800-USA-4SUN</td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff">800-344-4825</td>
+    <td bgcolor="#ccffff">800-344-4825</td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff"><b>vendor phone (US)</b></td>
+  </tr>
+  <tr>
+    <td bgcolor="#ccffff"><strong>wikis</strong></td>
+    <td bgcolor="#ccffff"><a href="http://www.ibm.com/developerworks/wikis/display/WikiPtype/Home">www.ibm.com/developerworks/<br>
+      wikis/display/WikiPtype/Home</a></td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff"><a href="http://wiki.freebsd.org/">wiki.freebsd.org</a></td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff"><a href="http://fedoraproject.org/wiki/Main_Page">fedoraproject.org/<br>
+      wiki/Main_Page</a> <em>(fed)</em><br>
+      <a href="http://susewiki.org">susewiki.org</a> <em>(SUSE)</em></td>
+    <td bgcolor="#ccffff"><a href="http://wiki.osx86project.org/">wiki.osx86project.org</a></td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff"><a href="http://www.openbsd-wiki.org/">www.openbsd-wiki.org</a></td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff"><a href="http://wikis.sun.com/">wikis.sun.com<br>
+    www.big-up.org/menu/wiki/doku.php</a></td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff">?</td>
+    <td bgcolor="#ccffff">?</td>
+	<td bgcolor="#ccffff"><strong>wikis</strong></td>
+  </tr>
+  <tr> 
+    <td align="center"><strong>TASK / OS</strong></td>
+    <td align="center"><strong>AIX</strong></td>
+    <td align="center"><strong>A/UX</strong></td>
+    <td align="center"><strong>DG/UX</strong></td>
+    <td align="center"><strong>FreeBSD</strong></td>
+    <td align="center"><strong>HP-UX</strong></td>
+    <td align="center"><strong>IRIX</strong></td>
+    <td align="center"><strong>Linux</strong></td>
+    <td align="center"><b>Mac OS X</b></td>
+    <td align="center"><b>NCR Unix</b></td>
+    <td align="center"><strong>NetBSD</strong></td>
+    <td align="center"><strong>OpenBSD</strong></td>
+    <td align="center"><b>Reliant</b></td>
+    <td align="center"><b>SCO OpenServer</b></td>
+    <td align="center"><strong>Solaris</strong></td>
+    <td align="center"><strong>SunOS 4</strong></td>
+    <td align="center"><strong>Tru64<br>
+      (Digital Unix, OSF/1)<br>
+      <i>(4) 4.0F/G<br>
+      (5) 5.0A</i> </strong></td>
+    <td align="center"><strong>Ultrix</strong></td>
+    <td align="center"><b>UNICOS</b></td>
+    <td align="center"><strong>OS \ TASK</strong>&nbsp;</td>
+  </tr>
+  </tbody> 
+</table>
+<p><i><b>Footnotes</b></i></p>
+<p><a name="note1">1.</a> In System V-based Unixes, <i>run level</i> relates to booting,
+shutdown, and single-user mode. In BSD, it has to do with security.</p>
+<p><a name="note2">2.</a> Freeware or separately downloadable; not part of the base OS. See the <a href="#freeware">precompiled 
+  binaries task</a> or web search.</p>
+<p><a name="note3">3.</a> Gentoo does not have precompiled packages. It compiles them on your computer. It also has some &quot;overlays&quot; for packages that are not (yet) in the main portage tree. See <a href="http://overlays.gentoo.org/">http://overlays.gentoo.org/</a></p>
+<p><a name="note4">4.</a> <font face="Courier New, Courier, monospace">ioscan -funC disk</font> may be helpful here to determine device path. </p>
+<p><a name="note5">5.</a> Architecture-specific. See <a href="http://www.openbsd.org/cgi-bin/cvsweb/src/distrib/">http://www.openbsd.org/cgi-bin/cvsweb/src/distrib/</a>*/*/install.md
+for  details.</p>
+<hr>
+<p><i><b>Universal Command Guide</b></i> is a large book which covers several 
+  of the OSs in this table.</p>
+<p><b>UnixGuide.net</b> has a similar table covering fewer Unix
+versions and a somewhat different set of tasks. See <a
+ href="http://unixguide.net/cgi-bin/unixguide.cgi">unixguide.net/cgi-bin/unixguide.cgi</a></p>
+<p>Colin Barschel's <strong>Unix Toolbox</strong> <a href="http://cb.vu/unixtoolbox.xhtml">cb.vu/unixtoolbox.xhtml</a> is a wonderfully detailed handbook sorted by task area and giving both commands and config file excerpts for Linux and BSD. </p>
+<p><b>coolcommands is a search engine giving one-line command examples:
+</b><a
+ href="http://www.coolcommands.com/index.php?option=com_cc&amp;Itemid=28">www.coolcommands.com/index.php?option=com_cc&amp;Itemid=28</a></p>
+<p><b>Solaris / HP-UX / FreeBSD / Linux / AIX</b>: <a
+ href="http://www.unixporting.com/quickguide.html">www.unixporting.com/quickguide.html</a></p>
+<p><b>Solaris / HP-UX: </b><a
+ href="http://soldc.sun.com/migration/hpux/migissues/">soldc.sun.com/migration/hpux/migissues/</a>.
+<font size="-1">If that page no longer exists, get an archived version
+from the Internet Archive Wayback Machine at <a
+ href="http://www.archive.org/web/web.php">www.archive.org/web/web.php</a></font></p>
+<p><b>AIX 4.3.3 / Solaris 8</b>: <a
+ href="http://www.redbooks.ibm.com/redpapers/pdfs/redp0104.pdf">www.redbooks.ibm.com/redpapers/pdfs/redp0104.pdf<br>
+</a><strong>AIX 5.1.0 / Solaris 8</strong>: <a href="http://www.ibm.com/servers/aix/products/aixos/whitepapers/aixmapping.html">www.ibm.com/servers/aix/products/aixos/whitepapers/aixmapping.html</a></p>
+<p><strong>Unix / DOS: </strong><a href="http://yolinux.com/TUTORIALS/unix_for_dos_users.html">yolinux.com/TUTORIALS/unix_for_dos_users.html</a></p>
+<p><strong>Unix / TSO mainframe: </strong><a href="http://yolinux.com/TUTORIALS/LinuxTutorialLinuxForMainframers.html">yolinux.com/TUTORIALS/LinuxTutorialLinuxForMainframers.html</a></p>
+<p><b>Unix history time line</b>: <a
+ href="http://www.levenez.com/unix/">www.levenez.com/unix/</a></p>
+<p><strong>Unix cheat sheet:</strong> <a href="http://www.rain.org/~mkummel/unix.html">www.rain.org/~mkummel/unix.html</a></p>
+<p><strong>Unix information:</strong> <a href="http://www.computerhope.com/unix.htm">www.computerhope.com/unix.htm</a></p>
+<p><strong>Unix summary:</strong> <a href="http://www.math.utah.edu/lab/unix/unix-commands.html">www.math.utah.edu/lab/unix/unix-commands.html</a></p>
+<p><strong>Unix tips and tricks</strong>: <a href="http://sysunconfig.net/">sysunconfig.net</a> </p>
+<p>Heiner Steven's <b>AWK dialects page</b>: <a
+ href="http://www.shelldorado.com/articles/awkcompat.html">www.shelldorado.com/articles/awkcompat.html</a></p>
+<p>Ben Zorn's <b>Debugging Tools for Dynamic Storage Allocation and Memory Management</b>: 
+  <a
+ href="http://www.cs.colorado.edu/homes/zorn/public_html/MallocDebug.html">www.cs.colorado.edu/homes/zorn/public_html/MallocDebug.html</a></p>
+<p>Most modern Unixes conform to the <b>POSIX</b> standards: <a href="http://en.wikipedia.org/wiki/POSIX">en.wikipedia.org/wiki/POSIX</a></p>
+<p><a href="http://en.wikipedia.org/wiki/Comparison_of_operating_systems">en.wikipedia.org/wiki/<strong>Comparison_of_operating_systems</strong></a></p>
+<p><a href="http://en.wikipedia.org/wiki/Comparison_of_Linux_distributions">en.wikipedia.org/wiki/<strong>Comparison_of_Linux_distributions</strong></a></p>
+<hr>
+<p><b>USENIX</b>:<b> </b><a href="http://www.usenix.org/">www.usenix.org/</a></p>
+<p><b>USENIX System Administrator's Guild</b>: <a
+ href="http://sage.org/">sage.org/</a></p>
+<p><b>League of Professional System Administrators</b>: <a
+ href="http://lopsa.org/">lopsa.org/</a></p>
+<noscript>
+<center>
+<table bgcolor="gray" border="2" bordercolor="red" cellspacing="0">
+  <tbody>
+    <tr>
+      <td>
+      <table border="0" cellpadding="2" cellspacing="0">
+        <tbody>
+          <tr>
+            <td align="center"><font face="arial" size="-1">This site
+is a member of WebRing. To browse visit <a
+ href="http://ss.webring.com/navbar?f=l;y=bhami;u=10028867">here</a>.</font></td>
+          </tr>
+        </tbody>
+      </table>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</center>
+</noscript>
+<p><i>This page is </i><a href="http://bhami.com/rosetta.html">http://bhami.com/rosetta.html</a> 
+  <i>last updated 2013.10.13. This compilation Copyright © 2000-2013 <a
+ href="mailto:bhami@pobox.com">Bruce Hamilton</a> bhami@pobox.com. Reproduce freely 
+  for personal use. Do not reproduce for commercial purposes. LINK don't copy, 
+  or you will miss updates! Original concept by Pat Wilson. Thanks to Bitt Faulk 
+  and Mårten Svantesson for the improved JavaScript. </i></p>
+
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-988317-1";
+urchinTracker();
+</script>
+</body>
+</html>
