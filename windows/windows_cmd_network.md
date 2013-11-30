@@ -237,33 +237,24 @@ For more information: http://technet.microsoft.com/en-us/library/bb490939.aspx
  * **Note**: Windows XP only.
 
  * **Output**:
-   * <div class="slide" style="cursor: pointer;"> **Windows XP SP3:** Show/Hide ![](images/output.jpg)</div><div class="view"><code>C:\Users\johndoe>netsh diag show all
-
-Default Outlook Express Mail (Not Configured)
-
-Default Outlook Express News (Not Configured)
-
-Internet Explorer Web Proxy (Not Configured)
-
-Loopback (127.0.0.1)
-
-Computer System (OJ-75E3B8CC9475)
-
-Operating System (Microsoft Windows XP Professional)
-
-Version (5.1.2600)
-
-Modems
-
+   * <div class="slide" style="cursor: pointer;"> **Windows XP SP3:** Show/Hide ![](images/output.jpg)</div><div class="view"><code>C:\Users\johndoe>netsh diag show all<br/>
+Default Outlook Express Mail (Not Configured)<br/>
+Default Outlook Express News (Not Configured)<br/>
+Internet Explorer Web Proxy (Not Configured)<br/>
+Loopback (127.0.0.1)<br/>
+Computer System (OJ-75E3B8CC9475)<br/>
+Operating System (Microsoft Windows XP Professional)<br/>
+Version (5.1.2600)<br/>
+Modems<br/>
 Network Adapters
      1. [00000001] VMware Accelerated AMD PCNet Adapter
-     2. [00000010] VMware Accelerated AMD PCNet Adapter
-
+     2. [00000010] VMware Accelerated AMD PCNet Adapter<br/>
 Network Clients
      1. VMware Shared Folders
      2. Microsoft Terminal Services
      3. Microsoft Windows Network
-     4. Web Client Network</code></div>
+     4. Web Client Network
+</code></div>
 
 ### Firewall Control
  * **Command with arguments**: `netsh firewall set opmode [disable|enable]`
@@ -271,30 +262,24 @@ Network Clients
  * **Minimum required version**: Windows Vista.
  * **Output**:
    * <div class="slide" style="cursor: pointer;"> **Windows Vista:** Show/Hide ![](images/output.jpg)</div><div class="view"><code>C:\Users\johndoe>netsh firewall set opmode enable
-Ok.
-
+Ok.<br/>
 C:\Users\johndoe>netsh firewall set opmode disable
 Ok.</code></div>
-   * <div class="slide" style="cursor: pointer;"> **Windows 7:** Show/Hide ![](images/output.jpg)</div><div class="view"><code>C:\Users\johndoe>netsh firewall set opmode enable
-
+   * <div class="slide" style="cursor: pointer;"> **Windows 7:** Show/Hide ![](images/output.jpg)</div><div class="view"><code>C:\Users\johndoe>netsh firewall set opmode enable<br/>
 IMPORTANT: Command executed successfully.
 However, "netsh firewall" is deprecated;
 use "netsh advfirewall firewall" instead.
 For more information on using "netsh advfirewall firewall" commands
 instead of "netsh firewall", see KB article 947709
-at http://go.microsoft.com/fwlink/?linkid=121488 .
-
-Ok.
-
-C:\Users\johndoe>netsh firewall set opmode disable
-
+at http://go.microsoft.com/fwlink/?linkid=121488 .<br/>
+Ok.<br/>
+C:\Users\johndoe>netsh firewall set opmode disable<br/>
 IMPORTANT: Command executed successfully.
 However, "netsh firewall" is deprecated;
 use "netsh advfirewall firewall" instead.
 For more information on using "netsh advfirewall firewall" commands
 instead of "netsh firewall", see KB article 947709
-at http://go.microsoft.com/fwlink/?linkid=121488 .
-
+at http://go.microsoft.com/fwlink/?linkid=121488 .<br/>
 Ok.</code></div>
 
 ### Wireless Backdoor Creation
