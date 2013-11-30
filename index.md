@@ -2,13 +2,13 @@
 
 [Image Generated Here](http://www.addletters.com/pictures/restaurant-sign-generator/4772466.htm#.UplRZ42PuuY)
 
-### PostExploitation.com is a collection TTPs (tools, tactics, and procedures) for what to do after access has been gained.
+### PwnWiki.io is a collection TTPs (tools, tactics, and procedures) for what to do after access has been gained.
 
 - - - - - - 
 
 ### Live Online Copy:
 
-You can find a copy of the project online at: http://mubix.github.io/post-exploitation-wiki/
+You can find a copy of the project online at: http://PwnWiki.io
 
 ### Offline Use:
 
@@ -20,8 +20,9 @@ You can find a copy of the project online at: http://mubix.github.io/post-exploi
 
 - - - - - -
 #### Submitting Content
+We want/need your help! Please contribute to this project is via GitHub (https://github.com/pwnwiki/pwnwiki.github.io). That allows us to get your project-ready content incorporated into the wiki fast. 
 
-We realize that everyone has their favorite commands they run. Is your go-to content not up here? Want to submit it? Either submit a pull request or if you don't want to spend the time becoming a Git Jedi, just visit our [Google Form](https://docs.google.com/forms/d/1N7-jRjnUXoz-UwB2h0du2IrskFJW6hBGs4YsTwvEncE/viewform). Thanks! 
+We realize that not everyone can/wants to submit content via GitHub and that's cool. If your go-to content is not up here and you don't want to spend the time becoming a Git Jedi, just visit our [Google Form](https://docs.google.com/forms/d/1N7-jRjnUXoz-UwB2h0du2IrskFJW6hBGs4YsTwvEncE/viewform). Due to the large amount of submissions and content, there may be a delay between your posting and us getting your content into the project. Thanks for your submissions and your patience! 
 
 - - - - - -
 Curators:
