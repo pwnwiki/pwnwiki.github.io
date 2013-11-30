@@ -222,9 +222,9 @@ User profile
 Home directory
 Last logon                   10/15/2013 6:53:42 PM<br>
 Logon hours allowed          All<br>
-Local Group Memberships      *Administrators       *Users
-Global Group memberships     *Domain Users
-The command completed successfully.</code></div> 
+Local Group Memberships      \*Administrators       \*Users
+Global Group memberships     \*Domain Users
+The command completed successfully.</code></div>
 
 ----
 
@@ -234,11 +234,68 @@ For more information: http://technet.microsoft.com/en-us/library/bb490939.aspx
 ### Network Services
  * **Command with arguments**: `netsh diag show all`
  * **Description**: Shows information on network services and adapters.
-
-Note: Windows XP only.
+ * **Note**: Windows XP only.
 
  * **Output**:
-   * (Coming soon!)  
+   * <div class="slide" style="cursor: pointer;"> **Windows XP SP3:** Show/Hide ![](images/output.jpg)</div><div class="view"><code>C:\Users\johndoe>netsh diag show all
+
+Default Outlook Express Mail (Not Configured)
+
+Default Outlook Express News (Not Configured)
+
+Internet Explorer Web Proxy (Not Configured)
+
+Loopback (127.0.0.1)
+
+Computer System (OJ-75E3B8CC9475)
+
+Operating System (Microsoft Windows XP Professional)
+
+Version (5.1.2600)
+
+Modems
+
+Network Adapters
+     1. [00000001] VMware Accelerated AMD PCNet Adapter
+     2. [00000010] VMware Accelerated AMD PCNet Adapter
+
+Network Clients
+     1. VMware Shared Folders
+     2. Microsoft Terminal Services
+     3. Microsoft Windows Network
+     4. Web Client Network</code></div>
+
+### Firewall Control
+ * **Command with arguments**: `netsh firewall set opmode [disable|enable]`
+ * **Description**: Enable or disable the Windows Firewall (requires admin privileges).
+ * **Minimum required version**: Windows Vista.
+ * **Output**:
+   * <div class="slide" style="cursor: pointer;"> **Windows Vista:** Show/Hide ![](images/output.jpg)</div><div class="view"><code>C:\Users\johndoe>netsh firewall set opmode enable
+Ok.
+
+C:\Users\johndoe>netsh firewall set opmode disable
+Ok.</code></div>
+   * <div class="slide" style="cursor: pointer;"> **Windows 7:** Show/Hide ![](images/output.jpg)</div><div class="view"><code>C:\Users\johndoe>netsh firewall set opmode enable
+
+IMPORTANT: Command executed successfully.
+However, "netsh firewall" is deprecated;
+use "netsh advfirewall firewall" instead.
+For more information on using "netsh advfirewall firewall" commands
+instead of "netsh firewall", see KB article 947709
+at http://go.microsoft.com/fwlink/?linkid=121488 .
+
+Ok.
+
+C:\Users\johndoe>netsh firewall set opmode disable
+
+IMPORTANT: Command executed successfully.
+However, "netsh firewall" is deprecated;
+use "netsh advfirewall firewall" instead.
+For more information on using "netsh advfirewall firewall" commands
+instead of "netsh firewall", see KB article 947709
+at http://go.microsoft.com/fwlink/?linkid=121488 .
+
+Ok.</code></div>
 
 ### Wireless Backdoor Creation
  * **Command with arguments**: 
@@ -369,4 +426,4 @@ x: Windows Sockets initialization failed: 5
  * **Command with arguments**: `netstat -r`
  * **Description**: Displays the system's routing table.
  * **Output**:
-   * <div class="slide" style="cursor: pointer;"> **Windows 2008:** Show/Hide ![](images/output.jpg)</div><div class="view"><code>C:\Users\johndoe>netstat -r<br>===========================================================================<br>Interface List<br> 10 ...00 0c 29 9a e2 26 ...... Intel(R) PRO/1000 MT Network Connection<br>  1 ........................... Software Loopback Interface 1<br> 12 ...00 00 00 00 00 00 00 e0  isatap.{DDE3DF3D-3417-4EBF-BF66-73BD3A64FF26}<br> 11 ...02 00 54 55 4e 01 ...... Teredo Tunneling Pseudo-Interface<br>===========================================================================<br><br>IPv4 Route Table<br>===========================================================================<br>Active Routes:<br>Network Destination        Netmask          Gateway       Interface  Metric<br>          0.0.0.0          0.0.0.0     192.168.10.1    192.168.10.34    266<br>        127.0.0.0        255.0.0.0         On-link         127.0.0.1    306<br>        127.0.0.1  255.255.255.255         On-link         127.0.0.1    306<br>  127.255.255.255  255.255.255.255         On-link         127.0.0.1    306<br>     192.168.10.0    255.255.255.0         On-link     192.168.10.34    266<br>    192.168.10.34  255.255.255.255         On-link     192.168.10.34    266<br>   192.168.10.255  255.255.255.255         On-link     192.168.10.34    266<br>        224.0.0.0        240.0.0.0         On-link         127.0.0.1    306<br>        224.0.0.0        240.0.0.0         On-link     192.168.10.34    266<br>  255.255.255.255  255.255.255.255         On-link         127.0.0.1    306<br>  255.255.255.255  255.255.255.255         On-link     192.168.10.34    266<br>===========================================================================<br>Persistent Routes:<br>  Network Address          Netmask  Gateway Address  Metric<br>          0.0.0.0          0.0.0.0     192.168.10.1  Default<br>===========================================================================<br><br>IPv6 Route Table<br>===========================================================================<br>Active Routes:<br> If Metric Network Destination      Gateway<br>  1    306 ::1/128                  On-link<br> 10    266 fe80::/64                On-link<br> 10    266 fe80::11bc:e019:25e5:916d/128<br>                                    On-link<br>  1    306 ff00::/8                 On-link<br> 10    266 ff00::/8                 On-link<br>===========================================================================<br>Persistent Routes:<br>  None</code></div>  
+   * <div class="slide" style="cursor: pointer;"> **Windows 2008:** Show/Hide ![](images/output.jpg)</div><div class="view"><code>C:\Users\johndoe>netstat -r<br>===========================================================================<br>Interface List<br> 10 ...00 0c 29 9a e2 26 ...... Intel(R) PRO/1000 MT Network Connection<br>  1 ........................... Software Loopback Interface 1<br> 12 ...00 00 00 00 00 00 00 e0  isatap.{DDE3DF3D-3417-4EBF-BF66-73BD3A64FF26}<br> 11 ...02 00 54 55 4e 01 ...... Teredo Tunneling Pseudo-Interface<br>===========================================================================<br><br>IPv4 Route Table<br>===========================================================================<br>Active Routes:<br>Network Destination        Netmask          Gateway       Interface  Metric<br>          0.0.0.0          0.0.0.0     192.168.10.1    192.168.10.34    266<br>        127.0.0.0        255.0.0.0         On-link         127.0.0.1    306<br>        127.0.0.1  255.255.255.255         On-link         127.0.0.1    306<br>  127.255.255.255  255.255.255.255         On-link         127.0.0.1    306<br>     192.168.10.0    255.255.255.0         On-link     192.168.10.34    266<br>    192.168.10.34  255.255.255.255         On-link     192.168.10.34    266<br>   192.168.10.255  255.255.255.255         On-link     192.168.10.34    266<br>        224.0.0.0        240.0.0.0         On-link         127.0.0.1    306<br>        224.0.0.0        240.0.0.0         On-link     192.168.10.34    266<br>  255.255.255.255  255.255.255.255         On-link         127.0.0.1    306<br>  255.255.255.255  255.255.255.255         On-link     192.168.10.34    266<br>===========================================================================<br>Persistent Routes:<br>  Network Address          Netmask  Gateway Address  Metric<br>          0.0.0.0          0.0.0.0     192.168.10.1  Default<br>===========================================================================<br><br>IPv6 Route Table<br>===========================================================================<br>Active Routes:<br> If Metric Network Destination      Gateway<br>  1    306 ::1/128                  On-link<br> 10    266 fe80::/64                On-link<br> 10    266 fe80::11bc:e019:25e5:916d/128<br>                                    On-link<br>  1    306 ff00::/8                 On-link<br> 10    266 ff00::/8                 On-link<br>===========================================================================<br>Persistent Routes:<br>  None</code></div>
