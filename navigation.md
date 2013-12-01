@@ -62,6 +62,22 @@
   * [Post Modules](msf/post.md)
   * [Railgun](msf/railgun.md)
   * [MSF Tools](msf/tools.md)
+
+[Kali]()
+  * [Information Gathering](kali/info.md)
+  * [Vulnerability Analysis](kali/vuln.md)
+  * [Web Applications](kali/web.md)
+  * [Password Attacks](kali/pass.md)
+  * [Wireless Attacks](kali/wireless.md)
+  * [Exploitation Tools](kali/exploit.md)
+  * [Sniffing/Spoofing](kali/sniff.md)
+  * [Maintaining Access](kali/maintain.md)
+  * [Reverse Engineering](kali/reverse.md)
+  * [Stress Testing](kali/stress.md)
+  * [Hardware Hacking](kali/hardware.md)
+  * [Forensics](kali/forensics.md)
+  * [Reporting Tools](kali/report.md)
+  * [System Services](kali/sysserv.md)
   
 [References]()
 
