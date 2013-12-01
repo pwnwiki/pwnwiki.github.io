@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
 <!--
-   This is MDwiki v0.5.5
+   This is MDwiki v0.5.8
    (C) 2013 by Timo Dörr and contributors. This software is licensed
    under the terms of the GNU GPLv3 with additional terms applied.
    See https://github.com/Dynalon/mdwiki/blob/master/LICENSE.txt for more detail.
    See http://github.com/Dynalon/mdwiki for a copy of the source code.
 -->
 <head>
+    <title>MDwiki</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="fragment" content="!">
     <meta charset="UTF-8">
@@ -15,6 +16,10 @@
     /* hide the main content while we assemble everything */
     .md-hidden-load { display: none; }
 
+    .anchor-highlight {
+        font-size: 0.7em;
+        margin-left: 0.25em;
+    }
     /* for pageContentMenu */
     #md-page-menu {
             position: static;
@@ -77,6 +82,7 @@
     }
     #md-all .md-copyright-footer {
         background-color: !important;
+        font-size: smaller;
     }
     </style>
 
@@ -1329,15 +1335,15 @@ if (typeof exports === 'object') {
     // default config
     $.md.config = {
         title:  null,
-        useSideNav: true,
-        /* can be: gfm, original */
+        useSideMenu: true,
         lineBreaks: 'gfm',
+        additionalFooterText: '',
+        anchorCharacter: '&para;'
     };
 
 
     $.md.gimmicks = [];
     $.md.stages = [];
-    $.md.debug = true;
 
     // the location of the main markdown file we display
     $.md.mainHref = '';
@@ -1425,6 +1431,7 @@ if (typeof exports === 'object') {
                     if(d.state() !== 'resolved') {
                         log.fatal('Timeout reached for done callback in stage: ' + self.name +
                             '. Did you forget a done() call in a .subscribe() ?');
+                        log.fatal('stage ' + name + ' failed running subscribed function: ' + fn );
                     }
                 });
 
@@ -1519,24 +1526,26 @@ if (typeof exports === 'object') {
     var publicMethods = {};
     $.md.publicMethods = $.extend ({}, $.md.publicMethods, publicMethods);
 
-    function registerFetchMarkdown() {
-        var transformMarkdown = function(markdown) {
-            var options = {
-                gfm: true,
-                tables: true,
-                breaks: true
-            };
-            if ($.md.config.lineBreaks === 'original')
-                options.breaks = false;
-            else if ($.md.config.lineBreaks === 'gfm')
-                options.breaks = true;
-
-            marked.setOptions(options);
-
-            // get sample markdown
-            var uglyHtml = marked(markdown);
-            return uglyHtml;
+    function transformMarkdown (markdown) {
+        var options = {
+            gfm: true,
+            tables: true,
+            breaks: true
         };
+        if ($.md.config.lineBreaks === 'original')
+            options.breaks = false;
+        else if ($.md.config.lineBreaks === 'gfm')
+            options.breaks = true;
+
+        marked.setOptions(options);
+
+        // get sample markdown
+        var uglyHtml = marked(markdown);
+        return uglyHtml;
+    }
+
+    function registerFetchMarkdown() {
+
         var md = '';
 
         $.md.stage('init').subscribe(function(done) {
@@ -1555,6 +1564,7 @@ if (typeof exports === 'object') {
             });
         });
 
+        // find baseUrl
         $.md.stage('transform').subscribe(function(done) {
             var len = $.md.mainHref.lastIndexOf('/');
             var baseUrl = $.md.mainHref.substring(0, len+1);
@@ -1562,33 +1572,97 @@ if (typeof exports === 'object') {
             done();
         });
 
-        $.md.stage('ready').subscribe(function(done) {
+        $.md.stage('transform').subscribe(function(done) {
             var uglyHtml = transformMarkdown(md);
             $('#md-content').html(uglyHtml);
             md = '';
-            done();
+            var dfd = $.Deferred();
+            loadExternalIncludes(dfd);
+            dfd.always(function () {
+                done();
+            });
         });
     }
 
+    // load [include](/foo/bar.md) external links
+    function loadExternalIncludes(parent_dfd) {
+
+        function findExternalIncludes () {
+            return $('a').filter (function () {
+                var href = $(this).attr('href');
+                var text = $(this).toptext();
+                var isMarkdown = $.md.util.hasMarkdownFileExtension(href);
+                var isInclude = text === 'include';
+                var isPreview = text.startsWith('preview:');
+                return (isInclude || isPreview) && isMarkdown;
+            });
+        }
+
+        function selectPreviewElements ($jqcol, num_elements) {
+            function isTextNode(node) {
+                return node.nodeType === 3;
+            }
+            var count = 0;
+            var elements = [];
+            $jqcol.each(function (i,e) {
+                if (count < num_elements) {
+                    elements.push(e);
+                    if (!isTextNode(e)) count++;
+                }
+            });
+            return $(elements);
+        }
+
+        var external_links = findExternalIncludes ();
+        // continue execution when all external resources are fully loaded
+        var latch = $.md.util.countDownLatch (external_links.length);
+        latch.always (function () {
+            parent_dfd.resolve();
+        });
+
+        external_links.each(function (i,e) {
+            var $el = $(e);
+            var href = $el.attr('href');
+            var text = $el.toptext();
+
+            $.ajax({
+                url: href,
+                dataType: 'text'
+            })
+            .done(function (data) {
+                var $html = $(transformMarkdown(data));
+                if (text.startsWith('preview:')) {
+                    // only insert the selected number of paragraphs; default 3
+                    var num_preview_elements = parseInt(text.substring(8), 10) ||3;
+                    var $preview = selectPreviewElements ($html, num_preview_elements);
+                    $preview.last().append('<a href="' + href +'"> ...read more &#10140;</a>');
+                    $preview.insertBefore($el.parent('p').eq(0));
+                    $el.remove();
+                } else {
+                    $html.insertAfter($el.parents('p'));
+                    $el.remove();
+                }
+            }).always(function () {
+                latch.countDown();
+            });
+        });
+    }
 
     // modify internal links so we load them through our engine
     function processPageLinks(domElement, baseUrl) {
-
-        function hasMarkdownFileExtension (str) {
-            var markdownExtensions = [ '.md', '.markdown', '.mdown' ];
-            var result = false;
-            $(markdownExtensions).each(function (i,ext) {
-                if (str.toLowerCase().endsWith (ext)) {
-                    result = true;
-                }
-            });
-            return result;
-        }
-
         var html = $(domElement);
         if (baseUrl === undefined) {
             baseUrl = '';
         }
+        // HACK against marked: empty links will have empy href attribute
+        // we remove the href attribute from the a tag
+        html.find('a').not('#md-menu a').filter(function () {
+            var $this = $(this);
+            var attr = $this.attr('href');
+            if (!attr || attr.length === 0)
+                $this.removeAttr('href');
+        });
+
         html.find('a, img').each(function(i,e) {
             var link = $(e);
             // link must be jquery collection
@@ -1601,38 +1675,52 @@ if (typeof exports === 'object') {
             }
             var href = link.attr(hrefAttribute);
 
+            if (href && href.lastIndexOf ('#!') >= 0)
+                return;
+
+            if (! $.md.util.isRelativeUrl(href))
+                return;
+
+            if (isImage && ! $.md.util.isRelativePath(href))
+                return;
+
             if (!isImage && $.md.util.isGimmickLink(link))
                 return;
 
-            if ($.md.util.isRelativeUrl(href)) {
-                var newHref = baseUrl + href;
-                if (!hasMarkdownFileExtension(newHref))
-                    return;
-                if (!isImage)
-                    link.attr(hrefAttribute, '#!' + newHref);
+            function build_link (url) {
+                if ($.md.util.hasMarkdownFileExtension (url))
+                    return '#!' + url;
                 else
-                    link.attr(hrefAttribute, newHref);
+                    return url;
             }
+
+            var newHref = baseUrl + href;
+            if (isImage)
+                link.attr(hrefAttribute, newHref);
+            else if ($.md.util.isRelativePath (href))
+                link.attr(hrefAttribute, build_link(newHref));
+            else
+                link.attr(hrefAttribute, build_link(href));
         });
     }
 
     var navMD = '';
-    $.md.NavgiationDfd = $.Deferred();
+    $.md.NavigationDfd = $.Deferred();
     var ajaxReq = {
         url: 'navigation.md',
         dataType: 'text'
     };
     $.ajax(ajaxReq).done(function(data) {
         navMD = data;
-        $.md.NavgiationDfd.resolve();
+        $.md.NavigationDfd.resolve();
     }).fail(function() {
-        $.md.NavgiationDfd.reject();
+        $.md.NavigationDfd.reject();
     });
 
     function registerBuildNavigation() {
 
         $.md.stage('init').subscribe(function(done) {
-            $.md.NavgiationDfd.done(function() {
+            $.md.NavigationDfd.done(function() {
                 done();
             })
             .fail(function() {
@@ -1664,12 +1752,21 @@ if (typeof exports === 'object') {
             done();
         });
 
+        $.md.stage('postgimmick').subscribe(function(done) {
+            var num_links = $('#md-menu a').length;
+            var has_header = $('#md-menu .navbar-brand').eq(0).toptext().trim().length > 0;
+            if (!has_header && num_links <= 1)
+                $('#md-menu').hide();
+
+            done();
+        });
     }
 
     $.md.ConfigDfd = $.Deferred();
-    $.get('config.json', { dataType: 'text/plain'}).done(function(data) {
+    $.ajax({url: 'config.json', dataType: 'text'}).done(function(data) {
         try {
-            $.md.config = $.extend($.md.config, data);
+            var data_json = JSON.parse(data);
+            $.md.config = $.extend($.md.config, data_json);
             log.info('Found a valid config.json file, using configuration');
         } catch(err) {
             log.error('config.json was not JSON parsable: ' + err);
@@ -1707,7 +1804,6 @@ if (typeof exports === 'object') {
 
     }
     function loadContent(href) {
-
         $.md.mainHref = href;
 
         registerFetchMarkdown();
@@ -1803,9 +1899,10 @@ if (typeof exports === 'object') {
         } else {
             href = window.location.hash.substring(1);
         }
+        href = decodeURIComponent(href);
 
         // extract possible in-page anchor
-        var ex_pos = href.indexOf('!');
+        var ex_pos = href.indexOf('#');
         if (ex_pos !== -1) {
             $.md.inPageAnchor = href.substring(ex_pos + 1);
             $.md.mainHref = href.substring(0, ex_pos);
@@ -1850,12 +1947,30 @@ if (typeof exports === 'object') {
                 return false;
             }
         },
+        isRelativePath: function(path) {
+            if (path === undefined)
+                return false;
+            if (path.startsWith('/'))
+                return false;
+            return true;
+        },
         isGimmickLink: function(domAnchor) {
-            if (domAnchor.text().indexOf ('gimmick:') !== -1) {
+            if (domAnchor.toptext().indexOf ('gimmick:') !== -1) {
                 return true;
             } else {
                 return false;
             }
+        },
+        hasMarkdownFileExtension: function (str) {
+            var markdownExtensions = [ '.md', '.markdown', '.mdown' ];
+            var result = false;
+            var value = str.toLowerCase().split('#')[0];
+            $(markdownExtensions).each(function (i,ext) {
+                if (value.toLowerCase().endsWith (ext)) {
+                    result = true;
+                }
+            });
+            return result;
         },
         wait: function(time) {
             return $.Deferred(function(dfd) {
@@ -1876,12 +1991,45 @@ if (typeof exports === 'object') {
         };
     }
 
+    $.fn.extend ({
+        toptext: function () {
+            return this.clone().children().remove().end().text();
+        }
+    });
+
     // adds a :icontains selector to jQuery that is case insensitive
     $.expr[':'].icontains = $.expr.createPseudo(function(arg) {
         return function(elem) {
-            return $(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
+            return $(elem).toptext().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
         };
     });
+
+    $.md.util.getInpageAnchorText = function (text) {
+        var subhash = text.replace(/ /g, '_');
+        // TODO remove more unwanted characters like ?/,- etc.
+        return subhash;
+
+    };
+    $.md.util.getInpageAnchorHref = function (text, href) {
+        href = href || $.md.mainHref;
+        var subhash = $.md.util.getInpageAnchorText(text);
+        return '#!' + href + '#' + subhash;
+    };
+
+    // a count-down latch as in Java7.
+    $.md.util.countDownLatch = function (capacity, min) {
+        min = min || 0;
+        var dfd = $.Deferred();
+        if (capacity <= min) dfd.resolve();
+        dfd.capacity = capacity;
+        dfd.countDown = function () {
+            dfd.capacity--;
+            if (dfd.capacity <= min)
+                dfd.resolve();
+        };
+        return dfd;
+    };
+
 }(jQuery));
 
 (function($) {
@@ -2124,7 +2272,7 @@ if (typeof exports === 'object') {
     }
 
     function getGimmickLinkParts($link) {
-        var link_text = $.trim($link.text());
+        var link_text = $.trim($link.toptext());
         // returns linkTrigger, options, linkText
         if (link_text.match(/gimmick:/i) === null) {
             return null;
@@ -2209,32 +2357,26 @@ if (typeof exports === 'object') {
     }
 }(jQuery));
 
-
 (function($) {
     var publicMethods = {
         createBasicSkeleton: function() {
 
             setPageTitle();
             wrapParagraphText();
+            linkImagesToSelf();
             groupImages();
             removeBreaks();
             addInpageAnchors ();
 
             $.md.stage('all_ready').subscribe(function(done) {
                 if ($.md.inPageAnchor !== '') {
-                    $.md.scrollToInPageAnchor($.md.inPageAnchor);
+                    $.md.util.wait(500).then(function () {
+                        $.md.scrollToInPageAnchor($.md.inPageAnchor);
+                    });
                 }
                 done();
             });
             return;
-
-            //processPreviews();
-            //markFirstHeading ();
-            // activate syntax highlighting on <pre><code> blocks
-            // via highlight.js
-            /*$('pre code').each(function(i, e) {
-                hljs.highlightBlock(e)
-            }); */
 
         }
     };
@@ -2244,16 +2386,14 @@ if (typeof exports === 'object') {
     // the first h1 element as title if no title is given
     function setPageTitle() {
         var $pageTitle;
-        if ($.md.config.title instanceof String) {
-            // HACK we use .html so we can embed img tags
-            $pageTitle = $('<h1/>').html($.md.config.title);
-        } else {
-            $pageTitle = $('#md-content h1').eq(0);
-        }
-        if ($.trim($pageTitle.text()).length > 0) {
+        if ($.md.config.title)
+            $('title').text($.md.config.title);
+
+        $pageTitle = $('#md-content h1').eq(0);
+        if ($.trim($pageTitle.toptext()).length > 0) {
             $('#md-title').prepend($pageTitle);
-            var title = $pageTitle.text();
-            document.title = title;
+            var title = $pageTitle.toptext();
+            // document.title = title;
         } else {
             $('#md-title').remove();
         }
@@ -2358,68 +2498,83 @@ if (typeof exports === 'object') {
         par.addClass('md-image-group');
     }
 
-    function addInpageAnchors()
-    {
-        // adds a page inline anchor to each h1,h2,h3,h4,h5,h6 element
-        // which can be accessed by the headings text (with spaces)
-        // and heading text where spaces are replaced by underscores
-        $('h1,h2,h3,h4,h5,h6').each (function () {
-            var $heading = $(this);
-            $heading.addClass('md-inpage-anchor');
-
-            //var name = $.trim ($heading.text ());
-            //var $anchor1 = $('<a />').attr ('name', name).addClass('md-inpage-anchor md-inpage-anchor-space');
-            //$heading.wrap ($anchor1);
-            // replace spaces with underscores and add that anchor, too
-            //name = name.replace (/ /g, '_');
-            //var $anchor2 = $('<a />').attr ('name', name).addClass ('md-inpage-anchor md-inpage-anchor-underscore');
-            //$heading.wrap ($anchor2);
+    // takes a standard <img> tag and adds a hyperlink to the image source
+    // needed since we scale down images via css and want them to be accessible
+    // in original format
+    function linkImagesToSelf () {
+        function selectNonLinkedImages () {
+            // only select images that do not have a non-empty parent link
+            $images = $('img').filter(function(index) {
+                var $parent_link = $(this).parents('a').eq(0);
+                if ($parent_link.length === 0) return true;
+                var attr = $parent_link.attr('href');
+                return (attr && attr.length === 0);
+            });
+            return $images;
+        }
+        var $images = selectNonLinkedImages ();
+        return $images.each(function() {
+            var $this = $(this);
+            var img_src = $this.attr('src');
+            var img_title = $this.attr('title');
+            if (img_title === undefined) {
+                img_title = '';
+            }
+            // wrap the <img> tag in an anchor and copy the title of the image
+            $this.wrap('<a class="md-image-selfref" href="' + img_src + '" title="'+ img_title +'"/> ');
         });
     }
-    /*
-    function processPreviews () {
-        // if we had a preview, we need to process it
-        $('.md-preview-begin').each (function () {
-            var $this = $(this);
-            var $href = $this.attr ('data-href');
-            var $elems = $this.nextUntil('.md-preview-end');
-            $elems.find('.md-text').last().append($('<a>...Read more</a>').attr ('href', $href));
-            //var lastText = $elems.find('.md-text').last();
-            var $previewDiv = $('<div />').addClass('md-preview').append($elems);
-            // TODO localized versions
-            $this.replaceWith ($previewDiv);
-        });
-    } */
-    /*function markFirstHeading() {
-        // TODO replace, maybe css selector magic?
-        // if the page starts with a heading first or second degree,
-        // mark this heading to be the first one
-        var firstElem = $('#md-content').find('p, h1, h2').eq(0);
-        if (firstElem.length === 0) {
-            return;
+
+    function addInpageAnchors()
+    {
+        // adds a pilcrow (paragraph) character to heading with a link for the
+        // inpage anchor
+        function addPilcrow ($heading, href) {
+            var c = $.md.config.anchorCharacter;
+            var $pilcrow = $('<span class="anchor-highlight"><a>' + c + '</a></span>');
+            $pilcrow.find('a').attr('href', href);
+            $pilcrow.hide();
+
+            var mouse_entered = false;
+            $heading.mouseenter(function () {
+                mouse_entered = true;
+                $.md.util.wait(300).then(function () {
+                    if (!mouse_entered) return;
+                    $pilcrow.fadeIn(200);
+                });
+            });
+            $heading.mouseleave(function () {
+                mouse_entered = false;
+                $pilcrow.fadeOut(200);
+            });
+            $pilcrow.appendTo($heading);
         }
 
-        if (firstElem[0].tagName === 'H1' || firstElem[0].tagName === 'H2') {
-            $(firstElem).addClass('md-first-heading');
-        }
-    }*/
-    $.md.scrollToInPageAnchor = function(anchor) {
+        // adds a page inline anchor to each h1,h2,h3,h4,h5,h6 element
+        // which can be accessed by the headings text
+        $('h1,h2,h3,h4,h5,h6').not('#md-title h1').each (function () {
+            var $heading = $(this);
+            $heading.addClass('md-inpage-anchor');
+            var text = $heading.clone().children('.anchor-highlight').remove().end().text();
+            var href = $.md.util.getInpageAnchorHref(text);
+            addPilcrow($heading, href);
+        });
+    }
+
+    $.md.scrollToInPageAnchor = function(anchortext) {
 
         // we match case insensitive
-        var spaceAnchor = anchor.toLowerCase();
-        var underscoreAnchor = spaceAnchor.replace(/ /g, '_');
         var doBreak = false;
-
-        $('*.md-inpage-anchor').each (function () {
+        $('.md-inpage-anchor').each (function () {
             if (doBreak) { return; }
-
             var $this = $(this);
-            var match = $this.text().toLowerCase().replace(/ /g, '_');
-            if (spaceAnchor === match || underscoreAnchor === match) {
+            // don't use the text of any subnode
+            var text = $this.toptext();
+            var match = $.md.util.getInpageAnchorText (text);
+            if (anchortext === match) {
                 this.scrollIntoView (true);
-                // TODO actually figure the real height of the navbar, because
-                // custom themes may have different height
-                window.scrollBy(0, -50);
+                var navbar_offset = $('.navbar-collapse').height() + 5;
+                window.scrollBy(0, -navbar_offset + 5);
                 doBreak = true;
             }
         });
@@ -2471,6 +2626,7 @@ if (typeof exports === 'object') {
                     createPageContentMenu();
                 }
                 addFooter();
+                addAdditionalFooterText();
                 done();
             });
             $.md.stage('postgimmick').subscribe(function(done) {
@@ -2526,7 +2682,7 @@ if (typeof exports === 'object') {
         // the menu should be the first element in the body
         $('#md-menu').prependTo ('#md-all');
 
-        var brand_text = $('#md-menu h1').text();
+        var brand_text = $('#md-menu h1').toptext();
         $('#md-menu h1').remove();
         $('a.navbar-brand').text(brand_text);
 
@@ -2610,6 +2766,15 @@ if (typeof exports === 'object') {
             ul.parent('li').addClass('dropdown');
         });
 
+        // submenu headers
+        $('#md-menu li.dropdown').find('h1, h2, h3').each(function(i,e) {
+            var $e = $(e);
+            var text = $e.toptext();
+            var header = $('<li class="dropdown-header" />');
+            header.text(text);
+            $e.replaceWith(header);
+        });
+
         // call the user specifed menu function
         buildTopNav();
     }
@@ -2627,7 +2792,9 @@ if (typeof exports === 'object') {
     function createPageContentMenu () {
 
         // assemble the menu
-        var $headings = $('#md-content').find('h2');
+        var $headings = $('#md-content').find('h2').clone();
+        // we dont want the text of any child nodes
+        $headings.children().remove();
 
         if ($headings.length <= 1) {
             return;
@@ -2659,7 +2826,7 @@ if (typeof exports === 'object') {
             // highlight in the right menu
             $('#md-page-menu a').each(function(i,e) {
                 var $a = $(e);
-                if ($first && $a.text() === $first.text()) {
+                if ($first && $a.toptext() === $first.toptext()) {
                     $('#md-page-menu a.active').removeClass('active');
                     //$a.parent('a').addClass('active');
                     $a.addClass('active');
@@ -2687,14 +2854,15 @@ if (typeof exports === 'object') {
             var $heading = $(e);
             var $li = $('<li class="list-group-item" />');
             var $a = $('<a />');
-            $a.attr('href', $heading.text());
+            $a.attr('href', $.md.util.getInpageAnchorHref($heading.toptext()));
             $a.click(function(ev) {
                 ev.preventDefault();
 
                 var $this = $(this);
-                $.md.scrollToInPageAnchor($this.text());
+                var anchortext = $.md.util.getInpageAnchorText($this.toptext());
+                $.md.scrollToInPageAnchor(anchortext);
             });
-            $a.text($heading.text());
+            $a.text($heading.toptext());
             $li.append($a);
             $ul.append($li);
         });
@@ -2743,8 +2911,6 @@ if (typeof exports === 'object') {
 
         // HEADING
         var jumbo = $('<div class="page-header" />');
-        var heading = $('<h1/>');
-        jumbo.append(heading);
         $('#md-title').wrapInner(jumbo);
     }
 
@@ -2858,17 +3024,20 @@ if (typeof exports === 'object') {
     // and may not be removed or hidden to comply with licensing conditions.
     function addFooter() {
         var navbar = '';
-        navbar += '<hr><div class="md-copyright-footer" class="navbar navbar-default navbar-fixed-bottom">';
+        navbar += '<hr><div class="container md-copyright-footer" class="navbar navbar-default navbar-fixed-bottom">';
         navbar +=     '<ul class="nav navbar-nav navbar-left">';
         navbar +=       '<p class="navbar-text">';
         navbar +=       '</p>';
         navbar +=     '</ul>';
         navbar +=     '<ul class="nav navbar-nav navbar-right">';
         navbar +=       '<p class="navbar-text">';
-        navbar +=         'Website created with <a href="http://www.mdwiki.info">MDwiki</a>. ';
+        navbar +=       '<span id="md-footer-additional"></span>';
+        navbar +=       '<span>';
+        navbar +=         ' Website generated with <a href="http://www.mdwiki.info">MDwiki</a> ';
         navbar +=         '&copy; Timo D&ouml;rr and contributors. ';
-        navbar +=         '<a href="http://www.mdwiki.info">MDwiki</a> is free software licensed under ';
-        navbar +=         '<a href="https://github.com/Dynalon/mdwiki/blob/master/LICENSE.txt">GNU GPLv3 (additional terms apply).</a>';
+        // navbar +=         '<a href="http://www.mdwiki.info">MDwiki</a> is free software licensed under ';
+        // navbar +=         '<a href="https://github.com/Dynalon/mdwiki/blob/master/LICENSE.txt">GNU GPLv3 (additional terms apply).</a>';
+        navbar +=       '</span>';
         navbar +=       '</p>';
         navbar +=     '</ul>';
         navbar +=   '</div>';
@@ -2877,6 +3046,13 @@ if (typeof exports === 'object') {
         $navbar.css('position', 'relative');
         $navbar.css('margin-top', '1em');
         $('#md-all').append ($navbar);
+    }
+
+    function addAdditionalFooterText () {
+        var text = $.md.config.additionalFooterText;
+        if (text) {
+            $('.md-copyright-footer #md-footer-additional').html(text);
+        }
     }
 }(jQuery));
 
@@ -3006,14 +3182,9 @@ if (typeof exports === 'object') {
                 var gal_group = 'gallery-group-' + (counter++);
 
                 // create a hyperlink around the image
-                $this.find('img')
+                $this.find('a.md-image-selfref img')
                 // filter out images that already are a hyperlink
                 // (so won't be part of the gallery)
-                .filter(function() {
-                    return $(this).parents('a').length === 0;
-                })
-                // make the hyperlink to themself
-                .gimmicks('image_linker')
 
                 // apply colorbox on their parent anchors
                 .parents('a').colorbox({
@@ -3479,6 +3650,7 @@ function googlemapsReady() {
             var default_options = {
                 zoom: 11,
                 marker: true,
+                scrollwheel: false,
                 maptype: 'roadmap'
             };
             var options = $.extend({}, default_options, opt);
@@ -3508,8 +3680,7 @@ function googlemapsReady() {
 
         // google uses rather complicated mapnames, we transform our simple ones
         var mt = opt.maptype.toUpperCase ();
-        opt.MapTypeId = google.maps.MapTypeId[mt];
-
+        opt.mapTypeId = google.maps.MapTypeId[mt];
         var geocoder = new google.maps.Geocoder ();
 
         // geocode performs address to coordinate transformation
@@ -3592,33 +3763,47 @@ function googlemapsReady() {
 }(jQuery));
 
 (function($) {
-    var methods = {
-        // takes a standard <img> tag and adds a hyperlink to the image source
-        // needed since we scale down images via css and want them to be accessible
-        // in original format
-        image_linker: function() {
-            var $images;
-            if (!(this instanceof jQuery)) {
-                $images = $('img').filter(function(index) {
-                    return $(this).parents('a').length === 0;
-                });
-            } else {
-                $images = $(this);
-            }
-            return $images.each(function() {
-                var $this = $(this);
-                var img_src = $this.attr('src');
-                var img_title = $this.attr('title');
-                if (img_title === undefined) {
-                    img_title = '';
-                }
-                // wrap the <img> tag in an anchor and copy the title of the image
-                $this.wrap('<a href="' + img_src + '" title="'+ img_title +'"/> ');
-            });
+    'use strict';
+    var iframeGimmick= {
+        name: 'forkmeongithub',
+        version: $.md.version,
+        once: function() {
+            $.md.linkGimmick(this, 'iframe', create_iframe);
         }
     };
-    $.gimmicks.methods = $.extend({}, $.fn.gimmicks.methods, methods);
+    $.md.registerGimmick(iframeGimmick);
 
+    function create_iframe($links, opt, text) {
+        return $links.each (function (i, link){
+            var $link = $(link);
+            var href = $link.attr('href');
+            var $iframe = $('<iframe class="col-md-12" style="border: 0px solid red; height: 650px;"></iframe>');
+            $iframe.attr('src', href);
+            $link.replaceWith($iframe);
+
+            if (opt.width)
+                $iframe.css('width', opt.width);
+            if (opt.height)
+                $iframe.css('height', opt.height);
+            else {
+                var updateSizeFn = function () {
+                    var offset = $iframe.offset();
+                    var winHeight = $(window).height();
+                    var newHeight = winHeight - offset.top - 5;
+                    $iframe.height(newHeight);
+                };
+
+                $iframe.load(function(done) {
+                    updateSizeFn();
+                });
+
+                $(window).resize(function () {
+                    updateSizeFn();
+                });
+            }
+
+        });
+    }
 }(jQuery));
 
 (function($) {
@@ -3715,7 +3900,7 @@ function googlemapsReady() {
 
     var apply_theme = function($links, opt, text) {
         opt.name = opt.name || text;
-        return $links.each(function(i, link) {
+        $links.each(function(i, link) {
             $.md.stage('postgimmick').subscribe(function(done) {
                 var $link = $(link);
 
@@ -3724,10 +3909,10 @@ function googlemapsReady() {
                     set_theme(opt);
                 }
 
-                $link.remove();
                 done();
             });
         });
+        $links.remove();
     };
 
     var themechooser = function($links, opt, text) {
@@ -3864,7 +4049,7 @@ function googlemapsReady() {
 }(jQuery));
 </script>
 <!-- END dist/MDwiki.js -->
-
+<script type="text/javascript">$.md.logThreshold = $.md.loglevel.DEBUG;</script>
 </head>
 <body>
     <noscript>
@@ -3873,11 +4058,6 @@ function googlemapsReady() {
     </noscript>
 
     <div id="md-all">
-        <div id="md-body">
-            <div id="md-title"></div>
-            <div id="md-menu"> </div>
-            <div id="md-content"></div>
-        </div>
     </div>
 </body>
 </html>
