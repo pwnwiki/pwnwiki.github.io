@@ -1,4 +1,4 @@
-# Post Exploitation Wiki
+# Pwn Wiki
 
 [Home](index.md)
 
