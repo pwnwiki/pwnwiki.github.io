@@ -17,6 +17,7 @@ The files below are things to pull when all you can do is to blindly read. Examp
 # Information discovery through blind files
 
 When using blind files, it is often possible to mine known files for other paths or configuration. This can disclose what services are running, how they are configured and more. The following is some files that are worth looking at.
+
 | File     | Description / Importance |
 | -------- | ------------------------ |
 | `/etc/mtab` | Reveals mount points. |
