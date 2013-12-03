@@ -53,7 +53,7 @@
 | `HKEY_LOCAL_MACHINE\Software\Microsoft\Active Setup\Installed Components\` | All subkeys are monitored, with special attention paid to the "StubPath" value in each subkey. |
 | `HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\Userinit` | Executed when a user logs in. |
 | `HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon` | The "Shell" value is monitored. This value is executed after you log in. |
-| `HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\Curr entVersion\Run\` | All values in this key are executed. |
+| `HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run\` | All values in this key are executed. |
 | `HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\run\` | Subvalues are executed when Explorer initialises. |
 | `HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunOnce\` | All values in this key are executed, and then their autostart reference is deleted. |
 | `HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce\` | All values in this key are executed as services, and then their autostart reference is deleted. |
@@ -62,7 +62,7 @@
 | `HKEY_LOCAL_MACHINE\System\Control\WOW\cmdline` | Executed when a 16-bit Windows executable is executed. |
 | `HKEY_LOCAL_MACHINE\System\Control\WOW\wowcmdline` | Executed when a 16-bit DOS application is executed. |
 | `HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager` | The "BootExecute" value is monitored. Files listed here are Native Applications that are executed before Windows starts. |
-| `HKEY_LOCAL_MACHINE\System\CurrentControlSet\Servic es\VxD\` | All subkeys are monitored, with special attention paid to the "StaticVXD" value in each subkey. |
+| `HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\VxD\` | All subkeys are monitored, with special attention paid to the "StaticVXD" value in each subkey. |
 | `HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\Winsock2\Parameters\Protocol_Catalog\Catalog_En tries\` | Layered Service Providers, executed before user login. |
 | `HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\` | Services marked to startup automatically are executed before user login. |
 | `HKEY_USERS\.Default\Software\Microsoft\Windows\CurrentVersion\RunOnce\` | Similar to the RunOnce key from HKEY_CURRENT_USER. |
