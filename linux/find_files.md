@@ -18,7 +18,7 @@ Commands that finds files on the file system are usually executed from within a 
  * **Command with arguments**: `ls -l [directory or filename]`
  * **Description**: Displays attributes of files and directories in the specified location
  * **Output**:
- * <div class="slide" style="cursor: pointer;"> **Ubuntu:** Show/Hide</div><div class="view"><code>
+   * <div class="slide" style="cursor: pointer;"> **Ubuntu:** Show/Hide</div><div class="view"><code>root@localhost:~/ ls -l /
     total 429820
     drwxr-xr-x   2 root root      4096 2013-08-23 02:49 bin
     drwxr-xr-x   3 root root      4096 2013-08-23 03:18 boot
@@ -52,10 +52,10 @@ Commands that finds files on the file system are usually executed from within a 
 
 ## find
 ### Search by name
- * **Command with arguments**: `find / -name "issue*"`
+ * **Command with arguments**: `find /etc -name "issue*"`
  * **Description**: Locates files matching the name (wildcards supported)
  * **Output**:
- * <div class="slide" style="cursor: pointer;"> **Ubuntu:** Show/Hide</div><div class="view"><code>
+   * <div class="slide" style="cursor: pointer;"> **Ubuntu:** Show/Hide</div><div class="view"><code>root@localhost:~/ find /etc -name "issue*"
     /etc/issue.net
     /etc/issue
     /etc/issue.dpkg-dist
@@ -67,7 +67,7 @@ Commands that finds files on the file system are usually executed from within a 
  * **Command with arguments**: `locate ifconfig`
  * **Description**: Look files up in the location database
  * **Output**:
- * <div class="slide" style="cursor: pointer;"> **Ubuntu:** Show/Hide</div><div class="view"><code>
+   * <div class="slide" style="cursor: pointer;"> **Ubuntu:** Show/Hide</div><div class="view"><code>root@localhost:~/ locate ifconfig
     /pentest/forensics/volatility/volatility/plugins/linux/ifconfig.py
     /pentest/forensics/volatility/volatility/plugins/linux/ifconfig.pyc
     /sbin/ifconfig
