@@ -47,6 +47,7 @@ Commands that finds files on the file system are usually executed from within a 
     drwxr-xr-x  16 root root      4096 2011-06-08 09:16 var
     lrwxrwxrwx   1 root root        18 2012-03-01 08:11 vmlinuz -> boot/vmlinuz-3.2.6
     </code></div>
+
 ----
 
 ## command
