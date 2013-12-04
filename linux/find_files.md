@@ -19,6 +19,7 @@ Commands that finds files on the file system are usually executed from within a 
  * **Description**: Displays attributes of files and directories in the specified location
  * **Output**:
  * <div class="slide" style="cursor: pointer;"> **Ubuntu:** Show/Hide</div><div class="view"><code>
+
     total 429820
     drwxr-xr-x   2 root root      4096 2013-08-23 02:49 bin
     drwxr-xr-x   3 root root      4096 2013-08-23 03:18 boot
@@ -46,6 +47,7 @@ Commands that finds files on the file system are usually executed from within a 
     drwxr-xr-x  13 root root      4096 2013-08-23 02:52 usr
     drwxr-xr-x  16 root root      4096 2011-06-08 09:16 var
     lrwxrwxrwx   1 root root        18 2012-03-01 08:11 vmlinuz -> boot/vmlinuz-3.2.6
+
 </code></div>
 
 ----
