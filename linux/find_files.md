@@ -50,11 +50,30 @@ Commands that finds files on the file system are usually executed from within a 
 
 ----
 
-## command
-### Attributes showing
- * **Command with arguments**: `command --help`
- * **Description**: Displays files recursively 
+## find
+### Search by name
+ * **Command with arguments**: `find / -name "issue*"`
+ * **Description**: Locates files matching the name (wildcards supported)
  * **Output**:
- * <div class="slide" style="cursor: pointer;"> **OS:** Show/Hide</div><div class="view"><code> ... </code></div>
+ * <div class="slide" style="cursor: pointer;"> **Ubuntu:** Show/Hide</div><div class="view"><code>
+    /etc/issue.net
+    /etc/issue
+    /etc/issue.dpkg-dist
+    </code></div>
 
 ----
+
+## locate
+ * **Command with arguments**: `locate ifconfig`
+ * **Description**: Look files up in the location database
+ * **Output**:
+ * <div class="slide" style="cursor: pointer;"> **Ubuntu:** Show/Hide</div><div class="view"><code>
+    /pentest/forensics/volatility/volatility/plugins/linux/ifconfig.py
+    /pentest/forensics/volatility/volatility/plugins/linux/ifconfig.pyc
+    /sbin/ifconfig
+    /usr/share/man/de/man8/ifconfig.8.gz
+    /usr/share/man/fr/man8/ifconfig.8.gz
+    /usr/share/man/man8/ifconfig.8.gz
+    /usr/share/man/pt_BR/man8/ifconfig.8.gz
+    </code></div>
+
