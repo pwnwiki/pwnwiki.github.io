@@ -23,6 +23,7 @@
 
   * [Google Doc Content](linux/bulk.md)
   * [Files - Blind](linux/blind.md)
+  * [Files - Finding](linux/find_files.md)
   * [SH/BASH Commands](linux/bash.md)
   * [Persistance](linux/persistance.md)
   * [Privilege Escalation](linux/privesc.md)
