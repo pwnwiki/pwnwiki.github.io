@@ -60,6 +60,38 @@ Commands that finds files on the file system are usually executed from within a 
     /etc/issue
     /etc/issue.dpkg-dist
     </code></div>
+### Search by permissions
+ * **Command with arguments**: `find / -perm 777`
+ * **Description**: Locates files matching the permissions
+ * **Output**:
+ * <div class="slide" style="cursor: pointer;"> **Ubuntu:** Show/Hide</div><div class="view"><code>root@localhost:~/ find / -perm 777
+    /initrd.img
+    /pentest/exploits/isr-evilgrade/include/sunjava/JavaPayload/FunnyClass2.jar
+    /pentest/exploits/isr-evilgrade/agent/java/javaws.exe
+    /pentest/exploits/isr-evilgrade/trash
+    /pentest/passwords/hashcat-gui/hashcat
+    /pentest/passwords/hashcat-gui/oclHashcat-plus
+    /pentest/passwords/hashcat-gui/oclHashcat-lite
+    /pentest/passwords/john/undrop
+    --snip--
+    </code></div>
+### Search by username
+ * **Command with arguments**: `find / -user root`
+ * **Description**: Locates files owned by the user "root"
+ * **Output**:
+  * <div class="slide" style="cursor: pointer;"> **Ubuntu:** Show/Hide</div><div class="view"><code>root@localhost:~/ find / -user root
+    /
+    /initrd.img
+    /pentest
+    /pentest/sniffers
+    /pentest/sniffers/dnschef
+    /pentest/sniffers/dnschef/dnschef.exe
+    /pentest/sniffers/dnschef/dnschef.ini
+    /pentest/sniffers/dnschef/dnslib
+    /pentest/sniffers/dnschef/dnslib/dns.py
+    /pentest/sniffers/dnschef/dnslib/__init__.py
+    --snip--
+    </code></div>
 
 ----
 
