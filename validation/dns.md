@@ -1,4 +1,4 @@
-DNS Configuration Issues
+# DNS Configuration Issues
 
 ### Cache snooping
 host -r www.google.com <nameserverIP>
