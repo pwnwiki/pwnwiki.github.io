@@ -5,7 +5,7 @@ This wiki is powered by MDwiki which is a self contained wiki in a single HTML f
 
 All you have to do to use the wiki is clone the repo to anywhere you can open HTML, served or local.
 
-Contributors please see here: https://github.com/pwnwiki/pwnwiki.github.io/wiki/Contributor-Wiki
+Contributors please see here: https://github.com/pwnwiki/pwnwiki.github.io/wiki/Wiki-contributor
 
 ### Live Online Copy:
 
