@@ -14,6 +14,7 @@ $(document).ready(function() {
 Commands that finds files on the file system are usually executed from within a shell (sh/bash) or through a forking function such as system() or exec().
 
 ## ls
+
 ### Attributes showing
  * **Command with arguments**: `ls -l [directory or filename]`
  * **Description**: Displays attributes of files and directories in the specified location
@@ -51,6 +52,7 @@ Commands that finds files on the file system are usually executed from within a 
 ----
 
 ## find
+
 ### Search by name
  * **Command with arguments**: `find /etc -name "issue*"`
  * **Description**: Locates files matching the name (wildcards supported)
@@ -60,6 +62,7 @@ Commands that finds files on the file system are usually executed from within a 
     /etc/issue
     /etc/issue.dpkg-dist
     </code></div>
+
 ### Search by permissions
  * **Command with arguments**: `find / -perm 777`
  * **Description**: Locates files matching the permissions
@@ -75,6 +78,7 @@ Commands that finds files on the file system are usually executed from within a 
     /pentest/passwords/john/undrop
     --snip--
     </code></div>
+
 ### Search by username
  * **Command with arguments**: `find / -user root`
  * **Description**: Locates files owned by the user "root"
@@ -96,6 +100,7 @@ Commands that finds files on the file system are usually executed from within a 
 ----
 
 ## locate
+
  * **Command with arguments**: `locate ifconfig`
  * **Description**: Look files up in the location database
  * **Output**:
