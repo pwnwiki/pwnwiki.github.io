@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <!--
-   This is MDwiki v0.5.8
+   This is MDwiki v0.6.1
    (C) 2013 by Timo Dörr and contributors. This software is licensed
    under the terms of the GNU GPLv3 with additional terms applied.
    See https://github.com/Dynalon/mdwiki/blob/master/LICENSE.txt for more detail.
@@ -11,6 +11,7 @@
     <title>MDwiki</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="fragment" content="!">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.png" />
     <meta charset="UTF-8">
     <style type="text/css">
     /* hide the main content while we assemble everything */
@@ -83,6 +84,7 @@
     #md-all .md-copyright-footer {
         background-color: !important;
         font-size: smaller;
+        padding: 1em;
     }
     </style>
 
@@ -1338,7 +1340,8 @@ if (typeof exports === 'object') {
         useSideMenu: true,
         lineBreaks: 'gfm',
         additionalFooterText: '',
-        anchorCharacter: '&para;'
+        anchorCharacter: '&para;',
+        tocAnchor: '[ &uarr; ]'
     };
 
 
@@ -1412,7 +1415,7 @@ if (typeof exports === 'object') {
 
         self.subscribe = function(fn) {
             if (self.started) {
-                $.error('Can not subscribe to stage which already started!');
+                $.error('Subscribing to stage which already started!');
             }
             self.events.push(fn);
         };
@@ -1420,25 +1423,29 @@ if (typeof exports === 'object') {
             self.events.remove(fn);
         };
 
+        self.executeSubscribedFn = function (fn) {
+            var d = $.Deferred();
+            self.outstanding.push(d);
+
+            // display an error if our done() callback is not called
+            $.md.util.wait(2500).done(function() {
+                if(d.state() !== 'resolved') {
+                    log.fatal('Timeout reached for done callback in stage: ' + self.name +
+                        '. Did you forget a done() call in a .subscribe() ?');
+                    log.fatal('stage ' + name + ' failed running subscribed function: ' + fn );
+                }
+            });
+
+            var done = function() {
+                d.resolve();
+            };
+            fn(done);
+        };
+
         self.run = function() {
             self.started = true;
             $(self.events).each(function (i,fn) {
-                var d = $.Deferred();
-                self.outstanding.push(d);
-
-                // display an error if our done() callback is not called
-                $.md.util.wait(2500).done(function() {
-                    if(d.state() !== 'resolved') {
-                        log.fatal('Timeout reached for done callback in stage: ' + self.name +
-                            '. Did you forget a done() call in a .subscribe() ?');
-                        log.fatal('stage ' + name + ' failed running subscribed function: ' + fn );
-                    }
-                });
-
-                var done = function() {
-                    d.resolve();
-                };
-                fn(done);
+                self.executeSubscribedFn(fn);
             });
 
             // if no events are in our queue, we resolve immediately
@@ -1499,7 +1506,10 @@ if (typeof exports === 'object') {
             // postprocess
             $.Stage('postgimmick'),
 
-            $.Stage('all_ready')
+            $.Stage('all_ready'),
+
+            // used for integration tests, not intended to use in MDwiki itself
+            $.Stage('final_tests')
         ];
 
         $.md.stage = function(name) {
@@ -1648,6 +1658,25 @@ if (typeof exports === 'object') {
         });
     }
 
+    function isSpecialLink(href) {
+        if (!href) return false;
+
+        if (href.lastIndexOf('data:') >= 0)
+            return true;
+
+        if (href.startsWith('mailto:'))
+            return true;
+
+        if (href.startsWith('file:'))
+            return true;
+
+        if (href.startsWith('ftp:'))
+            return true;
+
+        // TODO capture more special links: every non-http link with : like
+        // torrent:// etc.
+    }
+
     // modify internal links so we load them through our engine
     function processPageLinks(domElement, baseUrl) {
         var html = $(domElement);
@@ -1677,6 +1706,17 @@ if (typeof exports === 'object') {
 
             if (href && href.lastIndexOf ('#!') >= 0)
                 return;
+
+            if (isSpecialLink(href))
+                return;
+
+            if (!isImage && href.startsWith ('#') && !href.startsWith('#!')) {
+                // in-page link
+                link.click(function(ev) {
+                    ev.preventDefault();
+                    $.md.scrollToInPageAnchor (href);
+                });
+            }
 
             if (! $.md.util.isRelativeUrl(href))
                 return;
@@ -1737,13 +1777,23 @@ if (typeof exports === 'object') {
             }
 
             var navHtml = marked(navMD);
-            var h = $('<div>' + navHtml + '</div>');
-            // TODO .html() is evil!!!
-            h.find('p').each(function(i,e) {
-                var el = $(e);
-                el.replaceWith(el.html());
+            // TODO why are <script> tags from navHtml APPENDED to the jqcol?
+            var $h = $('<div>' + navHtml + '</div>');
+
+            // insert <scripts> from navigation.md into the DOM
+            $h.each(function (i,e) {
+                if (e.tagName === 'SCRIPT') {
+                    $('script').first().before(e);
+                }
             });
-            $('#md-menu').append(h.html());
+
+            // TODO .html() is evil!!!
+            var $navContent = $h.eq(0);
+            $navContent.find('p').each(function(i,e) {
+                var $el = $(e);
+                $el.replaceWith($el.html());
+            });
+            $('#md-menu').append($navContent.html());
             done();
         });
 
@@ -1832,9 +1882,6 @@ if (typeof exports === 'object') {
             done();
         });
 
-        $.md.stage('skel_ready').subscribe(function(done) {
-            done();
-        });
         $.md.stage('bootstrap').subscribe(function(done){
             $.mdbootstrap('bootstrapify');
             processPageLinks($('#md-content'), $.md.baseUrl);
@@ -1876,14 +1923,20 @@ if (typeof exports === 'object') {
         $.md.stage('all_ready').done(function() {
             $('html').removeClass('md-hidden-load');
 
-            // reset the stages for next iteration
-            resetStages();
-
             // phantomjs hook when we are done
             if (typeof window.callPhantom === 'function') {
                 window.callPhantom({});
             }
 
+            $.md.stage('final_tests').run();
+        });
+        $.md.stage('final_tests').done(function() {
+            // reset the stages for next iteration
+            resetStages();
+
+            // required by dalekjs so we can wait the element to appear
+            $('body').append('<span id="start-tests"></span>');
+            $('#start-tests').hide();
         });
 
         // trigger the whole process by runing the init stage
@@ -1911,6 +1964,24 @@ if (typeof exports === 'object') {
         }
     }
 
+    function appendDefaultFilenameToHash () {
+        var newHashString = '';
+        var currentHashString = window.location.hash || '';
+        if (currentHashString === '' ||
+            currentHashString === '#'||
+            currentHashString === '#!')
+        {
+            newHashString = '#!index.md';
+        }
+        else if (currentHashString.startsWith ('#!') &&
+                 currentHashString.endsWith('/')
+                ) {
+            newHashString = currentHashString + 'index.md';
+        }
+        if (newHashString)
+            window.location.hash = newHashString;
+    }
+
     $(document).ready(function () {
 
         // stage init stuff
@@ -1918,12 +1989,7 @@ if (typeof exports === 'object') {
         registerBuildNavigation();
         extractHashData();
 
-        if (window.location.hash === '' ||
-            window.location.hash === '#'||
-            window.location.hash === '#!')
-        {
-            window.location.hash = '#!index.md';
-        }
+        appendDefaultFilenameToHash();
 
         $(window).bind('hashchange', function () {
             window.location.reload(false);
@@ -2014,6 +2080,27 @@ if (typeof exports === 'object') {
         href = href || $.md.mainHref;
         var subhash = $.md.util.getInpageAnchorText(text);
         return '#!' + href + '#' + subhash;
+    };
+
+    $.md.util.repeatUntil = function (interval, predicate, maxRepeats) {
+        maxRepeats = maxRepeats || 10;
+        var dfd = $.Deferred();
+        function recursive_repeat (interval, predicate, maxRepeats) {
+            if (maxRepeats === 0) {
+                dfd.reject();
+                return;
+            }
+            if (predicate()) {
+                dfd.resolve();
+                return;
+            } else {
+                $.md.util.wait(interval).always(function () {
+                    recursive_repeat(interval, predicate, maxRepeats - 1);
+                });
+            }
+        }
+        recursive_repeat(interval, predicate, maxRepeats);
+        return dfd;
     };
 
     // a count-down latch as in Java7.
@@ -2550,6 +2637,27 @@ if (typeof exports === 'object') {
             $pilcrow.appendTo($heading);
         }
 
+        // adds a link to the navigation at the top of the page
+        function addJumpLinkToTOC($heading) {
+            if($.md.config.useSideMenu === false) return;
+            if($heading.prop("tagName") !== 'H2') return;
+
+            var c = $.md.config.tocAnchor;
+            if (c === '')
+                return;
+
+            var $jumpLink = $('<a class="visible-xs visible-sm jumplink" href="#md-page-menu">' + c + '</a>');
+            $jumpLink.click(function(ev) {
+                ev.preventDefault();
+
+                $('body').scrollTop($('#md-page-menu').position().top);
+            });
+
+            if ($heading.parents('#md-menu').length === 0) {
+                $jumpLink.insertAfter($heading);
+            }
+        }
+
         // adds a page inline anchor to each h1,h2,h3,h4,h5,h6 element
         // which can be accessed by the headings text
         $('h1,h2,h3,h4,h5,h6').not('#md-title h1').each (function () {
@@ -2558,11 +2666,15 @@ if (typeof exports === 'object') {
             var text = $heading.clone().children('.anchor-highlight').remove().end().text();
             var href = $.md.util.getInpageAnchorHref(text);
             addPilcrow($heading, href);
+
+            //add jumplink to table of contents
+            addJumpLinkToTOC($heading);
         });
     }
 
     $.md.scrollToInPageAnchor = function(anchortext) {
-
+        if (anchortext.startsWith ('#'))
+            anchortext = anchortext.substring (1, anchortext.length);
         // we match case insensitive
         var doBreak = false;
         $('.md-inpage-anchor').each (function () {
@@ -2686,12 +2798,46 @@ if (typeof exports === 'object') {
         $('#md-menu h1').remove();
         $('a.navbar-brand').text(brand_text);
 
-
-        // then comes md-title, and afterwards md-content
-        // offset md-title to account for the fixed menu space
-        // 50px is the menu width + 20px spacing until first text
-        // or heading
+        // initial offset
         $('#md-body').css('margin-top', '70px');
+        $.md.stage('pregimmick').subscribe(function (done) {
+            check_offset_to_navbar();
+            done();
+        });
+    }
+    // the navbar has different height depending on theme, number of navbar entries,
+    // and window/device width. Therefore recalculate on start and upon window resize
+    function set_offset_to_navbar () {
+        var height = $('#md-main-navbar').height() + 10;
+        $('#md-body').css('margin-top', height + 'px');
+    }
+    function check_offset_to_navbar () {
+        // HACK this is VERY UGLY. When an external theme is used, we don't know when the
+        // css style will be finished loading - and we can only correctly calculate
+        // the height AFTER it has completely loaded.
+        var navbar_height = 0;
+
+        var dfd1 = $.md.util.repeatUntil(40, function() {
+            navbar_height = $('#md-main-navbar').height();
+            return (navbar_height > 35) && (navbar_height < 481);
+        }, 25);
+
+        dfd1.done(function () {
+            navbar_height = $('#md-main-navbar').height();
+            set_offset_to_navbar();
+            // now bootstrap changes this maybe after a while, again watch for changes
+            var dfd2 = $.md.util.repeatUntil(20, function () {
+                return navbar_height !== $('#md-main-navbar').height();
+            }, 25);
+            dfd2.done(function() {
+                // it changed, so we need to change it again
+                set_offset_to_navbar();
+            });
+            // and finally, for real slow computers, make sure it is changed if changin very late
+            $.md.util.wait(2000).done(function () {
+                set_offset_to_navbar();
+            });
+        });
     }
     function buildSubNav() {
         // replace with the navbar skeleton
@@ -2869,6 +3015,7 @@ if (typeof exports === 'object') {
 
         $(window).resize(function () {
             recalc_width($('#md-page-menu'));
+            check_offset_to_navbar();
         });
         $.md.stage('postgimmick').subscribe(function (done) {
             // recalc_width();
@@ -2919,12 +3066,12 @@ if (typeof exports === 'object') {
         if ($('#md-menu').find ('li').length === 0) {
             return;
         }
-		var filename = $.md.mainHref;
+		var filename = window.location.hash;
 
 		if (filename.length === 0) {
-            filename = 'index.md';
+            filename = '#!index.md';
         }
-		var selector = 'li:has(a[href$="' + filename + '"])';
+		var selector = 'li:has(a[href="' + filename + '"])';
 		$('#md-menu').find (selector).addClass ('active');
     }
 
@@ -2952,33 +3099,44 @@ if (typeof exports === 'object') {
 
             // wrap each image with a <li> that limits their space
             // the number of images in a paragraphs determines thei width / span
+
+            // if the image is a link, wrap around the link to avoid
+            function wrapImage ($imgages, wrapElement) {
+                return $images.each(function (i, img) {
+                    var $img = $(img);
+                    var $parent_img = $img.parent('a');
+                    if ($parent_img.length > 0)
+                        $parent_img.wrap(wrapElement);
+                    else
+                        $img.wrap(wrapElement);
+                });
+            }
+
             if ($p.hasClass ('md-floatenv')) {
-                // floating images have to be smaller
-                var div;
                 if ($images.length === 1) {
-                    div = $images.wrap('<div class="col-sm-8" />');
+                    wrapImage($images, '<div class="col-sm-8" />');
                 } else if ($images.length === 2) {
-                    div = $images.wrap('<div class="col-sm-4" />');
+                    wrapImage($images, '<div class="col-sm-4" />');
                 } else {
-                    div = $images.wrap('<div class="col-sm-2" />');
+                    wrapImage($images, '<div class="col-sm-2" />');
                 }
             } else {
 
                 // non-float => images are on their own single paragraph, make em larger
                 // but remember, our image resizing will make them only as large as they are
                 // but do no upscaling
-
                 // TODO replace by calculation
+
                 if ($images.length === 1) {
-                    $images.wrap('<div class="col-sm-12" />');
+                    wrapImage($images, '<div class="col-sm-12" />');
                 } else if ($images.length === 2) {
-                    $images.wrap('<div class="col-sm-6" />');
+                    wrapImage($images, '<div class="col-sm-6" />');
                 } else if ($images.length === 3) {
-                    $images.wrap('<div class="col-sm-4" />');
+                    wrapImage($images, '<div class="col-sm-4" />');
                 } else if ($images.length === 4) {
-                    $images.wrap('<div class="col-sm-3" />');
+                    wrapImage($images, '<div class="col-sm-3" />');
                 } else {
-                    $images.wrap('<div class="col-sm-2" />');
+                    wrapImage($images, '<div class="col-sm-2" />');
                 }
             }
             $p.addClass('row');
@@ -3024,22 +3182,11 @@ if (typeof exports === 'object') {
     // and may not be removed or hidden to comply with licensing conditions.
     function addFooter() {
         var navbar = '';
-        navbar += '<hr><div class="container md-copyright-footer" class="navbar navbar-default navbar-fixed-bottom">';
-        navbar +=     '<ul class="nav navbar-nav navbar-left">';
-        navbar +=       '<p class="navbar-text">';
-        navbar +=       '</p>';
-        navbar +=     '</ul>';
-        navbar +=     '<ul class="nav navbar-nav navbar-right">';
-        navbar +=       '<p class="navbar-text">';
-        navbar +=       '<span id="md-footer-additional"></span>';
-        navbar +=       '<span>';
-        navbar +=         ' Website generated with <a href="http://www.mdwiki.info">MDwiki</a> ';
-        navbar +=         '&copy; Timo D&ouml;rr and contributors. ';
-        // navbar +=         '<a href="http://www.mdwiki.info">MDwiki</a> is free software licensed under ';
-        // navbar +=         '<a href="https://github.com/Dynalon/mdwiki/blob/master/LICENSE.txt">GNU GPLv3 (additional terms apply).</a>';
-        navbar +=       '</span>';
-        navbar +=       '</p>';
-        navbar +=     '</ul>';
+        navbar += '<hr><div class="scontainer">';
+        navbar +=   '<div class="pull-right md-copyright-footer"> ';
+        navbar +=     '<span id="md-footer-additional"></span>';
+        navbar +=     'Website generated with <a href="http://www.mdwiki.info">MDwiki</a> ';
+        navbar +=     '&copy; Timo D&ouml;rr and contributors. ';
         navbar +=   '</div>';
         navbar += '</div>';
         var $navbar = $(navbar);
@@ -3840,7 +3987,8 @@ function googlemapsReady() {
         { name: 'simplex', url: 'netdna.bootstrapcdn.com/bootswatch/3.0.0/simplex/bootstrap.min.css' },
         { name: 'slate', url: 'netdna.bootstrapcdn.com/bootswatch/3.0.0/slate/bootstrap.min.css' },
         { name: 'spacelab', url: 'netdna.bootstrapcdn.com/bootswatch/3.0.0/spacelab/bootstrap.min.css' },
-        { name: 'united', url: 'netdna.bootstrapcdn.com/bootswatch/3.0.0/united/bootstrap.min.css' }
+        { name: 'united', url: 'netdna.bootstrapcdn.com/bootswatch/3.0.0/united/bootstrap.min.css' },
+        { name: 'yeti', url: 'netdna.bootstrapcdn.com/bootswatch/3.0.2/yeti/bootstrap.min.css' }
     ];
     var themeChooserGimmick = {
         name: 'Themes',
