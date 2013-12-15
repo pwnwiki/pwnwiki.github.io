@@ -34,6 +34,7 @@
   * [Google Doc Content](osx/bulk.md)
   * [Bash Commands](osx/bash.md)
   * [Files - Blind](osx/blind.md)
+  * [Files - Finding](osx/find_files.md)
   * [Persistance](osx/persistance.md)
   * [Privilege Escalation](osx/privesc.md)
 
