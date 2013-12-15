@@ -1,3 +1,13 @@
+<!-- Code for collapse and expand -->
+<script type="text/javascript"> 
+$(document).ready(function() { 
+$('div.view').hide(); 
+$('div.slide').click(function() {
+$(this).next('div.view').slideToggle('fast'); 
+return false; 
+}); 
+}); 
+</script>
 # Pwn Wiki
 
 [Home](index.md)
@@ -31,7 +41,6 @@
 
 [OSX]()
 
-  * [Google Doc Content](osx/bulk.md)
   * [Bash Commands](osx/bash.md)
   * [Files - Blind](osx/blind.md)
   * [Files - Finding](osx/find_files.md)
