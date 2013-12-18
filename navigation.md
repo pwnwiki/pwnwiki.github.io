@@ -58,6 +58,7 @@
 [Cats]()
 
   * [netcat](cats/netcat.md)
+  * [socat](cats/socat.md)
   
 [Metasploit]()
 
