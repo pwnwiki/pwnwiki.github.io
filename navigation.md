@@ -57,6 +57,7 @@
 
 [Cats]()
 
+  * [ncat](cats/ncat.md)
   * [netcat](cats/netcat.md)
   * [socat](cats/socat.md)
   
