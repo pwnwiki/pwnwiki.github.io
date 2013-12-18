@@ -13,8 +13,8 @@ The examples below are mostly copied from the http://nmap.org/book/ncat-man-exam
 | `ncat --exec "/bin/bash" -l 8081 --keep-open` | Bind to TCP port 8081 and attach /bin/bash for the world to access freely. |
 | `ncat --exec "/bin/bash" --max-conns 3 --allow \`<br>`192.168.0.0/24 -l 8081 --keep-open` | Bind a shell to TCP port 8081, limit access to hosts on a local network, and limit the maximum number of simultaneous connections to 3. |
 | `ncat -l --proxy-type http localhost 8888` | Create an HTTP proxy server on localhost port 8888. |
-| `HOST1: ncat -l 9899 > outputfile`<br>`HOST2: ncat HOST1 9899 < inputfile` | Send a file over TCP port 9899 from host2 (client) to host1 (server). |
-| `HOST1: ncat -l 9899 < inputfile`<br>`HOST2: ncat HOST1 9899 > outputfile` | Transfer in the other direction, turning Ncat into a "one file" server. |
+| `Server: ncat ClientIP 9899 < inputfile`<br>`Client: ncat -l 9899 > outputfile` | Send a file over TCP port 9899 from Server to Client. Server "pushes" the file to the Client. |
+| `Server: ncat -l 9899 < inputfile`<br>`Client: ncat ServerIP 9899 > outputfile` | Transfer in the other direction, turning Ncat into a "one file" server. Client "pulls" file from the Server. |
 | `echo -e "GET / HTTP/1.0\n\n"`&#124;`ncat google.com 80` | Retrieve the HTML source code of the web server at google.com on TCP port 80. |
 | `ncat -t example.org 23` | Connect to example.org's telnet server on TCP port 23. |
 | `Server: ncat -l 74 --udp`<br>`Client: ncat --udp localhost 74 < inputfile` | Transfer file from client to server over UDP. |
