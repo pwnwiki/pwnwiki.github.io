@@ -54,6 +54,9 @@
   * [Python](scripting/python.md)
   * [Ruby](scripting/ruby.md)
   * [Perl](scripting/perl.md)
+  * [Windows](scripting/windows.md)
+  * [NodeJS](scripting/NodeJS.md)
+  * [Linux bash](scripting/bash.md)
 
 [Cats]()
 
