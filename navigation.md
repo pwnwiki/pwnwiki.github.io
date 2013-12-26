@@ -26,11 +26,6 @@
   * [Linux](privesc/linux/index.md)
   * [OSX](privesc/osx/index.md)
 
-[Mobile]()
-
-   * [Android](mobile/android.md)
-   * [iOS](mobile/ios.md)
-
 [Technologies]()
 
   * [Mobile](tech/mobile/index.md)
