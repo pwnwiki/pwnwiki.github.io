@@ -66,8 +66,7 @@
 [References]()
 
   * [Unix Rosetta Stone](references/rosetta.htm)
-  
-[Links](links.md)
+  * [Links](links.md)
 
 [gimmick:themechooser](Wiki Theme)
 
