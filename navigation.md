@@ -33,6 +33,7 @@
 
 [Technologies]()
 
+  * [Mobile](tech/mobile/index.md)
   * [Mainframes](tech/mainframes/index.md)
   * [Embedded OSs](tech/embedded/index.md)
   * [Web Languages](tech/web/languages.md)
@@ -40,6 +41,13 @@
   * [Web Servers](tech/web/servers.md)
   * [Network Services](tech/services/index.md)
   * [Databases](tech/db/index.md)
+
+[Binaries]()
+
+  * [Windows](bins/windows/index.md)
+  * [Linux](bins/linux/index.md)
+  * [OSX](bins/osx/index.md)
+  * [Universal](bins/multi/index.md)
 
 [Scripting]()
 
