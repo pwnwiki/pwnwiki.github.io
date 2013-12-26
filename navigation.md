@@ -36,6 +36,7 @@
   * [Web Servers](tech/web/servers.md)
   * [Network Services](tech/services/index.md)
   * [Databases](tech/db/index.md)
+  * [Novell](tech/novell.md)
 
 [Binaries]()
 
