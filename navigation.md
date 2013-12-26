@@ -65,8 +65,9 @@
   
 [References]()
 
+  * [How to Contribute](references/contribute.md)
+  * [Links](references/links.md)
   * [Unix Rosetta Stone](references/rosetta.htm)
-  * [Links](links.md)
 
 [gimmick:themechooser](Wiki Theme)
 
