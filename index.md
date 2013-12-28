@@ -33,7 +33,8 @@ Curators:
   * [@jakx_](https://twitter.com/jakx_) [gimmick:TwitterFollow](@jakx_)
   * [@TheColonial](https://twitter.com/TheColonial) [gimmick:TwitterFollow](@TheColonial)
   * [@Wireghoul](https://twitter.com/Wireghoul) [gimmick:TwitterFollow](@Wireghoul)
-  
+  * [@Cotlage](https://twitter.com/Cotlage) [gimmick:TwitterFollow](@Cotlage)
+
 If you would like to become a curator, please contact [mubix@hak5.org](mailto:mubix@hak5.org)
 
 [gimmick:ForkMeOnGitHub ({ color: 'red',  position: 'right' })](http://www.github.com/pwnwiki/pwnwiki.github.io/)

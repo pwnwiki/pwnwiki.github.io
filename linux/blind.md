@@ -22,6 +22,7 @@ When using blind files, it is often possible to mine known files for other paths
 | -------- | ------------------------ |
 | `/etc/mtab` | Reveals mount points. |
 | `/etc/inetd.conf` | Configuration file for inetd based services, mostly deprecated these days. |
+| `/var/log/dmessage`| Reveals all of the kernel messages.|
 | ... | ... |
 
 # More files
