@@ -2,68 +2,59 @@
 
 [Home](index.md)
 
-[Windows]()
+[Presence]()
 
-  * [Autostart Locations](windows/autostart.md)
-  * [Binary Planting](windows/binary.md)
-  * [CMD Commands](windows/cmd.md)
-  * [Covering Tracks](windows/cover.md)
-  * [Files - Blind](windows/blind.md)
-  * [Files - Finding](windows/find_files.md)
-  * [Files - Important](windows/files.md)
-  * [Persistance](windows/persistance.md)
-  * [Powershell](windows/powershell.md)
-  * [Privilege Escalation](windows/privesc.md)
-  * [Remote Access](windows/remote.md)
-  * [UAC Bypassing](windows/uac.md)
-  * [MSSQL Servers](windows/mssql.md)
+  * [Windows](presence/windows/index.md)
+  * [Linux](presence/linux/index.md)
+  * [OSX](presence/osx/index.md)
 
-  
-[Linux]()
+[Persistence]()
 
-  * [Google Doc Content](linux/bulk.md)
-  * [Files - Blind](linux/blind.md)
-  * [Files - Finding](linux/find_files.md)
-  * [SH/BASH Commands](linux/bash.md)
-  * [Persistance](linux/persistance.md)
-  * [Privilege Escalation](linux/privesc.md)
+  * [Windows](persistence/windows/index.md)
+  * [Linux](persistence/linux/index.md)
+  * [OSX](persistence/osx/index.md)
 
+[Pivoting]()
 
-[OSX]()
+  * [Windows](pivoting/windows/index.md)
+  * [Linux](pivoting/linux/index.md)
+  * [OSX](pivoting/osx/index.md)
 
-  * [Bash Commands](osx/bash.md)
-  * [Files - Blind](osx/blind.md)
-  * [Files - Finding](osx/find_files.md)
-  * [Persistance](osx/persistance.md)
-  * [Privilege Escalation](osx/privesc.md)
+[Privilege Escalation]()
 
-[Mobile]()
+  * [Windows](privesc/windows/index.md)
+  * [Linux](privesc/linux/index.md)
+  * [OSX](privesc/osx/index.md)
 
-   * [Android](mobile/android.md)
-   * [iOS](mobile/ios.md)
+[Technologies]()
 
-[Other OSs]()
+  * [Mobile](tech/mobile/index.md)
+  * [Mainframes](tech/mainframes/index.md)
+  * [Embedded OSs](tech/embedded/index.md)
+  * [Web Languages](tech/web/languages.md)
+  * [Web Apps](tech/web/apps.md)
+  * [Web Servers](tech/web/servers.md)
+  * [Network Services](tech/services/index.md)
+  * [Databases](tech/db/index.md)
+  * [Novell](tech/novell.md)
 
-  * [zOS](otheros/zos.md)
-  * [AS/400](otheros/as400.md)
-  * [Cisco](otheros/cisco.md)
-  * [Juniper](otheros/juniper.md)
+[Binaries]()
+
+  * [Windows](bins/windows/index.md)
+  * [Linux](bins/linux/index.md)
+  * [OSX](bins/osx/index.md)
+  * [Universal](bins/multi/index.md)
 
 [Scripting]()
 
   * [Python](scripting/python.md)
+  * [Powershell](scripting/powershell.md)
   * [Ruby](scripting/ruby.md)
   * [Perl](scripting/perl.md)
   * [Windows](scripting/windows.md)
   * [NodeJS](scripting/NodeJS.md)
   * [Linux bash](scripting/bash.md)
 
-[Cats]()
-
-  * [ncat](cats/ncat.md)
-  * [netcat](cats/netcat.md)
-  * [socat](cats/socat.md)
-  
 [Metasploit]()
 
   * [Meterpreter](msf/meterpreter.md)
@@ -75,10 +66,9 @@
   
 [References]()
 
+  * [How to Contribute](references/contribute.md)
+  * [Links](references/links.md)
   * [Unix Rosetta Stone](references/rosetta.htm)
-  
- 
-[Links](links.md)
 
 [gimmick:themechooser](Wiki Theme)
 
@@ -92,3 +82,4 @@ return false;
 }); 
 }); 
 </script>
+

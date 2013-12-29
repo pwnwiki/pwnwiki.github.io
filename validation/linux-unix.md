@@ -1,1 +1,0 @@
-# Linx/UNIX Configuration Issues
