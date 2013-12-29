@@ -5,4 +5,3 @@ Command that can be executed from the context of the CMD.exe prompt that help ga
   * [Blind Files](blind.md) - Files to look for on the system.
   * [Config](windows_cmd_config.md) - Commands that display information about the configuration of the victim.
   * [Finding Files](find_files.md) - How to search for files.
-
