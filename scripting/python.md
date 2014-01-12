@@ -18,3 +18,15 @@ python -c 'import pty; pty.spawn("/bin/bash")'```
 ***Print all ASCII characters***
 ```python
 python -c 'import string; print string.printable'```
+
+**Run OS commands through Python Interpreter**
+```python
+python -c 'import os; os.system("command here")'```
+
+example:
+
+```
+python -c 'import os; os.system("cat /etc/passwd")'```
+
+Remember that the python console does not log code by default, so you can run all post-exploit shenanigans through the python console for added stealth. 
+Also gets by certain environmental restrictions.
