@@ -3,61 +3,62 @@
 
 ## TCP Discovery Ports: ##
  * easy copy - `7,21,22,23,25,80,88,110,111,139,143,389,443,445,514,515,631,1352,2049,3000,3389,4949,5060,5631,5632,5666,5900-5905,6000-6009,8000,8006,8080,8089,8443,8834,9080,9100,9443,17500`
- * FTP: 21
- * SSH: 22
- * Telnet: 23
- * SMTP: 25
- * Finger: 7
- * HTTP: 80
- * Kerberos: 88
- * POP3: 110
- * SUNRPC (Unix RPC): 111 (think: rpcinfo)
- * NetBIOS: 139
- * IMAP 143
- * LDAP: 389
- * HTTPS: 443
- * LotusNotes: 1352
- * Microsoft DS: 445
- * RSH: 514
- * CUPS: 631
- * NFS: 2049
- * Webrick(Ruby Webserver): 3000
- * RDP: 3389
- * Munin: 4949 
- * SIP: 5060
- * PCAnywhere: 5631 (5632)
- * NRPE (*nix) /NSCLIENT++ (win): 5666 (evidence of Nagios server on network)
- * Alt-HTTP: 8080
- * Alt-HTTP tomcat: 9080
- * Another HTTP: 8000 (mezzanine in development mode for example)
- * Nessus HTTPS: 8834
- * Proxmox: 8006
- * Splunk: 8089 (also on 8000)
- * Alt HTTPS: 8443
- * vSphere: 9443
- * X11: 6000-6009 (+1 to portnum for additional displays) (see xspy, xwd, xkey for exploitation)
- * VNC: 5900, 5901+ (Same as X11; +1 to portnum for each user/dipslay over VNC. SPICE is usually in this range as well)
-Printers: 9100, 515
- * Dropbox lansync: 17500
+ * 7 Finger
+ * 21 FTP
+ * 22 SSH
+ * 23 Telnet
+ * 25 SMTP
+ * 80 HTTP
+ * 88 Kerberos
+ * 110 POP3
+ * 111 SUNRPC(UnixRPC)
+ * 139 NetBIOS
+ * 143 IMAP
+ * 389 LDAP
+ * 443 HTTPS
+ * 445 MicrosoftDS
+ * 514 RSH
+ * 515 Printers
+ * 631 CUPS
+ * 1352 LotusNotes
+ * 2049 NFS
+ * 3000 Webrick (Ruby Webserver)
+ * 3389 RDP
+ * 4949 Munin
+ * 5060 SIP
+ * 5631-5632 PCAnywhere
+ * 5666(evidence of Nagios server on network) NRPE(*nix)/NSCLIENT++(win)
+ * 5900-5906 (Same as X11; display over VNC. SPICE is usually in this range as well) VNC
+ * 6000-6009 (seexspy, xwd, xkeyforexploitation) X11
+ * 8006 Proxmox
+ * 8080 Alt-HTTP
+ * 8089(also on 8000) Splunk
+ * 8000(mezzanine in development mode for example) AnotherHTTP
+ * 8834 Nessus HTTPS
+ * 8443 AltHTTPS
+ * 9080 Alt-HTTPtomcat
+ * 9443 vSphere
+ * 9100 Printers
+ * 17500 Dropbox lansync
 
 ## UDP Discovery: ##
- * easy copy - `53,123,161,1434`
- * DNS: 53
- * XDMCP: 177 (via NSE script --script broadcast-xdmcp-discover, discover nix boxes hosting X)
- * OpenVPN: 1194
- * MSSQL Ping: 1434
- * SUNRPC (Unix RPC): 111 (yeah, it's UDP, too)
- * SNMP 161
- * Network Time Protocol (NTP): 123 
- * syslog : 514
- * UPNP: 1900
- * Isakmp - 500 (ike PSK Attack)
- * vxworks debug: 17185 (udp)
+ * easy copy - `53,111,123,161,177,500,514,1194,1434,1900,17185`
+ * 53 DNS
+ * 111 SUNRPC (Unix RPC)
+ * 123 Network Time Protocol (NTP)
+ * 161 SNMP
+ * 177 XDMCP (via NSE script --script broadcast-xdmcp-discover, discover *nix boxes hosting X)
+ * 500 Isakmp (ike PSK Attack)
+ * 514 syslog
+ * 1194 OpenVPN
+ * 1434 MSSQL Ping
+ * 1900 UPNP
+ * 17185 vxworks debug
 
-## Authentication Ports (other than ones already listed): ##
- * easy copy - `1494`
+## Authentication Ports: ##
+ * easy copy - `80,902,1494,5985,5986,6129,8200,9084`
  * Citrix: 1494
- * WinRM: 80,5985 (HTTP), 5986 (HTTPS)
+ * WinRM: 80, 5985 (HTTP), 5986 (HTTPS)
  * VMware Server: 8200, 902, 9084
  * DameWare: 6129
 
