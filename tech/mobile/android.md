@@ -33,4 +33,3 @@ echo "ro.kernel.qemu=1" > /data/local.prop
 /system/build.prop
 ```
 
-Content coming. Feel free to submit ;-)
