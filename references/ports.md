@@ -94,18 +94,18 @@
  * DNP3: TCP/20000, UDP/20000
  * EtherCAT: UDP/34980
  * Ethernet/IP: TCP/44818, UDP/2222, UDP/44818
- * FL-net: UDP/55000 to 55003
- * Foundation Fieldbus HSETCP/1089 to 1091, UDP/1089 to 1091
+ * FL-net: UDP/55000-55003
+ * Foundation Fieldbus HSETCP/1089-1091, UDP/1089-1091
  * ICCP: TCP/102
  * Modbus TCP: TCP/502
  * OPC UA Binary: Vendor Application Specific
  * OPC UA Discovery Server: TCP/4840
  * OPC UA XML: TCP/80, TCP/443
- * PROFINET: TCP/34962 to 34964, UDP/34962 to 34964
+ * PROFINET: TCP/34962-34964, UDP/34962-34964
  * ROC PLus: TCP/UDP 4000
 
 ## Interesting Port Ranges: ##
- * HTTP(S) Ports: 8000-9000
+ * 8000-9000 HTTP(S) Ports
 
 ## Web easy-win URLs: ##
 (moved to: https://etherpad.mozilla.org/weburl-easywins )
