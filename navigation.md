@@ -68,6 +68,7 @@
 
   * [How to Contribute](references/contribute.md)
   * [Links](references/links.md)
+  * [Network Ports](references/ports.md)
   * [Unix Rosetta Stone](references/rosetta.htm)
 
 [gimmick:themechooser](Wiki Theme)
