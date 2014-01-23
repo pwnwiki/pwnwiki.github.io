@@ -214,7 +214,7 @@ For some of these `wmic` commands that pull information (versus perform an actio
    
 ### Process Create
  * **Command with arguments**: `wmic process call create [EXECUTABLE]`
- * **Description**: Launches an executable. Replace [EXECUTABLE] with the name of the executable you'd like to launch (for example: calc.exe). Do not include quotes around the value (for example: *DO* use calc.exe; do *NOT* use "calc.exe").
+ * **Description**: Launches an executable. Replace [EXECUTABLE] with the name of the executable you'd like to launch (for example: calc.exe). Do not include quotes around the value (for example: *DO* use calc.exe; do *NOT* use "calc.exe"). Another option for this command comes from [Rob Fuller's talk](http://www.slideshare.net/mubix/windows-attacks-at-is-the-new-black-26665607): `wmic /node:DC1 /user:DOMAIN\domainadminsvc /password:domainadminsvc123 process call create "cmd /c vssadmin list shadows 2>&1 > c:\temp\output.txt"`
  * **Output**:
    * <div class="slide" style="cursor: pointer;"> **Windows 2008:** Show/Hide</div><div class="view"><code>C:\Users\johndoe>wmic process call create calc.exe<br>Executing (Win32_Process)->Create()<br>Method execution successful.<br>Out Parameters:<br>instance of __PARAMETERS<br>{<br>        ProcessId = 1936;<br>        ReturnValue = 0;<br>};</code></div>	
    
