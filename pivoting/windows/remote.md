@@ -71,19 +71,19 @@ Commands that move data and files between systems on a network and are usually e
  * **Output**:
    * <div class="slide" style="cursor: pointer;"> **Windows 2008:** Show/Hide</div><div class="view"><code>C:\Users\johndoe>qwinsta<br> SESSIONNAME       USERNAME                 ID  STATE   TYPE        DEVICE<br> services                                    0  Disc<br>>console           johndoe                   1  Active<br> rdp-tcp                                 65536  Listen</code></div> 
 
-### Remote Assistance Enable
- * **Command with arguments**: `reg add “HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server” /v fAllowToGetHelp /t REG_DWORD /d 1 /f`
- * **Description**: **Must be admin to run this.** Enable remote assistance through adding a registry entry on the local system.
- * **Output**:
-   * <div class="slide" style="cursor: pointer;"> **Windows 2008:** Show/Hide</div><div class="view"><code>C:\Windows\system32>reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f
-The operation completed successfully.</code></div> 
-
-### Remote Desktop Enable
- * **Command with arguments**: `reg add “HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server” /v fDenyTSConnections /t REG_DWORD /d 0 /f`
- * **Description**: **Must be admin to run this.** Enable remote desktop through adding a registry entry on the local system.
- * **Output**:
-   * <div class="slide" style="cursor: pointer;"> **Windows 2008:** Show/Hide</div><div class="view"><code>C:\Windows\system32>reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f
-The operation completed successfully.</code></div> 
+### psexec
+ * **Command with arguments**: `psexec \\[computername|IP] [cmd]`
+ * **Description**: The [`psexec` tool](http://technet.microsoft.com/en-us/sysinternals/bb897553.aspx) executes processes on other systems over a network. Most systems now disable the "clipbook" which `psexec` required. According to Val Smith's and Colin Ames' [BlackHat 2008 presentation (page 50)](http://www.blackhat.com/presentations/bh-usa-08/Smith_Ames/BH_US_08_Smith_Ames_Meta-Post_Exploitation.pdf), you can re-enable the sub-systems needed to use `psexec` using the `sc` commands below.
+<pre>
+c:\> net use \\[computername|IP]\ipc$ username /user:password
+c:\> sc \\[computername|IP] config netdde start= auto
+c:\> sc \\[computername|IP] config netddedsdm start= auto
+c:\> sc \\[computername|IP] config clipsrv start= auto
+c:\> sc \\[computername|IP] start netdde
+c:\> sc \\[computername|IP] start netddedsdm
+c:\> sc \\[computername|IP] start clipsrv
+</pre>
+ * **Example Command**: `psexec \\1.1.1.1 ipconfig /all` would retrieve the IP settings for the 1.1.1.1 system.
 
 ### tasklist
  * **Command with arguments**: `tasklist /v /s [computername|IP]`
