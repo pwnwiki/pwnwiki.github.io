@@ -20,6 +20,12 @@ Commands that find files on the filesystem and are usually executed from the con
  * **Output**:
    * <div class="slide" style="cursor: pointer;"> **Windows 2008:** Show/Hide</div><div class="view"><code>C:\Users\johndoe>dir /a c:\<br> Volume in drive C has no label. Volume Serial Number is 1A09-5F16<br><br> Directory of c:\<br><br>01/19/2008  03:45 AM    <DIR>          $Recycle.Bin<br>09/18/2006  04:43 PM                24 autoexec.bat<br>10/08/2013  10:27 PM    <DIR>          Boot<br>04/11/2009  08:00 AM           333,257 bootmgr<br>10/08/2013  10:27 PM             8,192 BOOTSECT.BAK<br>09/18/2006  04:43 PM                10 config.sys<br>01/19/2008  06:47 AM    <JUNCTION>     Documents and Settings [C:\Users]<br>10/23/2013  07:39 PM     2,460,454,912 pagefile.sys<br>01/19/2008  04:40 AM    <DIR>          PerfLogs<br>10/08/2013  06:36 PM    <DIR>          Program Files<br>10/08/2013  06:36 PM    <DIR> <br>10/10/2013  07:59 PM    <DIR>          Users<br>10/23/2013  07:38 PM    <DIR>          Windows<br>               5 File(s)  2,460,796,395 bytes<br>              10 Dir(s)  33,311,416,320 bytes free</code></div> 
 
+### Searching Sub-directories
+ * **Command with arguments**: `dir /s *[term]*` 
+ * **Description**: Searches for the word entered in the [term]  section in all sub-directories ofthe current directory.
+ * **Example Terms**: `pass`, `cred`, `vnc`, `.config`, `sysprep.*`
+ * **Attribution**: http://www.slideshare.net/mubix/windows-attacks-at-is-the-new-black-26665607
+
 ### Recursive
  * **Command with arguments**: `dir /b /s [directory or filename]`
  * **Description**: Displays files recursively (all subdirectories). Good for post processing with find (example: `find /I “searchstring”`) or sending to another tool.
