@@ -13,4 +13,4 @@ Command that can be executed from the context of a shell prompt that help escala
     * Remotely - From http://www.slideshare.net/mubix/windows-attacks-at-is-the-new-black-26665607
          * `net use \\[computername|IP] /user:DOMAIN\username password`
          * `net time \\[computername|IP]`
-         * `at \\[computername|IP] 13:20 c:|temp\evil.bat`
+         * `at \\[computername|IP] 13:20 c:\temp\evil.bat`
