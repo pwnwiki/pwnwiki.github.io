@@ -26,4 +26,4 @@ The files below are things to pull when all you can do is to blindly read. Examp
 | `%WINDIR%\system32\config\default.sav`<br>`%WINDIR%\system32\config\security.sav`<br>`%WINDIR%\system32\config\software.sav`<br>`%WINDIR%\system32\config\system.sav` | Backup Windows registry files (http://forensics.wikia.com/wiki/Windows_registry_entries) |
 | `%WINDIR%\system32\logfiles\httperr\httperr1.log` | IIS 6.x web server error logs. |
 | `%WINDIR%\system32\logfiles\w3svc1\exYYMMDD.log` where YYMMDD = year month day | Web server log files. |
-| `unattend.txt, unattend.xml, sysprep.inf` | Used in the automated deployment of Windows images and can contain user accounts. |
+| `unattend.txt, unattend.xml, unattended.xml, sysprep.inf` | Used in the automated deployment of Windows images and can contain user accounts. Sometimes found in the `%WINDIR%\Panther\` directory. |
