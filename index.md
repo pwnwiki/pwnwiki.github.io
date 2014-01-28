@@ -27,13 +27,12 @@ We realize that not everyone can/wants to submit content via GitHub and that's c
 - - - - - -
 Curators:
 
-  * [@mubix](https://twitter.com/mubix)
-  * [@WebBreacher](https://twitter.com/webbreacher)
-  * [@tekwizz123](https://twitter.com/tekwizz123)
-  * [@jakx_](https://twitter.com/jakx_)
-  * [@TheColonial](https://twitter.com/TheColonial)
-  * [@Wireghoul](https://twitter.com/Wireghoul)
-  
+  * [@mubix](https://twitter.com/mubix) [gimmick:TwitterFollow](@mubix)
+  * [@WebBreacher](https://twitter.com/webbreacher) [gimmick:TwitterFollow](@WebBreacher)
+  * [@tekwizz123](https://twitter.com/tekwizz123) [gimmick:TwitterFollow](@tekwizz123)
+  * [@jakx_](https://twitter.com/jakx_) [gimmick:TwitterFollow](@jakx_)
+  * [@TheColonial](https://twitter.com/TheColonial) [gimmick:TwitterFollow](@TheColonial)
+  * [@Wireghoul](https://twitter.com/Wireghoul)  [gimmick:TwitterFollow](@Wireghoul)
 
 If you would like to become a curator, please contact [mubix@hak5.org](mailto:mubix@hak5.org)
 
