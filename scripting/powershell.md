@@ -83,4 +83,51 @@ tingSystem=*Server*))" |select name`
  * **Output**:
    * <div class="slide" style="cursor: pointer;"> **Windows 7:** Show/Hide</div><div class="view"><code>name<br>----<br>PWNT-DC<br>
 Exchange1<br>
-SharePoint1</code></div> 
+SharePoint1</code></div>
+
+ ### Get Info About All Connected Drives
+ * **Command with arguments**: `[System.IO.DriveInfo]::GetDrives()`
+ * **Output**:
+   * <div class="slide" style="cursor: pointer;"> **Windows 7:** Show/Hide</div><div class="view"><code>
+	Name : C:\
+	DriveType : Fixed
+	DriveFormat : NTFS
+	IsReady : True
+	AvailableFreeSpace : 111111111111
+	TotalFreeSpace : 111111111111
+	TotalSize : 111111111111
+	RootDirectory : C:\
+	VolumeLabel : HP
+	<br />
+	Name : D:\
+	DriveType : Fixed
+	DriveFormat : NTFS
+	IsReady : True
+	AvailableFreeSpace : 111111111111
+	TotalFreeSpace : 111111111111
+	TotalSize : 111111111111
+	RootDirectory : D:\
+	VolumeLabel : DATA
+	<br />
+	Name : E:\
+	DriveType : CDRom
+	DriveFormat :
+	IsReady : False
+	AvailableFreeSpace :
+	TotalFreeSpace :
+	TotalSize :
+	RootDirectory : E:\
+	VolumeLabel :
+    </code></div>
+
+ ### Retrieve BIOS Information (including system serial number)
+ * **Command with arguments**: `gwmi win32_bios`
+ * **Output**:
+   * <div class="slide" style="cursor: pointer;"> **Windows 7:** Show/Hide</div><div class="view"><code>
+	SMBIOSBIOSVersion : 6.0
+	Manufacturer : Phoenix Technologies LTD
+	Name : PheonixBIOS 4.0 Release 6.0
+	SerialNumber : XXXXXXXXXXXXXXXXXXXXXX
+	Version : XXXXXX - XXXXXXX
+    </code></div>
+
