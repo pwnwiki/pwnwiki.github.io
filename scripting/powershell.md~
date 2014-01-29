@@ -85,8 +85,7 @@ tingSystem=*Server*))" |select name`
 Exchange1<br>
 SharePoint1</code></div>
 
-
-### Get Info About All Connected Drives
+ ### Get Info About All Connected Drives
  * **Command with arguments**: `[System.IO.DriveInfo]::GetDrives()`
  * **Output**:
    * <div class="slide" style="cursor: pointer;"> **Windows 7:** Show/Hide</div><div class="view"><code>
@@ -120,93 +119,3 @@ SharePoint1</code></div>
 	RootDirectory : E:\
 	VolumeLabel :
     </code></div>
-
-### Obtain detailed information about a running process or service
- * **Command with arguments**: `gps | ?{$_.name -match "<process/service name>"} | ?{$_.id -match "<process/service id>"} | select *`
- * **Output**:
-   * <div class="slide" style="cursor: pointer;"> **Windows 7:** Show/Hide</div><div class="view"><code>
-	__NounName                 : Process
-	Name                       : firefox
-	Handles                    : 383
-	VM                         : 272830464
-	WS                         : 90185728
-	PM                         : 69402624
-	NPM                        : 24676
-	Path                       : C:\Program Files\Mozilla Firefox\firefox.exe
-	Company                    : Mozilla Corporation
-	CPU                        : 2.1684139
-	FileVersion                : 26.0
-	ProductVersion             : 26.0
-	Description                : Firefox
-	Product                    : Firefox
-	Id                         : 3176
-	PriorityClass              : Normal
-	HandleCount                : 383
-	WorkingSet                 : 90185728
-	PagedMemorySize            : 69402624
-	PrivateMemorySize          : 69402624
-	VirtualMemorySize          : 272830464
-	TotalProcessorTime         : 00:00:02.1684139
-	BasePriority               : 8
-	ExitCode                   :
-	HasExited                  : False
-	ExitTime                   :
-	Handle                     : 1904
-	MachineName                : .
-	MainWindowHandle           : 131426
-	MainWindowTitle            : Mozilla Firefox Start Page - Mozilla Firefox
-	MainModule                 : System.Diagnostics.ProcessModule (firefox.exe)
-	MaxWorkingSet              : 1413120
-	MinWorkingSet              : 204800
-	Modules                    : {System.Diagnostics.ProcessModule (firefox.exe), System.Diagnostics.ProcessModule (ntdll.d
-		                     ll), System.Diagnostics.ProcessModule (kernel32.dll), System.Diagnostics.ProcessModule (KE
-		                     RNELBASE.dll)...}
-	NonpagedSystemMemorySize   : 24676
-	NonpagedSystemMemorySize64 : 24676
-	PagedMemorySize64          : 69402624
-	PagedSystemMemorySize      : 277804
-	PagedSystemMemorySize64    : 277804
-	PeakPagedMemorySize        : 77041664
-	PeakPagedMemorySize64      : 77041664
-	PeakWorkingSet             : 97169408
-	PeakWorkingSet64           : 97169408
-	PeakVirtualMemorySize      : 281219072
-	PeakVirtualMemorySize64    : 281219072
-	PriorityBoostEnabled       : True
-	PrivateMemorySize64        : 69402624
-	PrivilegedProcessorTime    : 00:00:00.4992032
-	ProcessName                : firefox
-	ProcessorAffinity          : 1
-	Responding                 : True
-	SessionId                  : 1
-	StartInfo                  : System.Diagnostics.ProcessStartInfo
-	StartTime                  : 1/29/2014 8:02:12 PM
-	SynchronizingObject        :
-	Threads                    : {2664, 772, 3160, 544...}
-	UserProcessorTime          : 00:00:01.6692107
-	VirtualMemorySize64        : 272830464
-	EnableRaisingEvents        : False
-	StandardInput              :
-	StandardOutput             :
-	StandardError              :
-	WorkingSet64               : 90185728
-	Site                       :
-	Container                  :
-</code></div>
-
-### Translate SID to username
- * **Command with arguments**: `((New-Object System.Security.Principal.SecurityIdentifier("<ssid>")).translate([System.Security.Principal.NTAccount])).value`
- * **Output**:
-   * <div class="slide" style="cursor: pointer;"> **Windows 7:** Show/Hide</div><div class="view"><code>
-        NT AUTHORITY\SELF
-   </code></div>
-
-### Grab each user on the local system and list their last login time, their SSID and their user path.
- * **Command with arguments**: `gwmi win32_userprofile | select -unique @{name="Name";expression={$_.__server}},@{name="SID";expression={$_.sid}},@{name="LastUseTime";expression={$_.converttodatetime($_.lastusetime)}},localpath | ft -auto`
- * **Output**:
- * <div class="slide" style="cursor: pointer;"> **Windows 7:** Show/Hide</div><div class="view"><code>
-WIN-C77DTCDJS11 S-1-5-xx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxx x/xx/2014 x:xx:xx PM C:\Users\xxxx
-WIN-C77DTCDJS11 S-1-5-20                                                            C:\Windows\ServiceProfiles\Netwo...
-WIN-C77DTCDJS11 S-1-5-19                                                            C:\Windows\ServiceProfiles\Local...
-WIN-C77DTCDJS11 S-1-5-18                                                            C:\Windows\system32\config\syste...
-</code></div>
