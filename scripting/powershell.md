@@ -120,14 +120,3 @@ SharePoint1</code></div>
 	VolumeLabel :
     </code></div>
 
- ### Retrieve BIOS Information (including system serial number)
- * **Command with arguments**: `gwmi win32_bios`
- * **Output**:
-   * <div class="slide" style="cursor: pointer;"> **Windows 7:** Show/Hide</div><div class="view"><code>
-	SMBIOSBIOSVersion : 6.0
-	Manufacturer : Phoenix Technologies LTD
-	Name : PheonixBIOS 4.0 Release 6.0
-	SerialNumber : XXXXXXXXXXXXXXXXXXXXXX
-	Version : XXXXXX - XXXXXXX
-    </code></div>
-
