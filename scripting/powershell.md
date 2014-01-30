@@ -84,3 +84,30 @@ tingSystem=*Server*))" |select name`
    * <div class="slide" style="cursor: pointer;"> **Windows 7:** Show/Hide</div><div class="view"><code>name<br>----<br>PWNT-DC<br>
 Exchange1<br>
 SharePoint1</code></div> 
+
+
+# Powershell CLI short hand:
+
+### PowerShell.exe
+Parameter - Shortcut(s)
+* Command - `c`
+* EncodedArguments - `ea`, `encodeda`
+* EncodedCommand - `e`,`ec`
+* ExecutionPolicy - `ex`,`ep`
+* File - `f`
+* Help - `-h`,`-?` or `/h`,`/?`
+* InputFormat - `i`,`if`
+* NoExit - `noe`
+* NoLogo - `nol`
+* NoProfile - `nop`
+* NonInteractive - `noni`
+* OutputFormat - `o`,`of`
+* Sta - `s`
+* WindowStyle - `w`
+
+### powershell_ise.exe
+Parameter - Shortcut(s)
+* File - `f`
+* Help - `-h`,`-?` or `/h`,`/?`
+* Mta - `m`
+* NoProfile - `n`
