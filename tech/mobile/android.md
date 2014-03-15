@@ -5,14 +5,29 @@
 ###Text Messages (Needs Root):
 
 ```
-/data/data/com.android.providers/telephony/databases/mmssms.db
 /data/data/com.android.providers.telephony/databases/mmssms.db
+/data/data/com.android.providers/telephony/databases/mmssms.db
 ```
 
 ###Contacts (Needs Root):
 
 ```
+/data/data/com.android.providers.contacts/databases/contacts2.db
+/data/data/com.android.providers.contacts/databases/contacts.db
 /data/data/android.providers.contacts/databases
+```
+
+###Accounts (Needs Root):
+
+```
+/data/system/users/0/accounts.db
+/data/system/accounts.db
+```
+
+###Wifi Keys (Needs Root):
+
+```
+/data/misc/wifi/wpa_supplicant.conf
 ```
 
 ###Local System Settings:
