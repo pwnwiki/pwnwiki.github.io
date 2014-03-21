@@ -2,11 +2,6 @@
 
 One liners
 -----------
-**Tunnel traffic natively with windows**
-```bash
-netsh int portproxy v4tov4 listenport=80 connecthost=10.0.0.1 connectport=80
-```
-
 **Launch cmd.exe as local system w/ psexec**
 ```bash
 psexec -s cmd.exe
