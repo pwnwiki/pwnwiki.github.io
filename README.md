@@ -7,7 +7,7 @@ This is a collection TTPs (tools, tactics, and procedures) for what to do after 
 You can find a copy of the project online at: http://PwnWiki.io
 
 ### Offline Use:
-This is the really cool thing about this wiki: when you do a ==git clone== of it you get a full wiki on your local system. Do you work on a network that has no Internet access? We gotcha covered.
+This is the really cool thing about this wiki: when you do a ```git clone``` of it you get a full wiki on your local system. Do you work on a network that has no Internet access? We gotcha covered.
 
   1. Clone the repository or pull the archive ([download zip](https://github.com/pwnwiki/pwnwiki.github.io/archive/master.zip)) of the repo
   2. Open index.html
