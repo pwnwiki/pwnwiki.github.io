@@ -1,4 +1,3 @@
-
 # Linux Google Doc Content #
 
 The content below is the raw data from the Google Doc that was first used to collect it. Over time, this content will be moved into sub-pages and organized but is placed here, now, so as to be more complete. We apologize for its appearance.
@@ -23,28 +22,30 @@ The content below is the raw data from the Google Doc that was first used to col
 | `df -k` | mounted fs, size, % use, dev and mount point |
 | `mount` | mounted fs	 |
 | `last -a` | Last users logged on |
-| `lastcomm` | |		
-| `lastlog` | |		
-| `lastlogin (BSD)` | |		
+| `lastcomm` | Print out information about previously executed commands. |		
+| `lastlog` | Reports the most recent login of all users or of a given user |		
+| `lastlogin (BSD)` | Indicate last	login time of users |		
 | `getenforce` | Get the status of SELinux (Enforcing, Permissive or Disabled) |
 | `dmesg` | Informations from the last system boot |
 | `lspci` | prints all PCI buses and devices |
 | `lsusb` | prints all USB buses and devices/h |
 | `lscpu` | prints CPU information |
-| `lshw` | |		
-| `ex` | |		
-| `cat /proc/cpuinfo` | |		
-| `cat /proc/meminfo` | |		
+| `lshw` | List Hardware |		
+| `ex` | Start vi in ex mode |		
+| `cat /proc/cpuinfo` | Shows types of processers in the system |		
+| `cat /proc/meminfo` | Displays information about systems RAM usage |		
 | `du -h --max-depth=1 /` | (note: can cause heavy disk i/o) |
 | `which nmap` | locate a command (ie nmap or nc) |		
-| `locate bin/nmap` | |		
-| `locate bin/nc` | |		
-| `jps -l` | |		
+| `locate bin/nmap` | Find the location of nmap |		
+| `locate bin/nc` | Find the location of netcat |		
+| `jps -l` | Looks for Java Virtual Machines |		
 | `java -version` | Returns the version of Java. |
 
 
 
 ## Networking
+| Command | Description / Importance |
+| ------- | ------------------------ |
 hostname -f
 ip addr show
 ip ro show
