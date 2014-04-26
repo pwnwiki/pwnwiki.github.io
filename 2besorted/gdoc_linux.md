@@ -50,17 +50,16 @@ The content below is the raw data from the Google Doc that was first used to col
 | `ifconfig -a` | Show information on network interface configuration |
 | `route -n` | Show routing table for all host IPs |
 | `cat /etc/network/interfaces` | Show network interfaces |
-| `iptables -L -n -v` | text goes here |
-| `iptables -t nat -L -n -v` | text goes here |
-| `ip6tables -L -n -v` | text goes here |
-| `iptables-save` | text goes here |
-| `netstat -anop` | text goes here |
-| `netstat -r` | text goes here |
-| `netstat -nltupw ` |  Requires root with raw sockets, text goes here |
-| `arp -a` | text goes here |
-| `lsof -nPi` | text goes here |
-| `to resume it ? "cat /proc/net/*" (more discreet)` | text goes here |
-| `what does the above mean? -> It means that all the information given by the above commands can be found by looking into the files under /proc/net , and that this approach is less likely to trigger monitoring or other stuff.` | text goes here |
+| `iptables -L -n -v` | Display all iptables rules |
+| `iptables -t nat -L -n -v` | Display iptable rules for table nat |
+| `ip6tables -L -n -v` | Display IPv6 tables |
+| `iptables-save` | Display iptables content |
+| `netstat -anop` | Display all open network connections and processes associated |
+| `netstat -r` | Display  the kernel routing tables |
+| `netstat -nltupw` |  Requires root with raw sockets: numeric, listening, Value of watch dog timer (requires `-i`), Limit statistics to AF_UNIX family, Display program, wait <number of seconds> |
+| `arp -a` | Shows arp table |
+| `lsof -nPi` | list of what processes are listening on what ports |
+| `cat /proc/net/*` | Find all information about the hosts networking using only the cat command--less likely to trigger alarms |
 
 ## User accounts
 | Command | Description / Importance |
