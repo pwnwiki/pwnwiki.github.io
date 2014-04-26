@@ -1,4 +1,3 @@
-
 # Linux Google Doc Content #
 
 The content below is the raw data from the Google Doc that was first used to collect it. Over time, this content will be moved into sub-pages and organized but is placed here, now, so as to be more complete. We apologize for its appearance.
@@ -23,60 +22,63 @@ The content below is the raw data from the Google Doc that was first used to col
 | `df -k` | mounted fs, size, % use, dev and mount point |
 | `mount` | mounted fs	 |
 | `last -a` | Last users logged on |
-| `lastcomm` | |		
-| `lastlog` | |		
-| `lastlogin (BSD)` | |		
+| `lastcomm` | Print out information about previously executed commands. |		
+| `lastlog` | Reports the most recent login of all users or of a given user |		
+| `lastlogin (BSD)` | Indicate last	login time of users |		
 | `getenforce` | Get the status of SELinux (Enforcing, Permissive or Disabled) |
 | `dmesg` | Informations from the last system boot |
 | `lspci` | prints all PCI buses and devices |
 | `lsusb` | prints all USB buses and devices/h |
 | `lscpu` | prints CPU information |
-| `lshw` | |		
-| `ex` | |		
-| `cat /proc/cpuinfo` | |		
-| `cat /proc/meminfo` | |		
+| `lshw` | List Hardware |		
+| `ex` | Start vi in ex mode |		
+| `cat /proc/cpuinfo` | Shows types of processers in the system |		
+| `cat /proc/meminfo` | Displays information about systems RAM usage |		
 | `du -h --max-depth=1 /` | (note: can cause heavy disk i/o) |
 | `which nmap` | locate a command (ie nmap or nc) |		
-| `locate bin/nmap` | |		
-| `locate bin/nc` | |		
-| `jps -l` | |		
+| `locate bin/nmap` | Find the location of nmap |		
+| `locate bin/nc` | Find the location of netcat |		
+| `jps -l` | Looks for Java Virtual Machines |		
 | `java -version` | Returns the version of Java. |
 
-
-
 ## Networking
-hostname -f
-ip addr show
-ip ro show
-ifconfig -a
-route -n
-cat /etc/network/interfaces
-iptables -L -n -v
-iptables -t nat -L -n -v
-ip6tables -L -n -v
-iptables-save
-netstat -anop
-netstat -r
-netstat -nltupw (root with raw sockets)
-arp -a
-lsof -nPi
-to resume it ? "cat /proc/net/*" (more discreet)
-what does the above mean? -> It means that all the information given by the above commands can be found by looking into the files under /proc/net , and that this approach is less likely to trigger monitoring or other stuff.
-User accounts
-local accounts: cat /etc/passwd
-password hashes in /etc/shadow on Linux
-password hashes in /etc/security/passwd on AIX
-groups in /etc/group (and/or /etc/gshadow on Linux)
-all accounts: getent passwd
-should dump local, LDAP, NIS, whatever the system is using
-same with getent group
-Samba's own database: pdbedit -L -w or pdbedit -L -v
-privileged accounts: cat 	
-(above: cat ???)
-mail aliases: cat /etc/aliases find /etc -name aliases, getent aliases 
-NIS accounts: ypcat passwd - displays NIS password file
+| Command | Description / Importance |
+| ------- | ------------------------ |
+| `hostname -f` | Show long hostname (FQDN) |
+| `ip addr show` | Show IP information |
+| `ip ro show` | Show routing information |
+| `ifconfig -a` | Show information on network interface configuration |
+| `route -n` | Show routing table for all host IPs |
+| `cat /etc/network/interfaces` | Show network interfaces |
+| `iptables -L -n -v` | Display all iptables rules |
+| `iptables -t nat -L -n -v` | Display iptable rules for table nat |
+| `ip6tables -L -n -v` | Display IPv6 tables |
+| `iptables-save` | Display iptables content |
+| `netstat -anop` | Display all open network connections and processes associated |
+| `netstat -r` | Display  the kernel routing tables |
+| `netstat -nltupw` |  Requires root with raw sockets: numeric, listening, Value of watch dog timer (requires `-i`), Limit statistics to AF_UNIX family, Display program, wait <number of seconds> |
+| `arp -a` | Shows arp table |
+| `lsof -nPi` | list of what processes are listening on what ports |
+| `cat /proc/net/*` | Find all information about the hosts networking using only the cat command--less likely to trigger alarms |
 
-Credentials
+## User accounts
+| Command | Description / Importance |
+| ------- | ------------------------ |
+| `cat /etc/passwd` | Display local accounts |
+| `cat /etc/shadow on Linux` | Display password hashes on Linux |
+| `cat /etc/security/passwd` | Display password hashes on AIX|
+| `cat /etc/group` | Show system groups |
+| `cat /etc/gshadow` | Show shadow group file on Linux |
+| `getent passwd` | List of all user accounts from local, LDAP, NIS, and whatever the system is using |
+| `getent group` | List of all groups from local, LDAP, NIS, and whatever the system is using |
+| `pdbedit -L -w or pdbedit -L -v` | SAMBA Database |
+| `find /etc -name aliases` | Find mail aliases |
+| `cat /etc/aliases` | Display mail aliases |
+| `getent aliases ` | List of all mail aliases |
+| `ypcat passwd` | displays NIS password file |
+
+
+## Credentials
 SSH keys, often passwordless: /home/*/.ssh/id*
 SSH agent:
 
