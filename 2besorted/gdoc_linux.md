@@ -41,43 +41,45 @@ The content below is the raw data from the Google Doc that was first used to col
 | `jps -l` | Looks for Java Virtual Machines |		
 | `java -version` | Returns the version of Java. |
 
-
-
 ## Networking
 | Command | Description / Importance |
 | ------- | ------------------------ |
-hostname -f
-ip addr show
-ip ro show
-ifconfig -a
-route -n
-cat /etc/network/interfaces
-iptables -L -n -v
-iptables -t nat -L -n -v
-ip6tables -L -n -v
-iptables-save
-netstat -anop
-netstat -r
-netstat -nltupw (root with raw sockets)
-arp -a
-lsof -nPi
-to resume it ? "cat /proc/net/*" (more discreet)
-what does the above mean? -> It means that all the information given by the above commands can be found by looking into the files under /proc/net , and that this approach is less likely to trigger monitoring or other stuff.
-User accounts
-local accounts: cat /etc/passwd
-password hashes in /etc/shadow on Linux
-password hashes in /etc/security/passwd on AIX
-groups in /etc/group (and/or /etc/gshadow on Linux)
-all accounts: getent passwd
-should dump local, LDAP, NIS, whatever the system is using
-same with getent group
-Samba's own database: pdbedit -L -w or pdbedit -L -v
-privileged accounts: cat 	
-(above: cat ???)
-mail aliases: cat /etc/aliases find /etc -name aliases, getent aliases 
-NIS accounts: ypcat passwd - displays NIS password file
+| `hostname -f` | Show long hostname (FQDN) |
+| `ip addr show` | Show IP information |
+| `ip ro show` | Show routing information |
+| `ifconfig -a` | Show information on network interface configuration |
+| `route -n` | Show routing table for all host IPs |
+| `cat /etc/network/interfaces` | Show network interfaces |
+| `iptables -L -n -v` | text goes here |
+| `iptables -t nat -L -n -v` | text goes here |
+| `ip6tables -L -n -v` | text goes here |
+| `iptables-save` | text goes here |
+| `netstat -anop` | text goes here |
+| `netstat -r` | text goes here |
+| `netstat -nltupw ` |  Requires root with raw sockets, text goes here |
+| `arp -a` | text goes here |
+| `lsof -nPi` | text goes here |
+| `to resume it ? "cat /proc/net/*" (more discreet)` | text goes here |
+| `what does the above mean? -> It means that all the information given by the above commands can be found by looking into the files under /proc/net , and that this approach is less likely to trigger monitoring or other stuff.` | text goes here |
 
-Credentials
+## User accounts
+| Command | Description / Importance |
+| ------- | ------------------------ |
+| `cat /etc/passwd` | Display local accounts |
+| `cat /etc/shadow on Linux` | Display password hashes on Linux |
+| `cat /etc/security/passwd` | Display password hashes on AIX|
+| `cat /etc/group` | Show system groups |
+| `cat /etc/gshadow` | Show shadow group file on Linux |
+| `getent passwd` | List of all user accounts from local, LDAP, NIS, and whatever the system is using |
+| `getent group` | List of all groups from local, LDAP, NIS, and whatever the system is using |
+| `pdbedit -L -w or pdbedit -L -v` | SAMBA Database |
+| `find /etc -name aliases` | Find mail aliases |
+| `cat /etc/aliases` | Display mail aliases |
+| `getent aliases ` | List of all mail aliases |
+| `ypcat passwd` | displays NIS password file |
+
+
+## Credentials
 SSH keys, often passwordless: /home/*/.ssh/id*
 SSH agent:
 
