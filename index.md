@@ -1,4 +1,4 @@
-![](images/logo.jpg)
+![Welcome To PwnWiki.io](images/logo.jpg)
 
 [Image Generated Here](http://www.addletters.com/pictures/restaurant-sign-generator/4772466.htm#.UplRZ42PuuY)
 
