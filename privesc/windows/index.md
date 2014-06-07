@@ -24,6 +24,8 @@ Services with unquoted binary paths may allow privilege escalation.
  * Assume ServiceA refers to the unquoted path C:\Program Files\Some Service\service.exe
  * Service is started with desirable privileges (e.g. domain, SYSTEM)
  * If attacker can create files as c:\Program.exe or ''c:\Program Files\Some.bat'' the next time the service starts the attacker controlled binary will execute
+   * This is because the system can not decide if a space in the command string indicates a space in the binary path or a separator between command line arguments. The system starts with the first substring before the first space and checks if there is a file with an executable extension there (in this case C:\Program.exe, C:\Program.bat, etc.). If there is not, it checks for the next substring (C:\Program Files\Some.exe, C:\Program Files\Some.bat, etc.) and so on. If you can create a file that is checked before the intended executable, you win.
+   * The scenario is typical when services are created from the command line with sc: `sc create PrivEsc binpath= "..."`
 
 # Tools
 
