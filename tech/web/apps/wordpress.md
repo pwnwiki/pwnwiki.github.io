@@ -13,18 +13,24 @@ To audit these website's plugins, I would recommend using WPScan ([available her
 
 To specifically check for outdated plugins, use the following code with WPScan:
 
+```bash
 ./wpscan.rb --url *url to target* --enumerate p
+```
 
 ### Weak Passwords
 Users may also have weak passwords that can be easily bruteforced or guessed. Using the WPScan tool from earlier, it is quite easy to start guessing passwords with a provided wordlist:
 
+```bash
 ./wpscan.rb --url *url to target* --wordlist *your wordlist* --username *username to target*
+```
 
 You can prepend the --threads *number of thread* option if you wish to use more threads against the target.
 
 You may want to retrieve the current users on the Wordpress installation first by preforming the following command:
 
+```bash
 ./wpscan.rb --url *url to target* --enumerate u
+```
 
 ### Using the same username for your posts as your login username
 Expanding on the post above, if the target uses the same username for their posts as they do their login (which you should be able to find via the above command anyway, but in case it doesn't this may help), it will greatly assist you when you try to later brute force their password. Therefore take a note of the names of the users who are posting on the blog for later dictionary attacks.
@@ -43,15 +49,18 @@ Best bet to fixing these set of vulnerabilities is to actually just disable TimT
 
 However its still worth checking for TimThumb installations as quite a lot of Wordpress sites do use it and its prone to a number of different bugs. To do this, we can use the following command with WPScan:
 
+```bash
 ./wpscan.rb --url *url to target* --enumerate tt
+```
 
 ### Outdated Themes
 Yes, even themes can have vulnerabilities within them as well, though this tends to happen less often than with plugins or TimThumb.
 
 To check for vulnerabilities with a site's Wordpress themes, one can use the following check:
 
+```bash
 ./wpscan.rb --url *url to target* --enumerate t
-
+```
 
 ### Vulnerable Hosting Servers
 Well it doesn't matter if you secure the hell out the Wordpress site, if your hosting provider is being silly with their security, you can just get in through the other door so to say. Therefore, if your allowed to and you obtain permission from the hosting provider, you may want to check to see if you can't get in through the hosting provider's insecure set up of the box the Wordpress server is running on.
