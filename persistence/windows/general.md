@@ -21,7 +21,7 @@ When you modify a system to talk on the network, you may need to alter the Windo
 ### Allow a program to listen through the firewall
 Taken from http://synjunkie.blogspot.de/2008/03/basic-dos-foo.html
 
-`http://synjunkie.blogspot.de/2008/03/basic-dos-foo.html`
+`netsh firewall add allowedprogram C:\nltest.exe mltest enable`
 
 ### Open a port on the firewall
 Taken from http://synjunkie.blogspot.de/2008/03/basic-dos-foo.html
