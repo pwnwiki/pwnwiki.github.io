@@ -71,4 +71,5 @@ Microsoft-Windows-Diagnostics-Networking/Debug
  * **Command with arguments**: `wevtutil cl [LOGNAME]`
  * **Description**: **MUST be run as an administrator**.  Clears the contents of a specific log.
  * **Output**:
-   * <div class="slide" style="cursor: pointer;"> **Windows 2008:** Show/Hide</div><div class="view"><code>c:\temp>wevtutil cl Microsoft-Windows-EventLog/Debug</code></div> 
+   * <div class="slide" style="cursor: pointer;"> **Windows 2008:** Show/Hide</div><div class="view"><code>c:\temp>wevtutil cl Microsoft-Windows-EventLog/Debug</code></div>
+ * **Remove all logs**: `for /f %a in ('wevtutil el') do @wevtutil cl "%a"`
