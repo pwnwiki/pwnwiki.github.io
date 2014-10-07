@@ -178,7 +178,7 @@ Note: Needs to be launched within an administrative command shell.
  * **Output**:
    * (Coming soon!)
    
-### Share
+### Local Shares
  * **Command with arguments**: `net share`
  * **Description**: Displays the system's currently shared SMB entries, and what path(s) they point to.
  * **Output**:
@@ -190,6 +190,12 @@ ADMIN$       C:\Windows                      Remote Admin
 NETLOGON     C:\Windows\SYSVOL\sysvol\lab.sky.net\SCRIPTS Logon server share
 SYSVOL       C:\Windows\SYSVOL\sysvol        Logon server share
 The command completed successfully.</code></div>
+
+### Remote Shares
+ * **Command with arguments**: `net view *share*`
+ * **Description**: Displays the system's currently shared SMB entries, and what path(s) they point to.
+ * **Example**: `net view \\w2k3-srv/`
+ * **Output**:
    
 ### Users (List local/domain)
  * **Command with arguments**: `net user [/domain]`
@@ -384,3 +390,31 @@ x: Windows Sockets initialization failed: 5
  * **Description**: Displays the system's routing table.
  * **Output**:
    * <div class="slide" style="cursor: pointer;"> **Windows 2008:** Show/Hide ![](images/output.jpg)</div><div class="view"><code>C:\Users\johndoe>netstat -r<br>===========================================================================<br>Interface List<br> 10 ...00 0c 29 9a e2 26 ...... Intel(R) PRO/1000 MT Network Connection<br>  1 ........................... Software Loopback Interface 1<br> 12 ...00 00 00 00 00 00 00 e0  isatap.{DDE3DF3D-3417-4EBF-BF66-73BD3A64FF26}<br> 11 ...02 00 54 55 4e 01 ...... Teredo Tunneling Pseudo-Interface<br>===========================================================================<br><br>IPv4 Route Table<br>===========================================================================<br>Active Routes:<br>Network Destination        Netmask          Gateway       Interface  Metric<br>          0.0.0.0          0.0.0.0     192.168.10.1    192.168.10.34    266<br>        127.0.0.0        255.0.0.0         On-link         127.0.0.1    306<br>        127.0.0.1  255.255.255.255         On-link         127.0.0.1    306<br>  127.255.255.255  255.255.255.255         On-link         127.0.0.1    306<br>     192.168.10.0    255.255.255.0         On-link     192.168.10.34    266<br>    192.168.10.34  255.255.255.255         On-link     192.168.10.34    266<br>   192.168.10.255  255.255.255.255         On-link     192.168.10.34    266<br>        224.0.0.0        240.0.0.0         On-link         127.0.0.1    306<br>        224.0.0.0        240.0.0.0         On-link     192.168.10.34    266<br>  255.255.255.255  255.255.255.255         On-link         127.0.0.1    306<br>  255.255.255.255  255.255.255.255         On-link     192.168.10.34    266<br>===========================================================================<br>Persistent Routes:<br>  Network Address          Netmask  Gateway Address  Metric<br>          0.0.0.0          0.0.0.0     192.168.10.1  Default<br>===========================================================================<br><br>IPv6 Route Table<br>===========================================================================<br>Active Routes:<br> If Metric Network Destination      Gateway<br>  1    306 ::1/128                  On-link<br> 10    266 fe80::/64                On-link<br> 10    266 fe80::11bc:e019:25e5:916d/128<br>                                    On-link<br>  1    306 ff00::/8                 On-link<br> 10    266 ff00::/8                 On-link<br>===========================================================================<br>Persistent Routes:<br>  None</code></div>
+---
+
+## nbtstat
+
+### List Listening Services on A Remote Machine
+ * **Command with arguments**: `nbtstat -A *target ip*`
+ * **Description**: Displays the target PC's listening services
+ * **Output**:
+   * <div class="slide" style="cursor: pointer;"> **Windows 2008:** Show/Hide ![](images/output.jpg)</div><div class="view"><code></code></div>
+
+---
+## telnet
+
+### Basic Info Grab
+ * **Command with arguments**: `telnet *ip address* *port*`
+ * **Description**: Establishes a connection to the target IP and port, pressing enter a few times might display information about the software running on that port.
+ * **Output**:
+   * <div class="slide" style="cursor: pointer;"> **Windows 2008:** Show/Hide ![](images/output.jpg)</div><div class="view"><code> Trying 173.194.118.9... <br />Connected to google.com.<br />Escape character is '^]'.<br />GET / HTTP/1.1<br /><br />HTTP/1.1 302 Found<br />Cache-Control: private<br />Content-Type: text/html; charset=UTF-8<br />Location: http://www.google.nl/?gfe_rd=cr&ei=r0T_U566H8iU8QerrYG4Ag <br /> Content-Length: 258<br />Date: Thu, 28 Aug 2014 15:03:11 GMT<br />Server: GFE/2.0<br />Alternate-Protocol: 80:quic<br />....</br></code></div>
+---
+
+## reg
+
+### Enumerate keys
+ * **Command with arguments**: `reg query *key*`
+ * **Description**: Queries a key on the system and retrieves its contents.
+ * **Example**: `reg query HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run`
+
+---
