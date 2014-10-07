@@ -91,8 +91,8 @@ Remote Desktop allows a remote user to receive a graphical "desktop" of the targ
  1. On the remote system, execute the following commands:
 
 
-
-    <pre>c:\> sc config termservice start= auto sc config termservice start= auto
+```
+c:\> sc config termservice start= auto sc config termservice start= auto
 
 c:\> regedit /s enable_ts.reg
 
@@ -105,8 +105,7 @@ c:\> secedit /configure /db new.secedit.sdb /cfg fix_ts_policy.ini
 c:\> gpupdate /Force
 
 c:\> net start "terminal services"
-
-</pre>
+```
 
 
 
