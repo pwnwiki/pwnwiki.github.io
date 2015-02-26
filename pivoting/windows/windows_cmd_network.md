@@ -42,6 +42,18 @@ instead of "netsh firewall", see KB article 947709
 at http://go.microsoft.com/fwlink/?linkid=121488 .<br/>
 Ok.</code></div>
 
+## Netsh Pivoting
+ * **Command with arguments**: `netsh interface portproxy add v4tov4 listerport=<LPORT> listenaddress=0.0.0.0 connectport=<RPORT> connectaddress=<RHOST>`
+ * **Description**: Set up a port forwarding proxy between local host on <LPORT> on remote host <RHOST>:<RPORT>
+ * **Minimum required version**: Windows 7.
+ * **Note**: Will remain persistant through reboot. Can also support `v4tov6`, `v6tov6`, and `v6tov4`
+
+## Netsh Sniffing
+ * **Command with arguments**: `netsh trace start capture=yes overwrite=no tracefile=<FilePath.etl>` 
+ * **Description**: uses netsh to sniff traffic
+ * **Minimum required version**: Windows 7.
+ * **Note**: Output will be in .etl format. Must convert to libpcap to read with wireshark etc. To stop sniffing use `netsh trace stop`. Default max filesize is 250MB, and this command will stop sniffing once this size is reached. If larger dumps are needed use `maxsize=<N>`
+
 ### Wireless Backdoor Creation
  * **Command with arguments**: 
    1. `netsh wlan set hostednetwork mode=[allow\|disallow]`
