@@ -43,7 +43,7 @@ at http://go.microsoft.com/fwlink/?linkid=121488 .<br/>
 Ok.</code></div>
 
 ## Netsh Pivoting
- * **Command with arguments**: `netsh interface portproxy add v4tov4 listerport=<LPORT> listenaddress=0.0.0.0 connectport=<RPORT> connectaddress=<RHOST>`
+ * **Command with arguments**: `netsh interface portproxy add v4tov4 listenport=<LPORT> listenaddress=0.0.0.0 connectport=<RPORT> connectaddress=<RHOST>`
  * **Description**: Set up a port forwarding proxy between local host on <LPORT> on remote host <RHOST>:<RPORT>
  * **Minimum required version**: Windows 7.
  * **Note**: Will remain persistant through reboot. Can also support `v4tov6`, `v6tov6`, and `v6tov4`
