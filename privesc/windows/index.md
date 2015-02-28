@@ -29,7 +29,7 @@ Services with unquoted binary paths may allow privilege escalation.
 
 # Password Spraying
 
-This section taken from Skoudis / Strand Pilliage the villlage redux webcast
+This section taken from Skoudis / Strand Pillage the Village redux webcast
 
 ### Get a list of users from the domain
  * **Command with arguments**: `net user /domain`
