@@ -28,6 +28,7 @@ cat /etc/issue
 cat /etc/*-release
 cat /etc/lsb-release
 cat /etc/redhat-release
+cat /etc/os-release
 ```
 
 **Determine kernel version - 32 or 64-bit?** 
@@ -78,7 +79,21 @@ ls -alh /sbin/
 dpkg -l
 rpm -qa
 ls -alh /var/cache/apt/archivesO
-ls -alh /var/cache/yum/ 
+ls -alh /var/cache/yum/
+yum list | grep installed
+Solaris: pkginfo
+Arch Linux: pacman -Q 
+```
+
+
+**Determine versions of important applications** 
+```bash 
+gcc -v
+mysql --version
+java -version
+python --version
+ruby -v
+perl -v
 ```
 
 **Review installed configurations**
@@ -103,7 +118,7 @@ Printer (cupsd) Configuration
 ```bash 
 cat /etc/cups/cupsd.conf 
 ``` 
-MySql 
+MySQL Configuration
 ```bash
 cat /etc/my.conf
 ```
@@ -150,7 +165,7 @@ cat /etc/sysconfig/network
 
 **Identify connected users and hosts** 
 ```bash 
-lsof -i 
+lsof -nPi
 lsof -i :80
 grep 80 /etc/services
 netstat -antup
@@ -165,16 +180,19 @@ w
 **Identify cached IP or MAC addresses**
 ```bash
 arp -a
-route
+route -n
 /sbin/route -nee
+ip ro show
 ```
 
 **Identify network configuration Settings (DHCP, DNS, Gateway)** 
 ```bash
 cat /etc/resolv.conf
+cat /etc/hosts
 cat /etc/sysconfig/network
 cat /etc/networks
 iptables -L
+iptables -t nat -L
 hostname
 dnsdomainname
 ```
@@ -240,6 +258,11 @@ cat /var/lib/mysql/mysql/user.MYD
 cat /root/anaconda-ks.cfg
 ```
 
+**Dump all Local, LDAP, NIS, etc password hashes
+```bash
+getent passwd
+```
+
 **Check user history for credentials and activity**
 ```bash
 cat ~/.bash_history
@@ -255,6 +278,12 @@ cat ~/.bashrc
 cat ~/.profile
 cat /var/mail/root
 cat /var/spool/mail/root
+```
+
+**Check for mail aliases or all aliases**
+```bash
+cat /etc/aliases
+getent aliases
 ```
 
 **Check for accessible private keys**
