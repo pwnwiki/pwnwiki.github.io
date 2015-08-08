@@ -139,8 +139,8 @@ with the schtasks command. This can be done by any user and includes the followi
 * ONLOGON -> Run a command when a user logs into the system
 * ONSTART -> Run a command when the system starts up
  
- If you would like more information on the various command line options for this tool, Microsoft describes them in great
- detail at: [https://technet.microsoft.com/en-us/library/cc725744.aspx#BKMK_create](https://technet.microsoft.com/en-us/library/cc725744.aspx#BKMK_create)
+If you would like more information on the various command line options for this tool, Microsoft describes them in great
+detail at: [https://technet.microsoft.com/en-us/library/cc725744.aspx#BKMK_create](https://technet.microsoft.com/en-us/library/cc725744.aspx#BKMK_create)
 
 
 
