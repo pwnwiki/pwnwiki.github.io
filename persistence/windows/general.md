@@ -236,3 +236,14 @@ Further details are available at [http://www.room362.com/blog/2010/09/24/revenge
 ```
 netsh wlan export profile key=clear
 ```
+
+## Capture Password Changes With Password Filters
+To do this one simply needs to take the following steps:
+* Create a password filtering DLL (see Didler Steven's example password filterer DLL at [http://blog.didierstevens.com/2010/11/15/password-auditing-with-a-password-filter/](http://blog.didierstevens.com/2010/11/15/password-auditing-with-a-password-filter/) if you want an example of some code you can modify to do this)
+* Dump the resulting DLL into %WINDIR%\System32\
+* Change HKLM\SYSTEM\CurrentControlSet\Control\Lsa\Notification Packages and add in the location of your DLL as it's value. If the key does not exist, create it first, then set the location as it's value DO NOT ADD IN THE .DLL EXTENSION. (Further details on this stage of the process are detailed at [https://msdn.microsoft.com/en-us/library/windows/desktop/ms721766%28v=vs.85%29.aspx](https://msdn.microsoft.com/en-us/library/windows/desktop/ms721766%28v=vs.85%29.aspx))
+* Reboot the system and wait for passwords to be logged according to the actions defined within your DLL as people change them.
+* 
+* 
+
+Details on how this works are included in Microsoft's documentation at [https://msdn.microsoft.com/en-us/library/windows/desktop/ms721882%28v=vs.85%29.aspx](https://msdn.microsoft.com/en-us/library/windows/desktop/ms721882%28v=vs.85%29.aspx)
