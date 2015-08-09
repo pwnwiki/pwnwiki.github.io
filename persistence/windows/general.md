@@ -237,7 +237,7 @@ Further details are available at [http://www.room362.com/blog/2010/09/24/revenge
 netsh wlan export profile key=clear
 ```
 
-## Capture Password Changes With Password Filters
+### Capture Password Changes With Password Filters
 To do this one simply needs to take the following steps:
 * Create a password filtering DLL (see Didler Steven's example password filterer DLL at [http://blog.didierstevens.com/2010/11/15/password-auditing-with-a-password-filter/](http://blog.didierstevens.com/2010/11/15/password-auditing-with-a-password-filter/) if you want an example of some code you can modify to do this)
 * Dump the resulting DLL into %WINDIR%\System32\
