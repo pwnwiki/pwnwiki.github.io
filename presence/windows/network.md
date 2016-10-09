@@ -133,9 +133,7 @@ The command completed successfully.</code></div>
 ### Group
  * **Command with arguments**: `net group "GROUPNAME" /domain`
  * **Description**: Prints the members of the Administrators local group. The /domain switch can show you the list of current domain admins.
- 
-Note: This command can only be used on a Windows Domain Controller.
- 
+  
  * **Output**:
    * <div class="slide" style="cursor: pointer;"> **Windows 2008:** Show/Hide ![](images/output.jpg)</div><div class="view"><code>C:\Users\johndoe>net group "domain admins"
 Group name     Domain Admins
@@ -148,9 +146,7 @@ The command completed successfully.</code></div>
 ### Local Group
  * **Command with arguments**: `net localgroup "GROUPNAME" [/domain]`
  * **Description**: Prints the members of the local group "GROUPNAME". The `/domain` switch can show you members of domain groups.
- 
-Note: This command can only be used on a Windows Domain Controller.
- 
+  
  * **Output**:
    * <div class="slide" style="cursor: pointer;"> **Windows 2008:** Show/Hide ![](images/output.jpg)</div><div class="view"><code>C:\Users\johndoe>net localgroup administrators
 Alias name     administrators
