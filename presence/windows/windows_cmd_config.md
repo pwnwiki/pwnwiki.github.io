@@ -208,7 +208,7 @@ For some of these `wmic` commands that pull information (versus perform an actio
    
 ### Patch IDs
  * **Command with arguments**: `wmic qfe get hotfixid`
- * **Description**: Retrieves BIOS information including system serial number.
+ * **Description**: Retrieves information about the patches.
  * **Output**:
    * <div class="slide" style="cursor: pointer;"> **Windows 2008:** Show/Hide</div><div class="view"><code>C:\Users\johndoe>wmic qfe get hotfixid<br>HotFixID<br>KB955430</code></div>	
    
