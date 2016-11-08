@@ -24,7 +24,7 @@ Commands to run to clean up a system after you have exploited it and to reduce a
 
 ## wevtutil
 ### List Logs
- * **Command with arguments**: `wevutil el`
+ * **Command with arguments**: `wevtutil el`
  * **Description**: Lists the different log files the system is keeping. More information can be found http://technet.microsoft.com/en-us/library/cc732848(WS.10).aspx
  * **Output**:
    * <div class="slide" style="cursor: pointer;"> **Windows 2008:** Show/Hide</div><div class="view"><code>C:\Users\johndoe>wevtutil el
