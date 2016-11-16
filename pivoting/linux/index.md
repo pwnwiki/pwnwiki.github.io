@@ -10,7 +10,7 @@ This article focuses specifically on pivoting from compromised Linux hosts using
 
 ## SSH Pivoting on Pen Tests 
 
-SSH port forwarding is a reliable method of pivoting for Linux hosts, the draw back being a new port forward needs to be added for each port you wish to access the host on. For example, if you discover a host has SMB and RDP exposed you would need to create a SSH port forward (example below) for both ports <code>445</code> and <code>3389</code>. Due to this limitation it's often advisable to either scan from a compromised machine (using a single binary you can remove after testing) or use Dynamic Proxychain forwarding (example below) for the initial nmap scan to see what's exposed. Although it's additional effort to setup SSH port forwarding the extra work is worth it for a stable connection while testing. 
+SSH port forwarding is a reliable method of pivoting for Linux hosts, the draw back being a new port forward needs to be added for each port you wish to access the host on. For example, if you discover a host has SMB and RDP exposed you would need to create a SSH port forward (example below) for both ports <code>445</code> and <code>3389</code>. Due to this limitation it's often preferred to either scan from a compromised machine (using a single binary you can remove after testing) or use Dynamic Proxychain forwarding (example below) for the initial nmap scan to see what's exposed. Although it's additional effort to setup SSH port forwarding the extra work is worth it for a stable connection while testing. 
 
 <div>
 <table>
