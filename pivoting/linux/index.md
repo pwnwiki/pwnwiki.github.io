@@ -4,9 +4,13 @@
 
 ## What is pivoting ?
 
-Pivoting allows a security consultant to use a host compromised when [pen testing](https://www.aptive.co.uk/penetration-testing/) to route traffic to access hosts on the subnet or other subnets. Once a foot hold is established on a target network typically from successfully exploiting a target on an external penetration test or from a successful phishing / spear phishing campaign, pivoting allows a tester to move through the network compromising more hosts that were not exposed originally.
+Pivoting allows a security consultant to use a host compromised during a [pen testing](https://www.aptive.co.uk/penetration-testing/) engagement to route traffic to other hosts or subnets, giving the tester access to more target machines. Pivoting allows a tester to leverage an existing foothold to move through the network compromising more hosts that were not exposed originally. Typically, a foot hold is established on a target network from successfully exploiting an external machine on a penetration test or from a successful phishing / spear phishing campaign.
 
 This article focuses specifically on pivoting from compromised Linux hosts using SSH and meterpreter pivoting. 
+
+## SSH Penetration Testing Pivoting
+
+SSH port forwarding is a reliable method of pivoting for Linux hosts, the draw back being a new port forward needs to be added for each port you wish to access the host on. However, the extra work is worth it for a stable connection.
 
 <div>
 <table>
@@ -39,7 +43,7 @@ This article focuses specifically on pivoting from compromised Linux hosts using
 
 ## Note on Proxychain port forwards 
 
-Dynamic SSH Proxychain forwarding oes not work with meterpreter shells. 
+Dynamic SSH Proxychain forwarding does not work with meterpreter shells. 
 
 If you attempt to spawn a shell via Meterpreter, you'll get an error similar to the following:
 
@@ -94,7 +98,7 @@ msf exploit(ms08_067_netapi) > show options
 
 ## Meterpreter Pivoting Cheat Sheet 
 
-If you have compromised a host during a penetration test it's possible to use the meterpreter shell to pivot to other hosts on the network. Using meterpreter it's possible to pivot from compromised Windows and Linux targets, however it's typically far less reliable than SSH port forwarding as Meterpreter sessions can time out killing the connection. 
+If you have successfully compromised a host during a penetration test it's possible to use a meterpreter shell to pivot to other hosts on the network. Using meterpreter it's possible to pivot from compromised Windows and Linux targets, however it's typically far less reliable than SSH port forwarding as Meterpreter sessions can time out killing the connection. 
 
 <table>
   <thead>
