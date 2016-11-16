@@ -43,6 +43,7 @@ Dynamic SSH Proxychain forwarding oes not work with meterpreter shells.
 
 If you attempt to spawn a shell via Meterpreter, you'll get an error similar to the following:
 
+
 ```bash 
 meterpreter > execute -f cmd.exe -i -H
 |S-chain|-<>-127.0.0.1:9050-<><>-127.0.0.1:41713-<--timeout
