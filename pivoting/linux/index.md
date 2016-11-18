@@ -4,13 +4,13 @@
 
 ## What is Pivoting ?
 
-Pivoting allows a security consultant to use a host compromised during a [pen testing](https://www.aptive.co.uk/penetration-testing/) engagement to route traffic to other hosts or subnets, giving the tester access to more target machines. Pivoting allows a tester to leverage an existing foothold to move through the network compromising more hosts that were not exposed originally. Typically, a foot hold is established on a target network from successfully exploiting an external machine on a penetration test or from a successful phishing / spear phishing campaign.
+Pivoting allows a security consultant to use a host compromised during a [pen testing](https://www.aptive.co.uk/penetration-testing/) engagement to route traffic to other hosts or subnets, giving the tester access to other machines that may have previously inaccessible. Typically, a foot hold is established on a target network from successfully exploiting an external machine on a penetration test or from a successful phishing / spear phishing campaign.
 
-This article focuses specifically on pivoting from compromised Linux hosts using SSH and meterpreter pivoting, however the pivoting techniques for Meterpreter also apply to Windows targets. 
+This article focuses specifically on pivoting from compromised Linux hosts using SSH and meterpreter pivoting, however the Meterpreter pivoting techniques also apply to Windows targets. 
 
 ## SSH Pivoting on Pen Tests 
 
-SSH port forwarding is a reliable method of pivoting for Linux hosts, the draw back being a new port forward needs to be added for each port you wish to access the host on. For example, if you discover a host has SMB and RDP exposed you would need to create a SSH port forward (example below) for both ports <code>445</code> and <code>3389</code>. Due to this limitation it's often preferred to either scan from a compromised machine (using a single binary you can remove after testing) or use Dynamic Proxychain forwarding (example below) for the initial nmap scan to see what's exposed. Although it's additional effort to setup SSH port forwarding the extra work is worth it for a stable connection while testing. 
+SSH port forwarding is a reliable method of pivoting for Linux hosts, the draw back being that a new port forwarding rule needs to be created for each port you wish to access the host on. For example, if you discover a host has SMB and RDP exposed you would need to create a SSH port forwarding rule (see example below) for both ports <code>445</code> and <code>3389</code>. Due to this limitation it's often preferred to conduct scanning either from a compromised machine (using a single binary you can remove once testing has completed) or use Dynamic Proxychain forwarding (see example below) for the initial nmap scan to see what's exposed. Although it's additional effort to setup SSH port forwarding, the extra work is worth it as it allows you to have a stable connection while testing. 
 
 <div>
 <table>
@@ -26,7 +26,7 @@ SSH port forwarding is a reliable method of pivoting for Linux hosts, the draw b
         <p><code>ssh -L 9999:10.0.2.2:445 user@192.168.2.250</code></p>
       </td>
       <td>
-            <p>SSH port forwarding, port 9999 locally is forwarded to port 445 on 10.0.2.2 through host 192.168.2.250</p>
+            <p>SSH port forwarding. Port 9999 locally is forwarded to port 445 on 10.0.2.2 through host 192.168.2.250</p>
       </td>
     </tr>
       <tr>
@@ -65,7 +65,7 @@ proxychains rdesktop TARGET-ADDRESS
 
 ## Metasploit SSH Pivoting Example 
 
-The following example uses the Metasploit module for **MS08_067** assumes you have setup the SSH port forward using the instructions above and port: <code>9999</code> is forwarded to 445. 
+The following example assumes you have setup the SSH port forward using the instructions above and port: <code>9999</code> is forwarded to 445. The Metasploit module for **MS08_067** is used here to demonstrate how one can set up SSH pivoting within Metasploit itself.
 
 **Attacking Machine:** 192.168.3.99 
 
@@ -98,7 +98,7 @@ msf exploit(ms08_067_netapi) > show options
 
 ## Meterpreter Pivoting Cheat Sheet 
 
-If you have successfully compromised a host during a penetration test it's possible to use a meterpreter shell to pivot to other hosts on the network. Using meterpreter it's possible to pivot from compromised Windows and Linux targets, however it's typically far less reliable than SSH port forwarding as Meterpreter sessions can time out killing the connection. 
+If you have successfully compromised a host during a penetration test it's possible to use a Meterpreter shell to pivot to other hosts on the network. Using Meterpreter it's possible to pivot from compromised Windows and Linux targets, however it's typically far less reliable than SSH port forwarding as Meterpreter sessions are more prone to timing out, which will result in the connection being killed. 
 
 <table>
   <thead>
@@ -151,7 +151,7 @@ If you have successfully compromised a host during a penetration test it's possi
         <p><code>run autoroute -s 192.168.15.0/24</code></p>
       </td>
       <td>
-            <p>Autoroute script to add the route for specified subnet <code>192.168.15.0</code></p>
+            <p>Run the Autoroute script to automatically add rules to route traffic for the subnet <code>192.168.15.0</code> through the compromised host.</p>
       </td>
     </tr>
 
@@ -160,7 +160,7 @@ If you have successfully compromised a host during a penetration test it's possi
         <p><code>run autoroute -p</code></p>
       </td>
       <td>
-            <p>List all active routes</p>
+            <p>List all active routes for the current meterpreter session.</p>
       </td>
     </tr>
 
